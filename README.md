@@ -2,6 +2,12 @@
 *（未完成）*
 
 > 安装：
-`
-npm i git+http://120.78.240.72:8012/gitlab/liyuelong/ui-mobile.git
-`
+```
+npm i git+http://120.78.240.72:8012/gitlab/liyuelong/ui-mobile.git --save
+```
+
+> 使用：
+```
+import UIMobile from 'ui-mobile'
+Vue.use(UIMobile)
+```

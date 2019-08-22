@@ -1,37 +1,49 @@
-'use strict'
-const path = require('path')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
-
-function resolve (dir) {
-  return path.join(__dirname, '..', dir)
-}
+const path = require('path');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
-  context: path.resolve(__dirname, '../'),
-  entry: './src/index.js',
+  mode: 'production',
+  entry: {
+    app: ['./src/index.js']
+  },
   output: {
     path: path.resolve(process.cwd(), './lib'),
     publicPath: '/dist/',
     filename: 'index.js',
-    chunkFilename: '[id].js'
+    chunkFilename: '[id].js',
+    libraryExport: 'default',
+    library: 'ui-mobile',
+    libraryTarget: 'commonjs2'
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src'),
-    }
+    modules: ['node_modules']
+  },
+  performance: {
+    hints: false
+  },
+  stats: {
+    children: false
+  },
+  optimization: {
+    minimize: false
   },
   module: {
     rules: [
       {
-        test: /\.vue$/,
-        loader: 'vue-loader'
+        test: /\.(jsx?|babel|es6)$/,
+        include: process.cwd(),
+        exclude: /node_modules|utils\/popper\.js|utils\/date\.js/,
+        loader: 'babel-loader'
       },
       {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        include: [resolve('src')]
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          compilerOptions: {
+            preserveWhitespace: false
+          }
+        }
       },
       {
         test: /\.less$/,
@@ -42,44 +54,20 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 1000,
-          name: 'assets/img/[name].[hash:7].[ext]'
-        }
+        test: /\.css$/,
+        loaders: ['style-loader', 'css-loader']
       },
       {
-        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        test: /\.(svg|otf|ttf|woff2?|eot|gif|png|jpe?g)(\?\S*)?$/,
         loader: 'url-loader',
-        options: {
+        query: {
           limit: 1000,
-          name: 'assets/media/[name].[hash:7].[ext]'
-        }
-      },
-      {
-        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 1000,
-          name: 'assets/fonts/[name].[hash:7].[ext]'
+          name: path.posix.join('static', '[name].[hash:7].[ext]')
         }
       }
     ]
   },
   plugins: [
     new VueLoaderPlugin()
-  ],
-  node: {
-    // prevent webpack from injecting useless setImmediate polyfill because Vue
-    // source contains it (although only uses it if it's native).
-    setImmediate: false,
-    // prevent webpack from injecting mocks to Node native modules
-    // that does not make sense for the client
-    dgram: 'empty',
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty'
-  }
-}
+  ]
+};
