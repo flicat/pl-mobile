@@ -5,7 +5,7 @@
 
 基础的按钮用法。
 
-:::demo 使用`type`、`round`和`circle`属性来定义 Button 的样式。
+使用`type`、`round`和`circle`属性来定义 Button 的样式。
 
 ```html
 <pl-cell>
@@ -24,13 +24,12 @@
   <pl-button type="danger" round>危险按钮</pl-button>
 </pl-cell>
 ```
-:::
 
 ### 禁用状态
 
 按钮不可用状态。
 
-:::demo 你可以使用`disabled`属性来定义按钮是否可用，它接受一个`Boolean`值。
+你可以使用`disabled`属性来定义按钮是否可用，它接受一个`Boolean`值。
 
 ```html
 <pl-cell>
@@ -41,24 +40,21 @@
   <pl-button type="danger" disabled>危险按钮</pl-button>
 </pl-cell>
 ```
-:::
 
 ### 文字按钮
 
 没有边框和背景色的按钮。
 
-:::demo
 ```html
 <pl-button type="text">文字按钮</pl-button>
 <pl-button type="text" disabled>文字按钮</pl-button>
 ```
-:::
 
 ### 不同尺寸
 
 Button 组件提供除了默认值以外的三种尺寸，可以在不同场景下选择合适的按钮尺寸。
 
-:::demo 额外的尺寸：`normal`、`small`、`lager`，通过设置`size`属性来配置它们。
+额外的尺寸：`normal`、`small`、`lager`，通过设置`size`属性来配置它们。
 
 ```html
 <pl-cell>
@@ -67,7 +63,6 @@ Button 组件提供除了默认值以外的三种尺寸，可以在不同场景�
   <pl-button size="lager">大型按钮</pl-button>
 </pl-cell>
 ```
-:::
 
 ### Attributes
 | 参数      | 说明    | 类型      | 可选值       | 默认值   |
@@ -81,4 +76,4 @@ Button 组件提供除了默认值以外的三种尺寸，可以在不同场景�
 ### Slots
 | name      | 说明    | 
 |---------- |-------- |
-| default     |   按钮inner   |
+| (default)     |   按钮inner   |
