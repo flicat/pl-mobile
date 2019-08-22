@@ -2,7 +2,7 @@
   "name": "ui-mobile",
   "version": "1.0.0",
   "description": "mobile UI",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "build": "node build/build.js"
