@@ -15,3 +15,4 @@ Vue.use(UIMobile)
 ### 组件列表
 - [button](./doc/button.md)
 - [cell](./doc/cell.md)
+- [checkbox](./doc/checkbox.md)
