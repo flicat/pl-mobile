@@ -15,7 +15,7 @@
     },
     props: {
       target: [Node, Window],         // 滚动的对象
-      offset: {                 // 显示返回顶部按钮的位置
+      offset: {                     // 偏移量，显示返回顶部按钮的位置
         type: Number,
         default: 0
       }
