@@ -25,9 +25,9 @@ module.exports = {
   stats: {
     children: false
   },
-  optimization: {
-    minimize: false
-  },
+  // optimization: {
+  //   minimize: false
+  // },
   module: {
     rules: [
       {
