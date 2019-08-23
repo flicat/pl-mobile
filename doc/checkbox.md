@@ -4,15 +4,18 @@
 
 ```html
 <template>
-  <pl-checkbox :data="data" />
+  <pl-checkbox v-model="value" :data="data" />
 </template>
 <script>
   export default {
     data () {
-      data: [
-        {label: '选项1', value: 1, disabled: false},
-        {label: '选项2', value: 2, disabled: true}
-      ]
+      return {
+        value: [],
+        data: [
+          {label: '选项1', value: 1, disabled: false},
+          {label: '选项2', value: 2, disabled: true}
+        ]
+      }           
     }
   }
 </script>
@@ -23,15 +26,18 @@
 
 ```html
 <template>
-  <pl-checkbox :data="data" label="请选择：" labelWidth="5em" />
+  <pl-checkbox v-model="value" :data="data" label="请选择：" labelWidth="5em" />
 </template>
 <script>
   export default {
     data () {
-      data: [
-        {label: '选项1', value: 1, disabled: false},
-        {label: '选项2', value: 2, disabled: true}
-      ]
+      return {
+        value: [],
+        data: [
+          {label: '选项1', value: 1, disabled: false},
+          {label: '选项2', value: 2, disabled: true}
+        ]
+      }
     }
   }
 </script>
@@ -42,12 +48,13 @@
 
 ```html
 <template>
-  <pl-checkbox :data="data" :rules="rules" required ref="checkbox" />
+  <pl-checkbox v-model="value" :data="data" :rules="rules" required ref="checkbox" />
 </template>
 <script>
   export default {
     data () {
       return {
+        value: [],
         data: [
           {label: '选项1', value: 1, disabled: false},
           {label: '选项2', value: 2, disabled: true}
@@ -71,8 +78,17 @@
 
 ```html
 <template>
-  <pl-checkbox :trueValue="true" :falseValue="false" />
+  <pl-checkbox v-model="value" :trueValue="true" :falseValue="false" />
 </template>
+<script>
+  export default {
+    data () {
+      return {
+        value: false,
+      }
+    }
+  }
+</script>
 ```
 
 
