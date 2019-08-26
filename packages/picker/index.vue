@@ -10,10 +10,10 @@
         <div class="pl-picker-inner-col"
           v-for="(items, i) in computedOption"
           :key="i"
-          @touchstart="handlerScroll($event, i)"
-          @touchmove="handlerScroll($event, i)"
-          @touchend="handlerScroll($event, i)"
-          @touchcancel="handlerScroll($event, i)" :style="{width: 1 / computedOption.length * 100 + '%'}">
+          @touchstart="handlerTouchStart($event, i)"
+          @touchmove="handlerTouchMove($event, i)"
+          @touchend="handlerTouchEnd($event, i)"
+          @touchcancel="handlerTouchEnd($event, i)" :style="{width: 1 / computedOption.length * 100 + '%'}">
           <ul class="pl-picker-inner-row" ref="inner-col">
             <li class="pl-picker-inner-item" v-for="(item, j) in items" :key="j" :style="itemStyle" ref="inner-item">
               <slot :item="item">{{getLabel(item)}}</slot>
@@ -90,11 +90,12 @@
           if (this.defaultValue && this.defaultValue.length) {
             this.defaultValue.forEach((value, i) => {
               let index = this.computedOption[i].findIndex(item => this.getValue(item) === value)
-              if (index > 0 && index < this.computedOption[i].length) {
+              if (index >= 0 && index < this.computedOption[i].length) {
                 let translate = index * this.itemHeight
                 this.$set(this.selectedValue, i, index)
                 this.$set(this.translate, i, translate)
                 this.setPosition(translate, i)
+                this.setChildren(this.computedOption[i][index], i)
               }
             })
           }
@@ -119,54 +120,61 @@
       },
       // 确定
       submit () {
-        this.$emit('submit', this.selectedValue.map((value, index) => this.computedOption[index][value]))
+        this.$emit('submit', this.selectedValue.map((value, index) => this.getValue(this.computedOption[index][value])))
         this.reset()
         this.close()
       },
       // 滚动方法
-      handlerScroll (e, index) {
-        let cols = this.$refs['inner-col']
+      handlerTouchStart (e, index) {
+        let cols = this.$refs['inner-col'][index]
+
+        this.transDiff = this.translate[index]
+        this.transStart = e.touches[0].clientY
+        cols.style.transition = cols.style.webkitTransition = `none`
+      },
+      // 滚动方法
+      handlerTouchMove (e, index) {
+        e.preventDefault()
+        e.stopPropagation()
+
+        let cols = this.$refs['inner-col'][index]
+        // 当前滚动的位置具体数值
+        let translate
+
+        this.transEnd = e.touches[0].clientY
+        translate = this.transDiff + this.transStart - this.transEnd
+        this.translate[index] = translate
+        cols.style.transform = cols.style.webkitTransform = `translateY(${this.itemHeight * 2 - translate}px)`
+      },
+      // 滚动方法
+      handlerTouchEnd (e, index) {
+        e.preventDefault()
+        e.stopPropagation()
+
+        let cols = this.$refs['inner-col'][index]
+
         // 当前滚动的位置具体数值
         let translate
         // 当前滚动到的项index
         let selected
 
-        e.preventDefault()
-        e.stopPropagation()
+        // 当前滚动到的项index
+        selected = Math.round(this.translate[index] / this.itemHeight)
 
-        switch (e.type) {
-          case 'touchstart':
-            this.transDiff = this.translate[index]
-            this.transStart = e.touches[0].clientY
-            cols[index].style.transition = cols[index].style.webkitTransition = `none`
-            break;
-          case 'touchmove':
-            this.transEnd = e.touches[0].clientY
-            translate = this.transDiff + this.transStart - this.transEnd
-            this.$set(this.translate, index, translate)
-            this.setPosition(translate, index)
-            break;
-          case 'touchend':
-          case 'touchcancel':
-            // 当前滚动到的项index
-            selected = Math.round(this.translate[index] / this.itemHeight)
-
-            if (selected < 0) {
-              selected = 0
-            }
-            if (selected >= this.computedOption[index].length) {
-              selected = this.computedOption[index].length - 1
-            }
-            translate = selected * this.itemHeight
-
-            this.$set(this.selectedValue, index, selected)
-            this.$set(this.translate, index, translate)
-            cols[index].style.transition = cols[index].style.webkitTransition = ''
-
-            this.setChildren(this.computedOption[index][selected], index)
-            this.setPosition(translate, index)
-            break;
+        if (selected < 0) {
+          selected = 0
         }
+        if (selected >= this.computedOption[index].length) {
+          selected = this.computedOption[index].length - 1
+        }
+        translate = selected * this.itemHeight
+
+        this.$set(this.selectedValue, index, selected)
+        this.$set(this.translate, index, translate)
+        cols.style.transition = cols.style.webkitTransition = ''
+
+        this.setChildren(this.computedOption[index][selected], index)
+        cols.style.transform = cols.style.webkitTransform = `translateY(${this.itemHeight * 2 - translate}px)`
       },
       // 设置列表滚动定位
       setPosition (translate, index) {
@@ -194,7 +202,7 @@
           let find = (target, i) => {
             let children = this.getChildren(target)
 
-            if (children.length) {
+            if (children && children.length) {
               this.$set(this.computedOption, i, children)
 
               if (!this.selectedValue[i] || this.selectedValue[i] >= children.length) {

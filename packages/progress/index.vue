@@ -9,8 +9,8 @@
 
 <script>
   export default {
-    name: 'plButton',
-    componentName: 'plButton',
+    name: 'plProgress',
+    componentName: 'plProgress',
     props: {
       fill: {
         type: String,
