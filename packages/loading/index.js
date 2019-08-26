@@ -61,6 +61,7 @@ function hideLoading () {
 }
 
 export default function () {
+  Vue.component(plLoading.name, plLoading);
   Vue.prototype.$loadingShow = showLoading
   Vue.prototype.$loadingHide = hideLoading
   document.body.appendChild(loadingDom.$el)
