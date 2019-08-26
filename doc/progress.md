@@ -1,4 +1,4 @@
-## checkbox 复选框
+## progress 进度条
 
 ### 基础用法
 

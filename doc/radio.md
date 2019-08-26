@@ -1,10 +1,10 @@
-## checkbox 复选框
+## radio 单选框
 
 ### 基础用法
 
 ```html
 <template>
-  <pl-checkbox v-model="value" :data="data" />
+  <pl-radio v-model="value" :data="data" />
 </template>
 <script>
   export default {
@@ -26,7 +26,7 @@
 
 ```html
 <template>
-  <pl-checkbox v-model="value" :data="data" label="请选择：" labelWidth="5em" />
+  <pl-radio v-model="value" :data="data" label="请选择：" labelWidth="5em" />
 </template>
 <script>
   export default {
@@ -48,7 +48,7 @@
 
 ```html
 <template>
-  <pl-checkbox v-model="value" :data="data" :rules="rules" required ref="checkbox" />
+  <pl-radio v-model="value" :data="data" :rules="rules" required ref="radio" />
 </template>
 <script>
   export default {
@@ -64,7 +64,7 @@
     },
     methods: {
       submit () {
-        this.$refs.checkbox.validate().then(() => {
+        this.$refs.radio.validate().then(() => {
           // 提交
         })        
       }
@@ -74,33 +74,13 @@
 ```
 
 
-### 开关按钮
-
-```html
-<template>
-  <pl-checkbox v-model="value" :trueValue="true" :falseValue="false" />
-</template>
-<script>
-  export default {
-    data () {
-      return {
-        value: false,
-      }
-    }
-  }
-</script>
-```
-
-
-
-
 ### 自定义子项
 
 ```html
 <template>
-  <pl-checkbox v-model="value" :data="data">
+  <pl-radio v-model="value" :data="data">
     <template v-slot="scope">{{scope.item.label}} - {{scope.item.value}}</template>
-  </pl-checkbox>
+  </pl-radio>
 </template>
 <script>
   export default {
@@ -125,14 +105,13 @@
 | size       | 尺寸  | String    | normal / large / small   |  normal    |
 | data       | 选项列表   | Array    | — | —   |
 | prop       | 选项对应的key与value   | Object    | — | {label: 'label', value: 'value', disabled: 'disabled'}   |
-| trueValue  | 没有提供data时的勾选值    | —   | —   | —   |
-| falseValue | 没有提供data时的非勾选值    | —   | —   | —   |
 | disabled  | 是否禁用状态    | boolean   | —   | false   |
 | required   | 必填红色*号    | boolean   | —   | false   |
 | button     | 是否是按钮样式    | boolean   | —   | false   |
 | vertical   | 是否是竖向排列    | boolean   | —   | false   |
 | label      | label文字    | string   | —   | —   |
 | labelWidth | label宽度    | string   | —   | —   |
+
 
 ### Slots
 | name      | 说明    | 
