@@ -60,9 +60,12 @@ function hideLoading () {
   loadingDom.isShow = loadingCount > 0
 }
 
-export default function () {
+/* istanbul ignore next */
+List.install = function(Vue) {
   Vue.component(plLoading.name, plLoading);
   Vue.prototype.$loadingShow = showLoading
   Vue.prototype.$loadingHide = hideLoading
   document.body.appendChild(loadingDom.$el)
-}
+};
+
+export default List;
