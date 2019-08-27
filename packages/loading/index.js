@@ -61,11 +61,11 @@ function hideLoading () {
 }
 
 /* istanbul ignore next */
-List.install = function(Vue) {
+plLoading.install = function(Vue) {
   Vue.component(plLoading.name, plLoading);
   Vue.prototype.$loadingShow = showLoading
   Vue.prototype.$loadingHide = hideLoading
   document.body.appendChild(loadingDom.$el)
 };
 
-export default List;
+export default plLoading;
