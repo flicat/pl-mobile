@@ -7,7 +7,7 @@
           <div class="pl-upload-del" v-if="!disabled" @click="delFile(i)">
             <icon name="icon-roundclosefill"></icon>
           </div>
-          <slot name="append" :file="file"></slot>
+          <slot :file="file"></slot>
         </div>
       </div>
       <div class="cols" v-if="!disabled && files.length < maxCount">
@@ -21,7 +21,7 @@
         </div>
       </div>
     </div>
-    <slot></slot>
+    <slot name="tips"></slot>
 
     <div class="pl-preview-dialog" v-if="dialogPreview">
       <ul class="preview-list"
@@ -217,6 +217,7 @@
       'files': {
         handler (val) {
           this.$emit('input', val)
+          this.$emit('change', val)
         },
         deep: true
       },
@@ -321,6 +322,8 @@
         height: 100%;
         z-index: 10;
         list-style: none;
+        margin: 0;
+        padding: 0;
         transition: all 0.3s ease;
 
         .preview-item {
