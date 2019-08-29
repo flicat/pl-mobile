@@ -44,6 +44,10 @@
     align-items: center;
     padding: 1em 0;
 
+    * {
+      box-sizing: border-box;
+    }
+
     .progress-inner {
       position: relative;
       z-index: 1;

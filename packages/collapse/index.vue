@@ -84,6 +84,9 @@
 
 <style lang="less" scoped>
   .pl-collapse {
+    * {
+      box-sizing: border-box;
+    }
     &-top {
       display: flex;
       padding: 1em 1.2em;

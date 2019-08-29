@@ -242,6 +242,10 @@
     display: grid;
     width: 100%;
 
+    * {
+      box-sizing: border-box;
+    }
+
     .pl-tab-title {
       grid-area: title;
       overflow: hidden;

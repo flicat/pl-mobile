@@ -195,13 +195,17 @@
   }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   @import "../../src/assets/less/variables.less";
 
   .pl-input {
     background-color: #fff;
     padding: 0 1.2em;
     line-height: normal;
+
+    * {
+      box-sizing: border-box;
+    }
 
     &-cell {
       display: flex;

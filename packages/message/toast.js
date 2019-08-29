@@ -67,7 +67,7 @@ function showToast (text, duration) {
   toastDom.show()
 }
 
-export default function () {
+export default function (Vue) {
   Vue.prototype.$toast = showToast
   document.body.appendChild(toastDom.$el)
 }

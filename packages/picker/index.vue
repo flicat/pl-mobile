@@ -50,6 +50,8 @@
     },
     data () {
       return {
+        currentValue: this.defaultValue === undefined ? '' : this.defaultValue,
+
         isOpen: false,
         visible: false,
         renderType: 'function',    // 渲染模式，function：函数回调，object：children子项嵌套模式
@@ -87,8 +89,8 @@
           this.calculate()
 
           // 滚动到默认值位置
-          if (this.defaultValue && this.defaultValue.length) {
-            this.defaultValue.forEach((value, i) => {
+          if (this.currentValue && this.currentValue.length) {
+            this.currentValue.forEach((value, i) => {
               let index = this.computedOption[i].findIndex(item => this.getValue(item) === value)
               if (index >= 0 && index < this.computedOption[i].length) {
                 let translate = index * this.itemHeight
@@ -120,7 +122,9 @@
       },
       // 确定
       submit () {
-        this.$emit('submit', this.selectedValue.map((value, index) => this.getValue(this.computedOption[index][value])))
+        let value = this.selectedValue.map((value, index) => this.getValue(this.computedOption[index][value]))
+        this.currentValue = value
+        this.$emit('submit', value)
         this.reset()
         this.close()
       },
@@ -251,6 +255,11 @@
           }
         },
         immediate: true
+      },
+      'defaultValue' (val) {
+        if (this.currentValue !== val) {
+          this.currentValue = val
+        }
       }
     },
   }
@@ -301,6 +310,10 @@
     flex-direction: column-reverse;
     width: 100%;
     height: 100%;
+
+    * {
+      box-sizing: border-box;
+    }
 
     &--open {
       display: flex;

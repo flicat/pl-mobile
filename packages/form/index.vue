@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div class="pl-form"></div>
 </template>
 
 <script>
@@ -10,6 +10,12 @@
   }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
+  .pl-form {
 
+    * {
+      box-sizing: border-box;
+    }
+
+  }
 </style>

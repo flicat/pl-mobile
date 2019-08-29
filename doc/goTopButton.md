@@ -4,17 +4,35 @@
 
 ```html
 <template>
-  <pl-go-top-button :target="body" />
+  <div class="wrap" ref="wrap">
+    <p>1</p><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <p>2</p><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <p>3</p><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <pl-go-top-button :target="wrap" />
+  </div>
 </template>
 <script>
   export default {
     data () {
       return {
-        body: document.body        
-      }           
+        wrap: null
+      }
+    },
+    mounted () {
+      this.wrap = this.$refs.wrap
     }
   }
 </script>
+
+<style>
+  html,body,.wrap {
+    width: 100%;
+    height: 100%;
+  }
+  .wrap {
+    overflow: auto;
+  }
+</style>
 ```
 
 ### Attributes

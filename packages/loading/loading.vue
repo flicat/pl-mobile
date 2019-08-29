@@ -38,6 +38,10 @@
     text-align: center;
     color: #999;
 
+    * {
+      box-sizing: border-box;
+    }
+
     &-vertical {
       .loading-icon {
         display: block;

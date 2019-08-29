@@ -146,7 +146,7 @@ function showConfirm ({title, message, html, submitText, cancelText, submit, can
 }
 
 
-export default function () {
+export default function (Vue) {
   Vue.prototype.$confirm = showConfirm
   document.body.appendChild(confirmDom.$el)
 }

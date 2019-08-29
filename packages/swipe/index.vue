@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div class="pl-swipe"></div>
 </template>
 
 <script>
@@ -10,6 +10,10 @@
   }
 </script>
 
-<style lang="less">
-
+<style lang="less" scoped>
+  .pl-swipe {
+    * {
+      box-sizing: border-box;
+    }
+  }
 </style>

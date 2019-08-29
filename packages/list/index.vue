@@ -7,18 +7,18 @@
       @touchmove="touchEvent($event)"
       @touchend="touchEvent($event)"
       @touchcancel="touchEvent($event)">
-      <div class="pl-list-loading-top" v-show="loading">
+      <div class="pl-list-loading-top" v-show="translate < 0 && loading">
         <icon name="icon-icon_loading"></icon>
         {{loadingText}}
       </div>
-      <div class="pl-list-refresh-tip" v-show="translate !== 0 && !loading">松开刷新</div>
+      <div class="pl-list-refresh-tip" v-show="translate < 0 && !loading">松开刷新</div>
       <div class="pl-list-inner" :style="innerStyle" ref="inner">
         <slot></slot>
-        <div class="pl-list-loading-bottom" v-show="translate !== 0 && !finished">
+        <div class="pl-list-loading-bottom" v-show="translate > 0 && !finished">
           <icon name="icon-icon_loading"></icon>
           {{loadingText}}
         </div>
-        <div class="pl-list-loading-finished" v-show="translate !== 0 && finished">{{finishedText}}</div>
+        <div class="pl-list-loading-finished" v-show="translate > 0 && finished">{{finishedText}}</div>
       </div>
     </div>
     <go-top-button v-if="topButton" :target="$refs.list"></go-top-button>
@@ -126,7 +126,6 @@
                   diff = -80
                 }
                 this.translate = diff
-
                 e.preventDefault()
                 e.stopPropagation()
               }
@@ -181,6 +180,10 @@
     width: 100%;
     height: 100%;
     position: relative;
+
+    * {
+      box-sizing: border-box;
+    }
 
     &-wrap {
       position: absolute;

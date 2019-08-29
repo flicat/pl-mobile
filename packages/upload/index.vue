@@ -246,6 +246,10 @@
 
 <style lang="less" scoped>
   .pl-upload {
+
+    * {
+      box-sizing: border-box;
+    }
     .rows {
       width: 100%;
       display: grid;

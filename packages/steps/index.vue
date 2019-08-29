@@ -94,6 +94,10 @@
     width: 100%;
     box-sizing: border-box;
 
+    * {
+      box-sizing: border-box;
+    }
+
     .pl-steps-items {
       display: flex;
     }

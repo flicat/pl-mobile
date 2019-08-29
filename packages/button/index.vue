@@ -96,6 +96,11 @@
   .is-disabled {
     cursor: not-allowed;
     background-color: @disabled;
+
+    &.pl-button--text {
+      background-color: none;
+      color: @disabled;
+    }
   }
 
   .is-round {

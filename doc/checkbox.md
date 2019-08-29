@@ -78,7 +78,7 @@
 
 ```html
 <template>
-  <pl-checkbox v-model="value" :trueValue="true" :falseValue="false" />
+  <pl-checkbox v-model="value" :trueValue="true" :falseValue="false">开关</pl-checkbox>
 </template>
 <script>
   export default {

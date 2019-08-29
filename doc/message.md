@@ -46,7 +46,7 @@
           cancelText: '取消', 
           submit: () => {
             // 确定
-          }
+          },
           cancel: () => {
             // 取消
           }

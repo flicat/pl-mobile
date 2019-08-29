@@ -4,8 +4,10 @@
 
 ```html
 <template>
-  <pl-tabs v-model="value" type="button">
-    <pl-tab-item v-for="item in data" :name="item.name" :disabled="item.disabled">{{item.label}}</pl-tab-item>
+  <pl-tabs v-model="active" type="button">
+    <pl-tab-item v-for="item in data" :name="item.name" :disabled="item.disabled" :label="item.label" :key="item.name">
+      这里是{{item.label}}
+    </pl-tab-item>
   </pl-tabs>
 </template>
 <script>
@@ -18,7 +20,7 @@
           {label: '选项2', name: 'tab2', disabled: false},
           {label: '选项3', name: 'tab3', disabled: true}
         ]
-      }           
+      }
     }
   }
 </script>

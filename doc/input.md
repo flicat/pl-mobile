@@ -22,7 +22,7 @@
 
 ```html
 <template>
-  <pl-input type="texarea" rows="5" cols="10" v-model="value" />
+  <pl-input type="textarea" rows="5" cols="10" v-model="value" />
 </template>
 <script>
   export default {

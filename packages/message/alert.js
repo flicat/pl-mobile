@@ -112,7 +112,7 @@ function showAlert ({title, message, html, buttonText, action}) {
 }
 
 
-export default function () {
+export default function (Vue) {
   Vue.prototype.$alert = showAlert
   document.body.appendChild(alertDom.$el)
 }

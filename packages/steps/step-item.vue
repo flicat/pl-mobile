@@ -64,6 +64,10 @@
   .pl-step {
     position: relative;
 
+    * {
+      box-sizing: border-box;
+    }
+
     .pl-step-circle {
       display: flex;
       position: absolute;

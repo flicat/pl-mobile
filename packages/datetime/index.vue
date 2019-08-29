@@ -171,6 +171,9 @@
     line-height: normal;
     overflow: hidden;
 
+    * {
+      box-sizing: border-box;
+    }
     &-cell {
       display: flex;
       flex-wrap: nowrap;

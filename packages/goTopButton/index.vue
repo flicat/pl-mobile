@@ -82,5 +82,9 @@
     text-align: center;
     .font-size(22);
     color: #C1CEFF;
+
+    * {
+      box-sizing: border-box;
+    }
   }
 </style>

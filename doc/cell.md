@@ -12,7 +12,7 @@
 ### 定义具体宽度
 
 ```html
-<pl-cell :span="['50%', '20rem']">
+<pl-cell :span="['50%', '4rem']">
   <p>段落1</p>
   <p>段落2</p>
 </pl-cell>
@@ -21,7 +21,7 @@
 ### 定义间隔
 
 ```html
-<pl-cell :span="['50%', '20rem']" gap="10px">
+<pl-cell :span="[1, 1]" gap="20px">
   <p>段落1</p>
   <p>段落2</p>
 </pl-cell>

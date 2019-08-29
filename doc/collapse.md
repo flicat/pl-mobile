@@ -4,7 +4,7 @@
 
 ```html
 <template>
-  <pl-collapse v-model="active">
+  <pl-collapse v-model="active" title="面板">
     <p>面板内容</p>
   </pl-collapse>
 </template>

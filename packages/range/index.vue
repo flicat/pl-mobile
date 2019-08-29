@@ -171,6 +171,10 @@
     padding: 0 1.2em;
     line-height: normal;
 
+    * {
+      box-sizing: border-box;
+    }
+
     &-cell {
       display: flex;
       flex-wrap: nowrap;

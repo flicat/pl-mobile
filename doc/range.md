@@ -63,6 +63,29 @@
 ```
 
 
+
+
+### 自定义内容
+
+```html
+<template>
+  <pl-range v-model="value" :min="0" :max="100" :step="10">
+    <span slot="prepend">0%</span>
+    <span slot="append">{{value}}%</span>
+  </pl-range>
+</template>
+<script>
+  export default {
+    data () {
+      return {
+        value: 0
+      }
+    }
+  }
+</script>
+```
+
+
 ### Attributes
 | 参数      | 说明    | 类型      | 可选值       | 默认值   |
 |---------- |-------- |---------- |-------------  |-------- |
@@ -81,8 +104,8 @@
 | name      | 说明    | 
 |---------- |-------- |
 | label     |   label文字   |
-| prepend   |      |
-| append    |      |
+| prepend   |   选择框前置内容  |
+| append    |   选择框后置内容 |
 
 ### Events
 | 事件名称      | 说明    | 回调参数      |

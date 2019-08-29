@@ -57,6 +57,10 @@
     vertical-align: middle;
     line-height: 0;
 
+    * {
+      box-sizing: border-box;
+    }
+
     .icon-svg {
       width: 100%;
       height: 100%;
