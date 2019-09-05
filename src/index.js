@@ -4,7 +4,6 @@
  * @description Description
  */
 
-import Vue from 'vue'
 import Loading from '../packages/loading'
 import Alert from '../packages/message/alert'
 import Confirm from '../packages/message/confirm'
@@ -57,7 +56,7 @@ const components = [
   Upload
 ];
 
-const install = function(Vue) {
+const install = function (Vue) {
   components.forEach(component => {
     Vue.component(component.name, component);
   });

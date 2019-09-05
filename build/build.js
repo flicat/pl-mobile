@@ -7,7 +7,7 @@ const chalk = require('chalk')
 const webpack = require('webpack')
 const webpackConfig = require('./webpack.conf')
 
-const spinner = ora(`building for ${process.env.AJAX_URL || 'production'}...`)
+const spinner = ora(`building for production...`)
 spinner.start()
 
 rm(path.resolve(__dirname, '../lib'), err => {
