@@ -47,7 +47,7 @@
   export default {
     data () {
       return {
-        value: [],
+        value: '',
         rules: [{required: true, message: '请选择', trigger: 'change'}]
       }
     },

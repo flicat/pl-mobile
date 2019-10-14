@@ -1,25 +1,28 @@
 <template>
-  <pl-tabs v-model="active" position="left">
-    <pl-tab-item v-for="item in data" :name="item.name" :disabled="item.disabled" :label="item.label" :key="item.name">
-      这里是{{item.label}}
-    </pl-tab-item>
-  </pl-tabs>
+  <div class="content" ref="wrap">
+    <p>1</p><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <p>2</p><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <p>3</p><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <pl-go-top-button :target="wrap" />
+  </div>
 </template>
 <script>
   export default {
     data () {
       return {
-        active: 'tab1',
-        data: [
-          {label: '选项1', name: 'tab1', disabled: false},
-          {label: '选项2', name: 'tab2', disabled: false},
-          {label: '选项3', name: 'tab3', disabled: true}
-        ]
+        wrap: null
       }
+    },
+    mounted () {
+      this.wrap = this.$refs.wrap
     }
   }
 </script>
 
 <style>
-
+  .content {
+    width: 100%;
+    height: 90vh;
+    overflow: auto;
+  }
 </style>

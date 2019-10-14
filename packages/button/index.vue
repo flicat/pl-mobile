@@ -98,7 +98,7 @@
     background-color: @disabled;
 
     &.pl-button--text {
-      background-color: none;
+      background: none;
       color: @disabled;
     }
   }

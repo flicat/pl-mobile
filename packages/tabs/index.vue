@@ -45,6 +45,11 @@
         default: 'top'
       },
     },
+    provide () {
+      return {
+        tabs: this
+      }
+    },
     data () {
       return {
         currentName: this.value === undefined ? '' : this.value,        // 当前激活标签

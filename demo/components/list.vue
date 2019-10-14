@@ -1,25 +1,36 @@
 <template>
-  <pl-tabs v-model="active" position="left">
-    <pl-tab-item v-for="item in data" :name="item.name" :disabled="item.disabled" :label="item.label" :key="item.name">
-      这里是{{item.label}}
-    </pl-tab-item>
-  </pl-tabs>
+  <pl-list class="pl-list" :loading="loading" :finished="finished" @refresh="reload" @load="load">
+    <p v-for="item in data" :key="item.value">{{item.label}}</p>
+  </pl-list>
+
 </template>
 <script>
   export default {
     data () {
       return {
-        active: 'tab1',
+        loading: false,
+        finished: false,
         data: [
-          {label: '选项1', name: 'tab1', disabled: false},
-          {label: '选项2', name: 'tab2', disabled: false},
-          {label: '选项3', name: 'tab3', disabled: true}
+          {label: '选项1', value: 1},
+          {label: '选项2', value: 2}
         ]
       }
+    },
+    methods: {
+      reload () {
+        this.finished = false
+        // load date
+      },
+      load () {
+        // load date
+      }
     }
+
   }
 </script>
 
-<style>
-
+<style lang="less" scoped>
+  .pl-list {
+    height: 100%;
+  }
 </style>

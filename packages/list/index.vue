@@ -180,6 +180,7 @@
     width: 100%;
     height: 100%;
     position: relative;
+    overscroll-behavior: contain; // 阻止滚动传播
 
     * {
       box-sizing: border-box;

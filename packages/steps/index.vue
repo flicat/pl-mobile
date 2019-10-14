@@ -20,6 +20,11 @@
     components: {
       icon
     },
+    provide () {
+      return {
+        steps: this
+      }
+    },
     props: {
       active: {              //  当前步骤 0
         type: Number,

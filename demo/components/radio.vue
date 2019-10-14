@@ -1,25 +1,19 @@
 <template>
-  <pl-tabs v-model="active" position="left">
-    <pl-tab-item v-for="item in data" :name="item.name" :disabled="item.disabled" :label="item.label" :key="item.name">
-      这里是{{item.label}}
-    </pl-tab-item>
-  </pl-tabs>
+  <pl-radio v-model="value" :data="data" label="单选：" labelWidth="4em">
+    <template v-slot="scope">{{scope.item.label}} - {{scope.item.value}}</template>
+  </pl-radio>
 </template>
 <script>
   export default {
     data () {
       return {
-        active: 'tab1',
+        value: [],
         data: [
-          {label: '选项1', name: 'tab1', disabled: false},
-          {label: '选项2', name: 'tab2', disabled: false},
-          {label: '选项3', name: 'tab3', disabled: true}
+          {label: '选项1', value: 1, disabled: false},
+          {label: '选项2', value: 2, disabled: true},
+          {label: '选项3', value: 3, disabled: false}
         ]
       }
     }
   }
 </script>
-
-<style>
-
-</style>

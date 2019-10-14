@@ -1,25 +1,28 @@
 <template>
-  <pl-tabs v-model="active" position="left">
-    <pl-tab-item v-for="item in data" :name="item.name" :disabled="item.disabled" :label="item.label" :key="item.name">
-      这里是{{item.label}}
-    </pl-tab-item>
-  </pl-tabs>
+  <div class="content">
+    <h3>基础用法</h3>
+    <pl-collapse v-model="active" title="面板">
+      <p>面板内容</p>
+    </pl-collapse>
+
+    <h3>自定义标题</h3>
+    <pl-collapse v-model="active">
+      <div slot="title">自定义标题</div>
+      <p>面板内容</p>
+    </pl-collapse>
+
+  </div>
 </template>
 <script>
   export default {
     data () {
       return {
-        active: 'tab1',
-        data: [
-          {label: '选项1', name: 'tab1', disabled: false},
-          {label: '选项2', name: 'tab2', disabled: false},
-          {label: '选项3', name: 'tab3', disabled: true}
-        ]
+        active: false
       }
     }
   }
 </script>
 
-<style>
+<style lang="less" scoped>
 
 </style>

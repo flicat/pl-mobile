@@ -24,9 +24,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
+  html,body,.wrap {
+    width: 100%;
+    height: 100%;
+  }
   .wrap {
     display: grid;
     grid-template-columns: 200px 1fr;
+    grid-gap: 15px;
 
     .menu {
       padding: 30px;

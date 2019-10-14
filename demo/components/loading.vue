@@ -1,25 +1,23 @@
 <template>
-  <pl-tabs v-model="active" position="left">
-    <pl-tab-item v-for="item in data" :name="item.name" :disabled="item.disabled" :label="item.label" :key="item.name">
-      这里是{{item.label}}
-    </pl-tab-item>
-  </pl-tabs>
+  <pl-loading>加载中...</pl-loading>
 </template>
 <script>
   export default {
-    data () {
-      return {
-        active: 'tab1',
-        data: [
-          {label: '选项1', name: 'tab1', disabled: false},
-          {label: '选项2', name: 'tab2', disabled: false},
-          {label: '选项3', name: 'tab3', disabled: true}
-        ]
+    mounted () {
+      this.showLoading()
+    },
+    methods: {
+      showLoading () {
+        console.log('loading')
+        this.$loadingShow('加载中...')
+        setTimeout(() => {
+          this.$loadingHide()
+        }, 2000)
       }
     }
   }
 </script>
 
-<style>
+<style lang="less" scoped>
 
 </style>

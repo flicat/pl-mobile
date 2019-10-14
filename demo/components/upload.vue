@@ -1,25 +1,34 @@
 <template>
-  <pl-tabs v-model="active" position="left">
-    <pl-tab-item v-for="item in data" :name="item.name" :disabled="item.disabled" :label="item.label" :key="item.name">
-      这里是{{item.label}}
-    </pl-tab-item>
-  </pl-tabs>
+  <pl-upload v-model="files" accept="image/*" class="file-upload">
+    <span slot="tips">请选择图片，格式不限</span>
+    <template v-slot="scope">
+      <pl-button class="home" @click="setHomePage(scope.file)" size="small">设为首页</pl-button>
+    </template>
+    <pl-button slot="button" size="small">添加图片</pl-button>
+  </pl-upload>
 </template>
 <script>
   export default {
     data () {
       return {
-        active: 'tab1',
-        data: [
-          {label: '选项1', name: 'tab1', disabled: false},
-          {label: '选项2', name: 'tab2', disabled: false},
-          {label: '选项3', name: 'tab3', disabled: true}
-        ]
+        files: []
+      }
+    },
+    methods: {
+      setHomePage (file) {
+        console.log(file)
       }
     }
   }
 </script>
-
-<style>
-
+<style scoped>
+  .file-upload {
+    position: relative;
+  }
+  .home {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
 </style>

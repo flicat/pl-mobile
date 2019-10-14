@@ -23,37 +23,42 @@
     components: {
       icon
     },
+    inject: {
+      steps: {
+        default: () => ({})
+      }
+    },
     data () {
       return {};
     },
     computed: {
       isFirst () {
-        return this.$parent.items.indexOf(this) === 0
+        return this.steps.items.indexOf(this) === 0
       },
       isLast () {
-        return this.$parent.items.indexOf(this) === this.$parent.items.length - 1
+        return this.steps.items.indexOf(this) === this.steps.items.length - 1
       },
       active () {
-        const index = this.$parent.items.indexOf(this)
-        const active = this.$parent.active
+        const index = this.steps.items.indexOf(this)
+        const active = this.steps.active
         return index === active
       },
       activeColor () {
-        return this.$parent.activeColor || 'currentColor'
+        return this.steps.activeColor || 'currentColor'
       },
       direction () {
-        return this.$parent.direction
+        return this.steps.direction
       }
     },
 
     mounted () {
-      this.$parent.updateItems();
+      this.steps.updateItems();
     },
     destroyed () {
       if (this.$el && this.$el.parentNode) {
         this.$el.parentNode.removeChild(this.$el);
       }
-      this.$parent.removeItem(this);
+      this.steps.removeItem(this);
     }
   }
 </script>

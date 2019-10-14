@@ -1,10 +1,17 @@
 <template>
-  <pl-tabs v-model="active" position="left">
-    <pl-tab-item v-for="item in data" :name="item.name" :disabled="item.disabled" :label="item.label" :key="item.name">
-      这里是{{item.label}}
-    </pl-tab-item>
-  </pl-tabs>
+  <div class="content">
+    <pl-tabs v-model="active" type="card">
+      <pl-tab-item v-for="item in data" :name="item.name" :disabled="item.disabled" :label="item.label" :key="item.name">
+        这里是{{item.label}}
+      </pl-tab-item>
+    </pl-tabs>
+    <br/><br/><br/>
+    <pl-tabs v-model="active" type="button" position="left">
+      <pl-tab-item v-for="item in data" :name="item.name" :disabled="item.disabled" :key="item.name" :label="item.label">{{item.label}}</pl-tab-item>
+    </pl-tabs>
+  </div>
 </template>
+
 <script>
   export default {
     data () {
@@ -20,6 +27,6 @@
   }
 </script>
 
-<style>
+<style lang="less" scoped>
 
 </style>

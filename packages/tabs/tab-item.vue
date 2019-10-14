@@ -13,7 +13,11 @@
       name: [String, Number],
       disabled: Boolean
     },
-
+    inject: {
+      tabs: {
+        default: () => ({})
+      }
+    },
     data () {
       return {
 
@@ -22,24 +26,24 @@
 
     computed: {
       active () {
-        return this.$parent.currentName === this.name;
+        return this.tabs.currentName === this.name;
       }
     },
 
     mounted () {
-      this.$parent.updateItems();
+      this.tabs.updateItems();
     },
 
     destroyed () {
       if (this.$el && this.$el.parentNode) {
         this.$el.parentNode.removeChild(this.$el);
       }
-      this.$parent.removeItem(this);
+      this.tabs.removeItem(this);
     },
 
     watch: {
       label () {
-        this.$parent.$forceUpdate();
+        this.tabs.$forceUpdate();
       }
     }
   };
