@@ -9,12 +9,12 @@ module.exports = {
   },
   output: {
     path: path.resolve(process.cwd(), './lib'),
-    publicPath: '/dist/',
+    publicPath: './',
     filename: 'index.js',
     chunkFilename: '[id].js',
     libraryExport: 'default',
-    library: 'ui-mobile',
-    libraryTarget: 'commonjs2'
+    library: 'UIMobile',
+    libraryTarget: 'umd'
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],

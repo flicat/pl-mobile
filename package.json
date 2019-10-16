@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "upload": "node build/upload.js"
   },
   "dependencies": {
     "vue": "^2.6.10"
@@ -14,6 +15,7 @@
     "@vue/cli-plugin-eslint": "^3.1.1",
     "@vue/cli-service": "^3.1.1",
     "@vue/eslint-config-standard": "^4.0.0",
+    "ali-oss": "^6.1.1",
     "babel-eslint": "^10.0.1",
     "chalk": "^2.4.2",
     "core-js": "^2.6.5",
