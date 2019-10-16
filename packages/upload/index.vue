@@ -3,7 +3,7 @@
     <div class="rows" :style="rowStyle">
       <div class="cols" v-for="(file, i) in files" :key="i">
         <div class="pl-file-preview">
-          <div class="pl-upload-img" :style="{'background-image': `url(${file.preview})`}" @click="preview(i, file)"></div>
+          <div class="pl-upload-img" :class="[file.type]" :style="file.preview ? {'background-image': `url(${file.preview})`} : null" @click="preview(file)"></div>
           <div class="pl-upload-del" v-if="!disabled" @click="delFile(i)">
             <icon name="icon-roundclosefill"></icon>
           </div>
@@ -33,12 +33,12 @@
         @touchcancel="touchEvent($event)"
         @click="closePreview">
         <li class="preview-item"
-          v-for="(file, i) in files"
+          v-for="(file, i) in previewList"
           :key="i"
           :style="{'background-image': `url(${file.preview})`, 'left': i * 100 + '%'}"
         ></li>
       </ul>
-      <div class="preview-index">{{previewIndex + 1}}/{{files.length}}</div>
+      <div class="preview-index">{{previewIndex + 1}}/{{previewList.length}}</div>
     </div>
   </div>
 </template>
@@ -79,10 +79,11 @@
     },
     data () {
       return {
-        files: [],
+        files: [],            // 文件列表
+        previewList: [],   // 图片预览列表
 
-        dialogPreview: false,
-        previewIndex: 0,
+        dialogPreview: false,  // 预览弹窗
+        previewIndex: 0,        // 预览index
         transStart: 0,
         transDiff: 0
       }
@@ -101,10 +102,11 @@
     },
     methods: {
       // 预览
-      preview (index, file) {
+      preview (file) {
         if (file.type === 'img') {
+          this.previewList = this.files.filter(item => item.type === 'img')
+          this.previewIndex = this.previewList.findIndex(item => item === file)
           this.dialogPreview = true
-          this.previewIndex = index
         } else {
           window.open(file.url)
         }
@@ -126,14 +128,11 @@
       },
       // 根据文件类型获取预览图
       getFilePreview (file) {
-        let previewUrl = {
-          img: this.getFileUrl(file),
-          doc: require('../../src/assets/images/word.png'),
-          xls: require('../../src/assets/images/word.png'),
-          ppt: require('../../src/assets/images/word.png'),
-          pdf: require('../../src/assets/images/pdf.png')
+        if (this.getFileType(file) === 'img') {
+          return this.getFileUrl(file)
+        } else {
+          return null
         }
-        return previewUrl[this.getFileType(file)]
       },
       // 获取文件链接
       getFileUrl (file) {
@@ -205,8 +204,8 @@
             if (this.previewIndex < 0) {
               this.previewIndex = 0
             }
-            if (this.previewIndex >= this.files.length) {
-              this.previewIndex = this.files.length - 1
+            if (this.previewIndex >= this.previewList.length) {
+              this.previewIndex = this.previewList.length - 1
             }
             list.style.transform = list.style.webkitTransform = `translateX(${-this.translateX}px)`
             break;
@@ -228,11 +227,11 @@
               if (!file.url) {
                 file.url = this.getFileUrl(file)
               }
-              if (!file.preview) {
-                file.preview = this.getFilePreview(file)
-              }
               if (!file.type) {
                 file.type = this.getFileType(file)
+              }
+              if (file.type === 'img' && !file.preview) {
+                file.preview = this.getFilePreview(file)
               }
             })
             this.$set(this, 'files', val)
@@ -276,6 +275,11 @@
         background-repeat: no-repeat;
         background-position: 50% 50%;
         border-radius: 4px;
+        background-image: url(../../src/assets/images/word.png);
+
+        &.pdf {
+          background-image: url(../../src/assets/images/pdf.png);
+        }
       }
       .pl-upload-del {
         padding: 1em;
