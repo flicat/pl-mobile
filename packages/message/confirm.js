@@ -7,7 +7,7 @@ export default function (Vue) {
         style: {
           display: 'flex',
           position: 'fixed',
-          zIndex: 9999,
+          zIndex: 999,
           left: '0',
           top: '0',
           width: '100%',
@@ -90,7 +90,6 @@ export default function (Vue) {
       return {
         display: false,
         visible: false,
-        timer: null,
 
         title: '',                 // 弹框标题
         message: '',               // 弹框主体信息
@@ -151,10 +150,7 @@ export default function (Vue) {
   })
 
   function showConfirm ({title, message, component, html, submitText, cancelText, submit, cancel}) {
-    // 处理子组件逻辑
-    if (({}).toString.call(component) === '[object Object]') {
-      confirmDom.component = component
-    }
+    confirmDom.component = component
     confirmDom.html = !!html && !confirmDom.component
     confirmDom.message = !confirmDom.component && message || ''
     confirmDom.title = title || ''

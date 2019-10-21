@@ -7,7 +7,7 @@ export default function (Vue) {
         style: {
           display: 'block',
           position: 'fixed',
-          zIndex: 9999,
+          zIndex: 1000,
           left: '50%',
           top: '75%',
           backgroundColor: 'rgba(0,0,0,0.5)',

@@ -19,16 +19,22 @@
       },
       submit () {
         return new Promise((resolve, reject) => {
+          this.$loadingShow('提交中。。。')
           setTimeout(() => {
             resolve()
-          }, 3000)
+            this.$loadingHide()
+            this.$toast('提交成功')
+          }, 2000)
         })
       },
       cancel () {
         return new Promise((resolve, reject) => {
+          this.$loadingShow('取消中。。。')
           setTimeout(() => {
             reject()
-          }, 3000)
+            this.$loadingHide()
+            this.$toast('取消失败')
+          }, 2000)
         })
       },
     }
