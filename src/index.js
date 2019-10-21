@@ -26,6 +26,7 @@ import Range from '../packages/range'
 import Select from '../packages/select'
 import StepItem from '../packages/stepItem'
 import Steps from '../packages/steps'
+import SwipeItem from '../packages/swipeItem'
 import Swipe from '../packages/swipe'
 import TabItem from '../packages/tabItem'
 import Tabs from '../packages/tabs'
@@ -50,6 +51,7 @@ const components = [
   Select,
   StepItem,
   Steps,
+  SwipeItem,
   Swipe,
   TabItem,
   Tabs,
@@ -93,6 +95,7 @@ export default {
   Select,
   StepItem,
   Steps,
+  SwipeItem,
   Swipe,
   TabItem,
   Tabs,
