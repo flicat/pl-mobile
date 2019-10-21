@@ -137,7 +137,6 @@
       autoScroll () {
         let max = this.canLoop ? this.children.length : this.children.length - 1
         this.currentIndex++
-        console.log(this.currentIndex, max)
         if (this.currentIndex > max) {
           this.currentIndex = 0
         }
@@ -235,7 +234,6 @@
       },
       // 队头无缝衔接至队尾
       moveToEnd () {
-        console.log('moveToEnd::')
         setTimeout(() => {
           this.currentIndex = this.children.length - 1
           this.translate = this.currentIndex * this.itemSize

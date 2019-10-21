@@ -33,7 +33,7 @@
 
 
 ### confirm 弹框
-
+#### 基础用法
 ```html
 <script>
   export default {
@@ -56,17 +56,49 @@
   }
 </script>
 ```
+#### 自定义组件弹窗
+```html
+<script>
+   import swipe from './swipe.vue'
+   export default {
+    methods: {
+      message () {
+        this.$confirm({
+          title: '提示',
+          component: swipe,
+          submitText: '确定',
+          cancelText: '取消',
+          submit: () => {
+            // 确定
+            console.log('确定')
+          },
+          cancel: () => {
+            // 取消
+            console.log('取消')
+          }
+        })
+      }      
+    }
+  }
+</script>
+```
+> Options.component 必须是**vue组件**， 弹窗触发 submit/cancel
+> 回调时会先调用组件的 submit/cancel 方法，组件的 submit/cancel 方法可返回
+> 一个 Promise 对象
 
 ### Options
 | 参数      | 说明    | 类型      | 可选值       | 默认值   |
 |---------- |-------- |---------- |-------------  |-------- |
 | title      | 标题         | String | —  | — |
 | message    | 消息内容         | String | —  | — |
+| component  | 子组件弹窗内容 | Object | —  | — |
 | html       | 消息内容（HTML）   | String | —  | — |
 | submitText | 确定按钮文字  | String| —  | — |
 | cancelText | 取消钮文字 | String| —  | — |
 | submit     | 确定后回调函数 | Function | —  | — |
 | cancel     | 取消后回调函数 | Function | —  | — |
+
+
 
 
 

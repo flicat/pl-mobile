@@ -2,10 +2,10 @@
 export default function (Vue) {
   let Alert = Vue.extend({
     render (createElement) {
-      return createElement('div', {
+      return this.display && createElement('div', {
         class: 'pl-alert',
         style: {
-          display: this.display,
+          display: 'flex',
           position: 'fixed',
           zIndex: 9999,
           left: '0',
@@ -60,11 +60,11 @@ export default function (Vue) {
             }
           }, this.buttonText)
         ])
-      ])
+      ]) || null
     },
     data: function () {
       return {
-        display: 'none',
+        display: false,
         visible: false,
         timer: null,
 
@@ -83,7 +83,7 @@ export default function (Vue) {
         this.hide()
       },
       show () {
-        this.display = 'flex'
+        this.display = true
         this.$nextTick(() => {
           this.visible = true
         })
@@ -91,7 +91,7 @@ export default function (Vue) {
       hide () {
         this.visible = false
         setTimeout(() => {
-          this.display = 'none'
+          this.display = false
         }, 300)
       }
     }

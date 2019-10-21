@@ -2,10 +2,10 @@
 export default function (Vue) {
   let Toast = Vue.extend({
     render (createElement) {
-      return createElement('div', {
+      return this.display && createElement('div', {
         class: 'pl-toast',
         style: {
-          display: this.display,
+          display: 'block',
           position: 'fixed',
           zIndex: 9999,
           left: '50%',
@@ -22,11 +22,11 @@ export default function (Vue) {
           transition: 'all 0.3s ease',
           opacity: this.visible ? 1 : 0,
         }
-      }, this.text)
+      }, this.text) || null
     },
     data: function () {
       return {
-        display: 'none',
+        display: false,
         visible: false,
         timer: null,
         duration: 3000,
@@ -35,7 +35,7 @@ export default function (Vue) {
     },
     methods: {
       show () {
-        this.display = 'block'
+        this.display = true
         this.$nextTick(() => {
           this.visible = true
         })
@@ -48,7 +48,7 @@ export default function (Vue) {
       hide () {
         this.visible = false
         setTimeout(() => {
-          this.display = 'none'
+          this.display = false
         }, 300)
       }
     }

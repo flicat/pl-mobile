@@ -14,7 +14,6 @@ const router = new Router({
     {path: '/checkbox', component: _import('checkbox'), name: 'checkbox'},
     {path: '/collapse', component: _import('collapse'), name: 'collapse'},
     {path: '/datetime', component: _import('datetime'), name: 'datetime'},
-    {path: '/dialog', component: _import('dialog'), name: 'dialog'},
     {path: '/form', component: _import('form'), name: 'form'},
     {path: '/goTopButton', component: _import('goTopButton'), name: 'goTopButton'},
     {path: '/icon', component: _import('icon'), name: 'icon'},

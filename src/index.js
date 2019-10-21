@@ -13,7 +13,6 @@ import Cell from '../packages/cell'
 import Checkbox from '../packages/checkbox'
 import Collapse from '../packages/collapse'
 import Datetime from '../packages/datetime'
-import Dialog from '../packages/dialog'
 import Form from '../packages/form'
 import GoTopButton from '../packages/goTopButton'
 import Icon from '../packages/icon'
@@ -38,7 +37,6 @@ const components = [
   Checkbox,
   Collapse,
   Datetime,
-  Dialog,
   Form,
   GoTopButton,
   Icon,
@@ -82,7 +80,6 @@ export default {
   Checkbox,
   Collapse,
   Datetime,
-  Dialog,
   Form,
   GoTopButton,
   Icon,

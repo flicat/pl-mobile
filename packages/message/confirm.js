@@ -2,10 +2,10 @@
 export default function (Vue) {
   let Confirm = Vue.extend({
     render (createElement) {
-      return createElement('div', {
+      return this.display && createElement('div', {
         class: 'pl-confirm',
         style: {
-          display: this.display,
+          display: 'flex',
           position: 'fixed',
           zIndex: 9999,
           left: '0',
@@ -45,7 +45,7 @@ export default function (Vue) {
               padding: '0 1em 1em',
               borderBottom: '1px solid #EBEDFB'
             }
-          }, this.html ? null : this.message),
+          }, [this.component ? createElement(this.component) : this.html ? null : this.message]),
           createElement('div', {
             class: 'pl-confirm-button-wrap',
             style: {
@@ -84,17 +84,18 @@ export default function (Vue) {
             }, this.submitText)
           ])
         ])
-      ])
+      ]) || null
     },
     data: function () {
       return {
-        display: 'none',
+        display: false,
         visible: false,
         timer: null,
 
         title: '',                 // 弹框标题
         message: '',               // 弹框主体信息
         html: false,               // 是否显示为HTML
+        component: null,          // 子组件
         submitText: '',            // 提交按钮文字
         cancelText: '',            // 取消按钮文字
         submit: () => {},           // 确认回调
@@ -103,19 +104,35 @@ export default function (Vue) {
     },
     methods: {
       onSubmit () {
-        if (typeof this.submit === 'function') {
-          this.submit()
-        }
-        this.hide()
+        new Promise((resolve, reject) => {
+          if (this.$children[0] && typeof this.$children[0].submit === 'function') {
+            resolve(this.$children[0].submit())
+          } else {
+            resolve()
+          }
+        }).then(() => {
+          if (typeof this.submit === 'function') {
+            this.submit()
+          }
+          this.hide()
+        })
       },
       onCancel () {
-        if (typeof this.cancel === 'function') {
-          this.cancel()
-        }
-        this.hide()
+        new Promise((resolve, reject) => {
+          if (this.$children[0] && typeof this.$children[0].cancel === 'function') {
+            resolve(this.$children[0].cancel())
+          } else {
+            resolve()
+          }
+        }).then(() => {
+          if (typeof this.cancel === 'function') {
+            this.cancel()
+          }
+          this.hide()
+        })
       },
       show () {
-        this.display = 'flex'
+        this.display = true
         this.$nextTick(() => {
           this.visible = true
         })
@@ -123,7 +140,7 @@ export default function (Vue) {
       hide () {
         this.visible = false
         setTimeout(() => {
-          this.display = 'none'
+          this.display = false
         }, 300)
       }
     }
@@ -133,10 +150,14 @@ export default function (Vue) {
     el: document.createElement('div'),
   })
 
-  function showConfirm ({title, message, html, submitText, cancelText, submit, cancel}) {
+  function showConfirm ({title, message, component, html, submitText, cancelText, submit, cancel}) {
+    // 处理子组件逻辑
+    if (({}).toString.call(component) === '[object Object]') {
+      confirmDom.component = component
+    }
+    confirmDom.html = !!html && !confirmDom.component
+    confirmDom.message = !confirmDom.component && message || ''
     confirmDom.title = title || ''
-    confirmDom.message = message || ''
-    confirmDom.html = !!html
     confirmDom.submitText = submitText || '确认'
     confirmDom.cancelText = cancelText || '取消'
     confirmDom.submit = submit || null

@@ -15,8 +15,22 @@
   export default {
     methods: {
       onScroll (index) {
-//        console.log('index: ', index)
-      }
+        console.log('index: ', index)
+      },
+      submit () {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve()
+          }, 3000)
+        })
+      },
+      cancel () {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            reject()
+          }, 3000)
+        })
+      },
     }
   }
 </script>
