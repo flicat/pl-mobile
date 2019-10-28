@@ -67,6 +67,7 @@
 |---------- |-------- |---------- |-------------  |-------- |
 | rules      | 验证规则   | Array  | —            |   —     |
 | size       | 尺寸      | String    | normal / large / small   |  normal    |
+| placeholder | 占位符   | String | — | —   |
 | type       | 表单类型，原生字段 | String | text / number / search / texarea        |  text   |
 | disabled   | 是否禁用状态    | boolean   | —   | false   |
 | required   | 必填红色*号    | boolean   | —   | false   |

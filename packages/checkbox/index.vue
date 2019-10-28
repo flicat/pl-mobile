@@ -1,20 +1,20 @@
 <template>
   <div class="pl-checkbox" :class="[
-    size ? 'pl-checkbox--' + size : '',
+    calcSize ? 'pl-checkbox--' + calcSize : '',
     {
       'is-vertical': vertical,
-      'is-disabled': disabled,
+      'is-disabled': calcDisabled,
       'pl-checkbox--error': ruleMessage
     }
     ]">
     <div class="pl-checkbox-cell">
-      <div class="pl-checkbox-label" :class="{'pl-checkbox-label--require': required}" v-if="label" :style="{width: labelWidth}">
+      <div class="pl-checkbox-label" :class="{'pl-checkbox-label--require': required}" v-if="label" :style="{width: calcLabelWidth}">
         <slot name="label">{{label}}</slot>
       </div>
       <div class="pl-checkbox-inner">
-        <template v-if="data && data.length">
-          <div v-for="(item, i) in data" :key="i" class="pl-checkbox-item" :class="{'is-button': button, 'is-vertical': vertical}">
-            <input type="checkbox" :disabled="disabled || item[prop.disabled]" v-model="currentValue" :value="item[prop.value]" @change="emit">
+        <template v-if="options && options.length">
+          <div v-for="(item, i) in options" :key="i" class="pl-checkbox-item" :class="{'is-button': button, 'is-vertical': vertical}">
+            <input type="checkbox" :disabled="calcDisabled || item[prop.disabled]" v-model="currentValue" :value="item[prop.value]" @change="emit">
             <icon v-if="!button" class="pl-checkbox-icon icon-unchecked" name="icon-kongjianweixuan"></icon>
             <icon v-if="!button" class="pl-checkbox-icon icon-checked" name="icon-kongjianxuanzhong"></icon>
             <span class="pl-checkbox-text"><slot :item="item">{{item[prop.label]}}</slot></span>
@@ -22,7 +22,7 @@
         </template>
         <template v-else>
           <div class="pl-checkbox-item" :class="{'is-button': button, 'is-vertical': vertical}">
-            <input type="checkbox" :disabled="disabled" v-model="currentValue" :true-value="trueValue" :false-value="falseValue" @change="emit">
+            <input type="checkbox" :disabled="calcDisabled" v-model="currentValue" :true-value="trueValue" :false-value="falseValue" @change="emit">
             <icon v-if="!button" class="pl-checkbox-icon icon-unchecked" name="icon-kongjianweixuan"></icon>
             <icon v-if="!button" class="pl-checkbox-icon icon-checked" name="icon-kongjianxuanzhong"></icon>
             <span class="pl-checkbox-text"><slot></slot></span>
@@ -52,11 +52,8 @@
           return []
         }
       },
-      size: {         // 尺寸 可选值为 normal，large, small
-        type: String,
-        default: 'normal'
-      },
-      data: {          // 单选选项
+      size: String,     // 尺寸 可选值为 normal，large, small,
+      options: {          // 多选选项
         type: Array,
         default () {
           return []
@@ -84,6 +81,11 @@
       label: String,                // 左侧 label
       labelWidth: String            // label 宽度
     },
+    inject: {
+      form: {
+        default: null
+      }
+    },
     data () {
       return {
         currentValue: this.value === undefined ? '' : this.value,
@@ -91,10 +93,20 @@
       }
     },
     computed: {
-
+      calcSize () {
+        return this.size || this.form && this.form.size || 'normal'
+      },
+      calcLabelWidth () {
+        return this.labelWidth || this.form && this.form.labelWidth || null
+      },
+      calcDisabled () {
+        return this.disabled !== undefined ? this.disabled : this.form && this.form.disabled !== undefined ? this.form.disabled : false
+      }
     },
     mounted () {
-
+      if (this.form) {
+        this.form.updateItems(this);
+      }
     },
     methods: {
       // 手动验证方法
@@ -122,6 +134,14 @@
     watch: {
       'value' (val) {
         this.setCurrentValue(val)
+      }
+    },
+    destroyed () {
+      if (this.$el && this.$el.parentNode) {
+        this.$el.parentNode.removeChild(this.$el);
+      }
+      if (this.form) {
+        this.form.removeItem(this);
       }
     }
   }

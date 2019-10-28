@@ -1,3 +1,48 @@
+## form 表单
+
+### 基础用法
+
+```html
+<template>
+  <pl-form ref="form">
+    <pl-input v-model="value" />
+  </pl-form>
+</template>
+<script>
+  export default {
+    data () {
+      return {
+        value: ''
+      }           
+    }
+  }
+</script>
+```
+
+
+### 统一设置 size/labelWidth/disabled
+
+```html
+<template>
+  <pl-form labelWidth="5em" size="small" disabled>
+    <pl-input v-model="value" label="用户名：" />
+  </pl-form>
+</template>
+<script>
+  export default {
+    data () {
+      return {
+        value: ''
+      }           
+    }
+  }
+</script>
+```
+
+
+### 表单验证
+
+```html
 <template>
   <div class="content">
     <pl-form labelWidth="5em" ref="form">
@@ -48,7 +93,21 @@
     }
   }
 </script>
+```
 
-<style lang="less" scoped>
+### Attributes
+| 参数      | 说明    | 类型      | 可选值       | 默认值   |
+|---------- |-------- |---------- |-------------  |-------- |
+| size       | 尺寸  | String    | normal / large / small   |  normal    |
+| disabled  | 是否禁用状态    | boolean   | —   | false   |
+| labelWidth | label宽度    | string   | —   | —   |
 
-</style>
+### Slots
+| name      | 说明    | 
+|---------- |-------- |
+| (default)     |   —   |
+
+### Methods
+| 方法名 | 说明 | 参数 |
+| ---- | ---- | ---- |
+| validate | 表单验证方法 | — |

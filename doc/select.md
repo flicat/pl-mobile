@@ -1,21 +1,23 @@
-## radio 单选框
+## checkbox 复选框
 
 ### 基础用法
 
 ```html
 <template>
-  <pl-radio v-model="value" :options="data" />
+  <div class="content">
+    <pl-select ref="select" v-model="value" :options="data"></pl-select>
+  </div>
 </template>
 <script>
   export default {
     data () {
       return {
-        value: [],
+        value: '',
         data: [
           {label: '选项1', value: 1, disabled: false},
           {label: '选项2', value: 2, disabled: true}
         ]
-      }           
+      }
     }
   }
 </script>
@@ -26,13 +28,15 @@
 
 ```html
 <template>
-  <pl-radio v-model="value" :options="data" label="请选择：" labelWidth="5em" />
+  <div class="content">
+    <pl-select ref="select" label="请选择：" labelWidth="5em" v-model="value" :options="data"></pl-select>
+  </div>
 </template>
 <script>
   export default {
     data () {
       return {
-        value: [],
+        value: '',
         data: [
           {label: '选项1', value: 1, disabled: false},
           {label: '选项2', value: 2, disabled: true}
@@ -48,25 +52,27 @@
 
 ```html
 <template>
-  <pl-radio v-model="value" :options="data" :rules="rules" required ref="radio" />
+  <div class="content">
+    <pl-select ref="select" :rules="rules" v-model="value" :options="data"></pl-select>
+  </div>
 </template>
 <script>
   export default {
     data () {
       return {
-        value: [],
+        value: '',
+        rules: [{required: true, message: '请输入', trigger: 'change'}],
         data: [
           {label: '选项1', value: 1, disabled: false},
           {label: '选项2', value: 2, disabled: true}
-        ],
-        rules: [{required: true, message: '请选择', trigger: 'change'}]
+        ]
       }
     },
     methods: {
       submit () {
-        this.$refs.radio.validate().then(() => {
+        this.$refs.select.validate().then(() => {
           // 提交
-        })        
+        })
       }
     }
   }
@@ -78,15 +84,19 @@
 
 ```html
 <template>
-  <pl-radio v-model="value" :options="data">
-    <template v-slot="scope">{{scope.item.label}} - {{scope.item.value}}</template>
-  </pl-radio>
+  <div class="content">
+    <pl-select :rules="rules" v-model="value" :options="data">
+      <template v-slot="scope">
+        <span>{{scope.item.label}}-{{scope.item.value}}</span>
+      </template>
+    </pl-select>
+  </div>
 </template>
 <script>
   export default {
     data () {
       return {
-        value: [],
+        value: '',
         data: [
           {label: '选项1', value: 1, disabled: false},
           {label: '选项2', value: 2, disabled: true}
@@ -104,25 +114,28 @@
 | rules      | 验证规则   | Array  | —            |   —     |
 | size       | 尺寸  | String    | normal / large / small   |  normal    |
 | options    | 选项列表   | Array    | — | —   |
-| prop       | 选项对应的key与value   | Object    | — | {label: 'label', value: 'value', disabled: 'disabled'}   |
+| placeholder | 占位符   | String | — | —   |
+| prop       | 选项对应的key与value   | Object    | — | {label: 'label', value: 'value'}   |
 | disabled  | 是否禁用状态    | boolean   | —   | false   |
+| readonly  | 是否只读状态    | boolean   | —   | false   |
 | required   | 必填红色*号    | boolean   | —   | false   |
-| button     | 是否是按钮样式    | boolean   | —   | false   |
-| vertical   | 是否是竖向排列    | boolean   | —   | false   |
 | label      | label文字    | string   | —   | —   |
 | labelWidth | label宽度    | string   | —   | —   |
-
+| clearable  | 是否显示清除按钮 | boolean | —      |  false    |
 
 ### Slots
 | name      | 说明    | 
 |---------- |-------- |
-| (default)     |   列表子选项   |
+| (default)  | 自定义列表子选项   |
 | label     |   label文字   |
+| prepend   |   输入框前置内容  |
+| append    |   输入框后置内容 |
 
 ### Events
 | 事件名称      | 说明    | 回调参数      |
 |---------- |-------- |---------- |
 | change     |   value更改事件   | 更改后的value | 
+| cancel     |   取消选择事件    | 更改后的value | 
 
 ### Methods
 | 方法名 | 说明 | 参数 |

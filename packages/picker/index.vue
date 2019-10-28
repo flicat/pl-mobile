@@ -41,7 +41,7 @@
           return []
         }
       },
-      props: {
+      prop: {
         type: Object,  // 显示的标签和返回的值 {label, value, children}
         default () {
           return {}
@@ -233,13 +233,13 @@
       },
 
       getLabel (target) {
-        return this.props.label && is(target, 'object') ? target[this.props.label] : target
+        return this.prop.label && is(target, 'object') ? target[this.prop.label] : target
       },
       getValue (target) {
-        return this.props.value && is(target, 'object') ? target[this.props.value] : target
+        return this.prop.value && is(target, 'object') ? target[this.prop.value] : target
       },
       getChildren (target) {
-        return this.props.children && is(target, 'object') ? target[this.props.children] : target
+        return this.prop.children && is(target, 'object') ? target[this.prop.children] : target
       }
     },
     watch: {
@@ -249,7 +249,7 @@
             this.renderType = 'function'
             this.setChildren(null, -1)
 
-          } else if (is(val, 'object') && Array.isArray(val[this.props.children])) {
+          } else if (is(val, 'object') && Array.isArray(val[this.prop.children])) {
             this.renderType = 'object'
             this.setChildren(val, -1)
           }

@@ -7,7 +7,7 @@
     <pl-input type="textarea" rows="5" cols="10" v-model="value" />
 
     <h3>表单验证</h3>
-    <pl-input v-model="value" :rules="rules" required ref="input" />
+    <pl-input v-model="value" :rules="rules" required ref="input" label="名字：" />
 
   </div>
 </template>

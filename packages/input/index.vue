@@ -1,8 +1,8 @@
 <template>
   <div class="pl-input" :class="[
-    size ? 'pl-input--' + size : '',
+    calcSize ? 'pl-input--' + calcSize : '',
     {
-      'is-disabled': disabled,
+      'is-disabled': calcDisabled,
       'pl-input-group': $slots.prepend || $slots.append,
       'pl-input-group--append': $slots.append,
       'pl-input-group--prepend': $slots.prepend,
@@ -14,7 +14,7 @@
         type === 'textarea' ? 'pl-textarea-label' : 'pl-input-label',
         {'pl-input-label--require': required}
         ]"
-        v-if="label" :style="{width: labelWidth}">
+        v-if="label" :style="{width: calcLabelWidth}">
         <slot name="label">{{label}}</slot>
       </div>
       <template v-if="type !== 'textarea'">
@@ -27,7 +27,7 @@
             v-on="{...$listeners, input: emit, focus: emit, blur: emit}"
             v-if="type !== 'textarea'"
             :type="type"
-            :disabled="disabled"
+            :disabled="calcDisabled"
             :value="currentValue"
             ref="input">
         </div>
@@ -46,7 +46,7 @@
         v-on="{...$listeners, input: emit, focus: emit, blur: emit}"
         :value="currentValue"
         ref="input"
-        :disabled="disabled"></textarea>
+        :disabled="calcDisabled"></textarea>
       </div>
     </div>
     <div class="pl-input-error" v-if="ruleMessage">{{ruleMessage}}</div>
@@ -70,10 +70,7 @@
           return []
         }
       },
-      size: {         // 尺寸 可选值为 normal，large, small
-        type: String,
-        default: 'normal'
-      },
+      size: String,     // 尺寸 可选值为 normal，large, small,
       type: {         // 表单类型，原生字段
         type: String,
         default: 'text'
@@ -81,13 +78,18 @@
       value: [String, Number],
       disabled: Boolean,        // 禁用
       required: Boolean,        // 必填 *号
-      rows: String,            // 左侧 label
-      cols: String,            // 左侧 label
+      rows: String,            // textarea rows
+      cols: String,            // textarea cols
       label: String,            // 左侧 label
       labelWidth: String,       // label 宽度
       clearable: {              // 清除按钮
         type: Boolean,
         default: false
+      }
+    },
+    inject: {
+      form: {
+        default: null
       }
     },
     data () {
@@ -100,11 +102,23 @@
     },
     computed: {
       showClear () {
-        return this.clearable && !this.disabled && this.currentValue !== '' && this.focused
+        return this.clearable && !this.calcDisabled && this.currentValue !== '' && this.focused
+      },
+      calcSize () {
+        return this.size || this.form && this.form.size || 'normal'
+      },
+      calcLabelWidth () {
+        return this.labelWidth || this.form && this.form.labelWidth || null
+      },
+      calcDisabled () {
+        return this.disabled !== undefined ? this.disabled : this.form && this.form.disabled !== undefined ? this.form.disabled : false
       }
     },
     mounted () {
       this.bindEvent()
+      if (this.form) {
+        this.form.updateItems(this);
+      }
     },
     methods: {
       // 手动验证方法
@@ -191,6 +205,14 @@
     },
     beforeDestroy () {
       this.unbindEvent()
+    },
+    destroyed () {
+      if (this.$el && this.$el.parentNode) {
+        this.$el.parentNode.removeChild(this.$el);
+      }
+      if (this.form) {
+        this.form.removeItem(this);
+      }
     }
   }
 </script>

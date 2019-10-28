@@ -4,7 +4,7 @@
 
 ```html
 <template>
-  <pl-checkbox v-model="value" :data="data" />
+  <pl-checkbox v-model="value" :options="data" />
 </template>
 <script>
   export default {
@@ -26,7 +26,7 @@
 
 ```html
 <template>
-  <pl-checkbox v-model="value" :data="data" label="请选择：" labelWidth="5em" />
+  <pl-checkbox v-model="value" :options="data" label="请选择：" labelWidth="5em" />
 </template>
 <script>
   export default {
@@ -48,7 +48,7 @@
 
 ```html
 <template>
-  <pl-checkbox v-model="value" :data="data" :rules="rules" required ref="checkbox" />
+  <pl-checkbox v-model="value" :options="data" :rules="rules" required ref="checkbox" />
 </template>
 <script>
   export default {
@@ -98,7 +98,7 @@
 
 ```html
 <template>
-  <pl-checkbox v-model="value" :data="data">
+  <pl-checkbox v-model="value" :options="data">
     <template v-slot="scope">{{scope.item.label}} - {{scope.item.value}}</template>
   </pl-checkbox>
 </template>
@@ -123,7 +123,7 @@
 |---------- |-------- |---------- |-------------  |-------- |
 | rules      | 验证规则   | Array  | —            |   —     |
 | size       | 尺寸  | String    | normal / large / small   |  normal    |
-| data       | 选项列表   | Array    | — | —   |
+| options    | 选项列表   | Array    | — | —   |
 | prop       | 选项对应的key与value   | Object    | — | {label: 'label', value: 'value', disabled: 'disabled'}   |
 | trueValue  | 没有提供data时的勾选值    | —   | —   | —   |
 | falseValue | 没有提供data时的非勾选值    | —   | —   | —   |

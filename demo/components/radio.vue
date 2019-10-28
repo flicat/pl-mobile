@@ -1,5 +1,5 @@
 <template>
-  <pl-radio v-model="value" :data="data" label="单选：" labelWidth="4em">
+  <pl-radio v-model="value" :options="data" label="单选：" labelWidth="4em">
     <template v-slot="scope">{{scope.item.label}} - {{scope.item.value}}</template>
   </pl-radio>
 </template>

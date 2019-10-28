@@ -1,13 +1,13 @@
 <template>
   <div class="pl-range" :class="[
-    size ? 'pl-range--' + size : '',
+    calcSize ? 'pl-range--' + calcSize : '',
     {
-      'is-disabled': disabled,
+      'is-disabled': calcDisabled,
       'pl-range--error': ruleMessage
     }
     ]">
     <div class="pl-range-cell">
-      <div class="pl-range-label" :class="{'pl-range-label--require': required}" v-if="label" :style="{width: labelWidth}">
+      <div class="pl-range-label" :class="{'pl-range-label--require': required}" v-if="label" :style="{width: calcLabelWidth}">
         <slot name="label">{{label}}</slot>
       </div>
       <div class="pl-range-inner">
@@ -48,10 +48,7 @@
           return []
         }
       },
-      size: {         // 尺寸 可选值为 normal，large, small
-        type: String,
-        default: 'normal'
-      },
+      size: String,     // 尺寸 可选值为 normal，large, small,
       value: Number,
       // 最小值
       min: {
@@ -72,6 +69,11 @@
       required: Boolean,            // 必填 *号
       label: String,                // 左侧 label
       labelWidth: String            // label 宽度
+    },
+    inject: {
+      form: {
+        default: null
+      }
     },
     data () {
       return {
@@ -98,11 +100,23 @@
           'transform': `translateX(${this.diff}px)`,
           '-webkit-transform': `translateX(${this.diff}px)`
         }
+      },
+      calcSize () {
+        return this.size || this.form && this.form.size || 'normal'
+      },
+      calcLabelWidth () {
+        return this.labelWidth || this.form && this.form.labelWidth || null
+      },
+      calcDisabled () {
+        return this.disabled !== undefined ? this.disabled : this.form && this.form.disabled !== undefined ? this.form.disabled : false
       }
     },
     mounted () {
       if (this.$refs['track']) {
         this.rangeWidth = this.$refs['track'].clientWidth
+      }
+      if (this.form) {
+        this.form.updateItems(this);
       }
     },
     methods: {
@@ -123,7 +137,7 @@
         this.currentValue = value
       },
       touchEvent (e) {
-        if (this.disabled) {
+        if (this.calcDisabled) {
           return false
         }
         let currentValue = 0
@@ -158,6 +172,14 @@
     watch: {
       'value' (val) {
         this.setCurrentValue(val)
+      }
+    },
+    destroyed () {
+      if (this.$el && this.$el.parentNode) {
+        this.$el.parentNode.removeChild(this.$el);
+      }
+      if (this.form) {
+        this.form.removeItem(this);
       }
     }
   }

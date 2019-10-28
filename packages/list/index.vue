@@ -96,7 +96,7 @@
       },
       // 是否能下拉或者上划加载
       canDrag () {
-        return (this.scrollTop === 0 || this.scrollBottom === 0) && !this.loading
+        return (this.scrollTop <= 1 || this.scrollBottom <= 1) && !this.loading
       }
     },
     mounted () {
@@ -118,7 +118,7 @@
           case 'touchmove':
             if (this.canDrag) {
               diff = (this.transDiff - e.touches[0].clientY) / 2
-              if ((this.scrollTop === 0 && diff < 0) || (this.scrollBottom === 0 && diff > 0)) {
+              if ((this.scrollTop <= 1 && diff < 0) || (this.scrollBottom <= 1 && diff > 0)) {
                 if (diff > 80) {
                   diff = 80
                 }
@@ -134,10 +134,10 @@
           case 'touchend':
           case 'touchcancel':
             if (Math.abs(this.translate) >= 80 && !this.loading) {
-              if (this.scrollTop === 0) {
+              if (this.scrollTop <= 1) {
                 this.$emit('refresh')
               }
-              if (this.scrollBottom === 0 && !this.finished) {
+              if (this.scrollBottom <= 1 && !this.finished) {
                 this.$emit('load')
               }
             }

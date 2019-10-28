@@ -1,13 +1,13 @@
 <template>
   <div class="pl-datetime" v-on="$listeners" :class="[
-    size ? 'pl-datetime--' + size : '',
+    calcSize ? 'pl-datetime--' + calcSize : '',
     {
-      'is-disabled': disabled,
+      'is-disabled': calcDisabled,
       'pl-datetime--error': ruleMessage
     }
     ]">
     <div class="pl-datetime-cell">
-      <div class="pl-datetime-label" :class="{'pl-datetime-label--require': required}" v-if="label" :style="{width: labelWidth}">
+      <div class="pl-datetime-label" :class="{'pl-datetime-label--require': required}" v-if="label" :style="{width: calcLabelWidth}">
         <slot name="label">{{label}}</slot>
       </div>
       <div class="pl-datetime-prepend" v-if="$slots.prepend">
@@ -25,7 +25,7 @@
       </div>
     </div>
 
-    <picker :options="getPickerOption()" :defaultValue="[currentValue]" :title="placeholder" :props="props" @submit="submit" @cancel="cancel" ref="picker">
+    <picker :options="getPickerOption()" :defaultValue="[currentValue]" :title="placeholder" :prop="prop" @submit="submit" @cancel="cancel" ref="picker">
       <template v-slot="scope">
         <slot :item="scope.item"></slot>
       </template>
@@ -56,10 +56,7 @@
       value: {
         default: ''
       },
-      size: {         // 尺寸 可选值为 normal，large, small
-        type: String,
-        default: 'normal'
-      },
+      size: String,     // 尺寸 可选值为 normal，large, small,
       placeholder: {
         type: String,
         default: '请选择'
@@ -79,6 +76,11 @@
         default: false
       }
     },
+    inject: {
+      form: {
+        default: null
+      }
+    },
     data () {
       return {
         currentValue: this.value === undefined ? '' : this.value,
@@ -95,7 +97,21 @@
         }
       },
       showClear () {
-        return this.clearable && !this.disabled && this.currentValue
+        return this.clearable && !this.calcDisabled && this.currentValue
+      },
+      calcSize () {
+        return this.size || this.form && this.form.size || 'normal'
+      },
+      calcLabelWidth () {
+        return this.labelWidth || this.form && this.form.labelWidth || null
+      },
+      calcDisabled () {
+        return this.disabled !== undefined ? this.disabled : this.form && this.form.disabled !== undefined ? this.form.disabled : false
+      }
+    },
+    mounted () {
+      if (this.form) {
+        this.form.updateItems(this);
       }
     },
     methods: {
@@ -110,7 +126,7 @@
         })
       },
       open () {
-        if (this.disabled || this.readonly) {
+        if (this.calcDisabled || this.readonly) {
           return false
         }
         this.$refs.picker.open()
@@ -144,10 +160,10 @@
       },
 
       getLabel (target) {
-        return this.props.label && is(target, 'object') ? target[this.props.label] : target
+        return this.prop.label && is(target, 'object') ? target[this.prop.label] : target
       },
       getValue (target) {
-        return this.props.value && is(target, 'object') ? target[this.props.value] : target
+        return this.prop.value && is(target, 'object') ? target[this.prop.value] : target
       }
     },
     watch: {
@@ -156,6 +172,14 @@
           this.setCurrentValue(val)
         },
         immediate: true
+      }
+    },
+    destroyed () {
+      if (this.$el && this.$el.parentNode) {
+        this.$el.parentNode.removeChild(this.$el);
+      }
+      if (this.form) {
+        this.form.removeItem(this);
       }
     }
   }

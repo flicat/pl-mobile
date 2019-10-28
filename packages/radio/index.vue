@@ -1,25 +1,25 @@
 <template>
   <div class="pl-radio" :class="[
-    size ? 'pl-radio--' + size : '',
+    calcSize ? 'pl-radio--' + calcSize : '',
     {
       'is-vertical': vertical,
-      'is-disabled': disabled,
+      'is-disabled': calcDisabled,
       'pl-radio--error': ruleMessage
     }
     ]">
     <div class="pl-radio-cell">
-      <div class="pl-radio-label" :class="{'pl-radio-label--require': required}" v-if="label" :style="{width: labelWidth}">
+      <div class="pl-radio-label" :class="{'pl-radio-label--require': required}" v-if="label" :style="{width: calcLabelWidth}">
         <slot name="label">{{label}}</slot>
       </div>
       <div class="pl-radio-inner">
         <div class="pl-radio-item"
-          v-for="(item, i) in data"
+          v-for="(item, i) in options"
           :key="i"
-          :class="{'is-active': item[prop.value] === currentValue, 'is-disabled': disabled || item[prop.disabled], 'is-button': button, 'is-vertical': vertical}"
-          @click="!(disabled || item[prop.disabled]) && emit(item[prop.value])">
+          :class="{'is-active': item[prop.value] === currentValue, 'is-disabled': calcDisabled || item[prop.disabled], 'is-button': button, 'is-vertical': vertical}"
+          @click="!(calcDisabled || item[prop.disabled]) && emit(item[prop.value])">
           <icon v-if="!button" class="pl-radio-icon"
             :name="item[prop.value] === currentValue ? 'icon-btn_choose' : 'icon-btn_cicle_unchoose'"
-            :fill="disabled || item[prop.disabled] ? '#ebedf0' : item[prop.value] === currentValue ? '@primary' : '#dcdfe6'"></icon>
+            :fill="calcDisabled || item[prop.disabled] ? '#ebedf0' : item[prop.value] === currentValue ? '@primary' : '#dcdfe6'"></icon>
           <span><slot :item="item">{{item[prop.label]}}</slot></span>
         </div>
       </div>
@@ -46,11 +46,8 @@
           return []
         }
       },
-      size: {         // 尺寸 可选值为 normal，large, small
-        type: String,
-        default: 'normal'
-      },
-      data: {          // 单选选项
+      size: String,     // 尺寸 可选值为 normal，large, small,
+      options: {          // 单选选项
         type: Array,
         default () {
           return []
@@ -72,6 +69,11 @@
       label: String,                // 左侧 label
       labelWidth: String            // label 宽度
     },
+    inject: {
+      form: {
+        default: null
+      }
+    },
     data () {
       return {
         currentValue: this.value === undefined ? '' : this.value,
@@ -79,10 +81,20 @@
       }
     },
     computed: {
-
+      calcSize () {
+        return this.size || this.form && this.form.size || 'normal'
+      },
+      calcLabelWidth () {
+        return this.labelWidth || this.form && this.form.labelWidth || null
+      },
+      calcDisabled () {
+        return this.disabled !== undefined ? this.disabled : this.form && this.form.disabled !== undefined ? this.form.disabled : false
+      }
     },
     mounted () {
-
+      if (this.form) {
+        this.form.updateItems(this);
+      }
     },
     methods: {
       // 手动验证方法
@@ -114,6 +126,14 @@
     watch: {
       'value' (val) {
         this.setCurrentValue(val)
+      }
+    },
+    destroyed () {
+      if (this.$el && this.$el.parentNode) {
+        this.$el.parentNode.removeChild(this.$el);
+      }
+      if (this.form) {
+        this.form.removeItem(this);
       }
     }
   }

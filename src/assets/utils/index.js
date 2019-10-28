@@ -175,37 +175,42 @@ export function validate (rule, value) {
     if (is(rule.validator, 'function')) {
       rule.validator(rule, value, function (err) {
         if (err) {
-          reject(err.message)
+          return reject(err.message)
         }
       })
     }
 
     if (!rule.required && (is(value, 'null', 'undefined') || value === '')) {
-      resolve()
+      return resolve()
     } else if (rule.required && (is(value, 'null', 'undefined') || value === '')) {
-      reject(rule.message)
+      return reject(rule.message)
     } else {
-      if (is(rule.type, 'string') && !is(value, rule.type)) {
-        reject(rule.message)
+      if (is(rule.type, 'string')) {
+        if (!is(value, rule.type)) {
+          return reject(rule.message)
+        }
+        if (is(value, 'array') && !value.length) {
+          return reject(rule.message)
+        }
       }
 
       if (is(rule.pattern, 'regexp') && !rule.pattern.test(value)) {
-        reject(rule.message)
+        return reject(rule.message)
       }
 
       if (is(rule.length, 'number')) {
         if ((is(value, 'string') || is(value, 'number')) && String(value).length !== rule.length) {
-          reject(rule.message)
+          return reject(rule.message)
         }
         if (is(value, 'array') && value.length !== rule.length) {
-          reject(rule.message)
+          return reject(rule.message)
         }
       }
       if (is(rule.range, 'object') && is(rule.range.min, 'number') && is(rule.range.max, 'number') && (value > rule.range.max || value < rule.range.min)) {
-        reject(rule.message)
+        return reject(rule.message)
       }
 
-      resolve()
+      return resolve()
     }
   })
 }
