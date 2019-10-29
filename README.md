@@ -20,8 +20,7 @@ Vue.use(UIMobile)
 
 <link rel="stylesheet" href="http://poly-apt-oss.oss-cn-shenzhen.aliyuncs.com/poly-frontend-oss/ui-mobile/app.css">
 <script src="http://poly-apt-oss.oss-cn-shenzhen.aliyuncs.com/poly-frontend-oss/ui-mobile/index.js"></script>
-```
-```
+
 // main.js
 
 Vue.use(UIMobile)
