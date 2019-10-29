@@ -14,15 +14,13 @@ Vue.use(UIMobile)
 ```
 
 #### 阿里云OSS
-> 使用： 
+> 安装： 
 ```
-// index.html
-
 <link rel="stylesheet" href="http://poly-apt-oss.oss-cn-shenzhen.aliyuncs.com/poly-frontend-oss/ui-mobile/app.css">
 <script src="http://poly-apt-oss.oss-cn-shenzhen.aliyuncs.com/poly-frontend-oss/ui-mobile/index.js"></script>
-
-// main.js
-
+```
+> 使用： 
+``` 
 Vue.use(UIMobile)
 ```
 
