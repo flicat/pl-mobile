@@ -39,7 +39,6 @@
 </script>
 
 <style lang="less" scoped>
-  @import "../../src/assets/less/variables.less";
   @import "../../src/assets/less/mixin.less";
 
   .pl-button {
@@ -56,23 +55,23 @@
     }
 
     &--default {
-      background: @default;
+      background: var(--default);
     }
     &--primary {
-      background: @primary;
+      background: var(--primary);
     }
     &--success {
-      background: @success;
+      background: var(--success);
     }
     &--warning {
-      background: @warning;
+      background: var(--warning);
     }
     &--danger {
-      background: @danger;
+      background: var(--danger);
     }
     &--text {
       background: none;
-      color: @primary;
+      color: var(--primary);
     }
 
     &--normal {
@@ -95,11 +94,11 @@
 
   .is-disabled {
     cursor: not-allowed;
-    background-color: @disabled;
+    background-color: var(--disabled);
 
     &.pl-button--text {
       background: none;
-      color: @disabled;
+      color: var(--disabled);
     }
   }
 

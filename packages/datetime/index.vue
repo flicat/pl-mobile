@@ -186,7 +186,6 @@
 </script>
 
 <style lang="less" scoped>
-  @import "../../src/assets/less/variables.less";
   @import "../../src/assets/less/mixin.less";
 
   .pl-datetime {
@@ -237,7 +236,7 @@
         &::before {
           position: absolute;
           content: '*';
-          color: @danger;
+          color: var(--danger);
           left: -0.6em;
           top: 30%;
         }
@@ -264,7 +263,7 @@
     }
     &-error {
       padding: 0 0.5em;
-      color: @danger;
+      color: var(--danger);
       line-height: 2em;
     }
     &.is-disabled {

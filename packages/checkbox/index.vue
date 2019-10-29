@@ -149,7 +149,6 @@
 
 <style lang="less" scoped>
   @import "../../src/assets/less/mixin.less";
-  @import "../../src/assets/less/variables.less";
 
   .pl-checkbox {
     background-color: #fff;
@@ -190,7 +189,7 @@
         &::before {
           position: absolute;
           content: '*';
-          color: @danger;
+          color: var(--danger);
           left: -0.6em;
           top: 30%;
         }
@@ -213,8 +212,8 @@
 
         &:checked {
           & ~ .pl-checkbox-text {
-            color: @primary;
-            border-color: @primary;
+            color: var(--primary);
+            border-color: var(--primary);
           }
           & ~ .icon-unchecked {
             display: none;
@@ -224,7 +223,7 @@
           }
           & ~ .pl-checkbox-icon {
             /deep/ svg {
-              fill: @primary;
+              fill: var(--primary);
             }
           }
         }
@@ -335,7 +334,7 @@
         }
         input {
           &:checked ~ .pl-checkbox-text {
-            background-color: @primary;
+            background-color: var(--primary);
             color: #fff;
           }
           &:disabled ~ .pl-checkbox-text {
@@ -348,7 +347,7 @@
 
     &-error {
       padding: 0 0.5em;
-      color: @danger;
+      color: var(--danger);
       line-height: 2em;
     }
 

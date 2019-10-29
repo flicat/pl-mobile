@@ -141,7 +141,6 @@
 
 <style lang="less" scoped>
   @import "../../src/assets/less/mixin.less";
-  @import "../../src/assets/less/variables.less";
 
   .pl-radio {
     background-color: #fff;
@@ -182,7 +181,7 @@
         &::before {
           position: absolute;
           content: '*';
-          color: @danger;
+          color: var(--danger);
           left: -0.6em;
           top: 30%;
         }
@@ -254,7 +253,7 @@
           }
         }
         &.is-active {
-          background-color: @primary;
+          background-color: var(--primary);
           color: #fff;
         }
         &.is-disabled {
@@ -263,8 +262,8 @@
         }
       }
       &.is-active {
-        color: @primary;
-        border-color: @primary;
+        color: var(--primary);
+        border-color: var(--primary);
       }
       &.is-disabled {
         color: #c8c9cc;
@@ -273,7 +272,7 @@
 
     &-error {
       padding: 0 0.5em;
-      color: @danger;
+      color: var(--danger);
       line-height: 2em;
     }
 

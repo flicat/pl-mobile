@@ -93,7 +93,6 @@
 
 <style lang="less" scoped>
   @import "../../src/assets/less/mixin.less";
-  @import "../../src/assets/less/variables.less";
   .pl-steps {
     overflow: hidden;
     width: 100%;

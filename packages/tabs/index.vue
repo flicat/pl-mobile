@@ -241,7 +241,6 @@
 </script>
 
 <style lang="less" scoped>
-  @import "../../src/assets/less/variables.less";
 
   .pl-tabs {
     display: grid;
@@ -261,7 +260,7 @@
       transition: all 0.3s ease;
 
       .tab-title {
-        color: @primary-text;
+        color: var(--primary-text);
         padding: 1em 1.2em;
         white-space: nowrap;
         text-align: center;
@@ -300,15 +299,15 @@
       .tab-line {
         position: absolute;
         transition: all 0.3s ease;
-        background-color: @primary;
+        background-color: var(--primary);
         background-clip: content-box;
       }
 
       .is-active {
-        color: @default-text;
+        color: var(--default-text);
       }
       .is-disabled {
-        color: @primary-text;
+        color: var(--primary-text);
       }
     }
   }
@@ -365,17 +364,17 @@
   .is-button {
     .pl-tab-title-inner {
       .tab-title {
-        border: 1px solid @primary;
-        color: @primary;
+        border: 1px solid var(--primary);
+        color: var(--primary);
         padding: 0.6em 1em;
 
         &.is-active {
-          background-color: @primary;
+          background-color: var(--primary);
           color: #fff;
         }
         &.is-disabled {
-          background-color: @disabled;
-          border-color: @disabled;
+          background-color: var(--disabled);
+          border-color: var(--disabled);
         }
       }
     }

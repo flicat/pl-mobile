@@ -30,6 +30,7 @@ import Swipe from '../packages/swipe'
 import TabItem from '../packages/tabItem'
 import Tabs from '../packages/tabs'
 import Upload from '../packages/upload'
+import './assets/less/variables.less'
 
 const components = [
   Button,

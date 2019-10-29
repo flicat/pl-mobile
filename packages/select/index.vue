@@ -206,7 +206,6 @@
 
 <style lang="less" scoped>
   @import "../../src/assets/less/mixin.less";
-  @import "../../src/assets/less/variables.less";
 
   .pl-select {
     background-color: #fff;
@@ -245,7 +244,7 @@
       text-overflow: ellipsis;
 
       .placeholder {
-        color: @primary-text;
+        color: var(--primary-text);
       }
     }
     &-label {
@@ -257,7 +256,7 @@
         &::before {
           position: absolute;
           content: '*';
-          color: @danger;
+          color: var(--danger);
           left: -0.6em;
           top: 30%;
         }
@@ -284,7 +283,7 @@
     }
     &-error {
       padding: 0 0.5em;
-      color: @danger;
+      color: var(--danger);
       line-height: 2em;
     }
     &-icon {

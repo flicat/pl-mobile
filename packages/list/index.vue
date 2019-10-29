@@ -172,7 +172,6 @@
 </script>
 
 <style lang="less" scoped>
-  @import "../../src/assets/less/variables.less";
   @import "../../src/assets/less/mixin.less";
 
   .pl-list {

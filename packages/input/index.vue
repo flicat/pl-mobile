@@ -218,7 +218,6 @@
 </script>
 
 <style lang="less" scoped>
-  @import "../../src/assets/less/variables.less";
 
   .pl-input {
     background-color: #fff;
@@ -260,7 +259,7 @@
         &::before {
           position: absolute;
           content: '*';
-          color: @danger;
+          color: var(--danger);
           left: -0.6em;
           top: 30%;
         }
@@ -291,7 +290,7 @@
     }
     &-error {
       padding: 0 0.5em;
-      color: @danger;
+      color: var(--danger);
       line-height: 2em;
     }
 
@@ -305,12 +304,12 @@
       background-color: transparent;
 
       &::placeholder {
-        color: @primary-text;
+        color: var(--primary-text);
       }
     }
 
     &.is-disabled {
-      background-color: @disabled;
+      background-color: var(--disabled);
     }
   }
 </style>

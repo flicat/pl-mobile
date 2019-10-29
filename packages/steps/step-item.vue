@@ -65,7 +65,6 @@
 
 <style lang="less" scoped>
   @import "../../src/assets/less/mixin.less";
-  @import "../../src/assets/less/variables.less";
   .pl-step {
     position: relative;
 
