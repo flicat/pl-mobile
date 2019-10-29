@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <pl-button @click="open">打开</pl-button>
-    <pl-picker title="选择" :options="data" :props="props" ref="picker" @submit="submit" :defaultValue="value">
+    <pl-picker title="选择" :options="data" :prop="props" ref="picker" @submit="submit" :defaultValue="value">
       <template v-slot="scope">{{scope.item.label}} - {{scope.item.value}}</template>
     </pl-picker>
   </div>

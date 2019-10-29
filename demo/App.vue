@@ -23,6 +23,11 @@ export default {
 }
 </script>
 
+<style>
+  body {
+    --primary: #5fd3ff;
+  }
+</style>
 <style lang="less" scoped>
   html,body,.wrap {
     width: 100%;
