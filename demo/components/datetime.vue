@@ -48,6 +48,8 @@
   </div>
 </template>
 <script>
+  import {getDateFromString, getRangeDate} from "../../src/assets/utils/index";
+
   export default {
     data () {
       return {
@@ -55,10 +57,24 @@
         value2: null,
         value3: null,
         options: {
-          startDate: '2017-10-20',
-          endDate: '2020-5-1',
-          startTime: '18:30',     // 开始时间
-          endTime: '8:30',       // 结束时间
+          onPick ({start, end, type}) {
+            let startDate = getDateFromString(start)
+            let endDate = getDateFromString(end)
+            if (startDate && type === 'start') {
+              this.startDate = startDate
+              this.endDate = getRangeDate(7, 'Y-M-D', startDate)
+            } else if (endDate && type === 'end') {
+              this.startDate = getRangeDate(-7, 'Y-M-D', endDate)
+              this.endDate = endDate
+            } else {
+              this.startDate = '2019-5-1'
+              this.endDate = '2020-10-20'
+            }
+          },
+          startDate: '2019-5-1',
+          endDate: '2019-12-31',
+          startTime: '8:30',     // 开始时间
+          endTime: '8:20',       // 结束时间
           timeStep: '00:10'       // 间隔时间
         },
         rules: [{required: true, message: '请选择', trigger: 'change'}]

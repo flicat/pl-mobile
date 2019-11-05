@@ -73,11 +73,11 @@
 
   // 默认配置
   const defaultOptions = {
-    disabledDate: () => false,   // 设置禁用状态，参数为当前日期，要求返回 Boolean Function
+    onPick: () => false,   // 设置禁用状态，参数为当前日期，要求返回 Boolean Function
     startDate: (new Date().getFullYear() - 5) + '-1-1',         // 开始时间
     endDate: (new Date().getFullYear() + 5) + '-12-31',         // 结束时间
     startTime: '00:00',     // 开始时间
-    endTime: '24:00',       // 结束时间
+    endTime: '23:59',       // 结束时间
     timeStep: '00:01'       // 间隔时间
   }
 
@@ -107,9 +107,9 @@
       endPlaceholder: String,      // 范围选择时开始日期的占位内容
       rangeSeparator: {            // 选择范围时的分隔符
         type: String,
-        default: '-'
+        default: '至'
       },
-      options: Object,             // TODO 当前时间日期选择器特有的选项
+      options: Object,             // 当前时间日期选择器特有的选项
       format: {                    // 日期显示格式
         type: String,
         default: 'Y-M-D'
@@ -323,6 +323,9 @@
             this.defaultEndValue = result
             this.endValue = value
           }
+          if (is(this.pickerOptions.onPick, 'function')) {
+            this.pickerOptions.onPick({start: this.startValue, end: this.endValue, type: this.fromType})
+          }
           if (this.startValue && this.endValue) {
             this.setCurrentValue([this.startValue, this.endValue])
           }
@@ -332,6 +335,9 @@
         }
       },
       clear () {
+        this.$set(this, 'defaultValue', [])
+        this.$set(this, 'defaultStartValue', [])
+        this.$set(this, 'defaultEndValue', [])
         this.$emit('input', '')
         this.$emit('change', '')
         this.$emit('clear')
@@ -403,8 +409,6 @@
         }
         if (max < min) {
           max += 24
-        } else if (max === min) {
-          max += 23
         }
 
         let hours = []
