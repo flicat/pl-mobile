@@ -73,7 +73,7 @@
 
   // 默认配置
   const defaultOptions = {
-    onPick: () => false,   // 设置禁用状态，参数为当前日期，要求返回 Boolean Function
+    onPick: () => false,   // 日期选择事件，只在日期范围选择有效
     startDate: (new Date().getFullYear() - 5) + '-1-1',         // 开始时间
     endDate: (new Date().getFullYear() + 5) + '-12-31',         // 结束时间
     startTime: '00:00',     // 开始时间
