@@ -67,5 +67,6 @@ Vue.use(UIMobile)
   --progress: #CEF5CA;
   --not-started: #FFEAC7;
   --disabled: #E2E5F0;
+  --tag-bg: #9898B6;
 }
 ```
