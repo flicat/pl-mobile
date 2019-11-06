@@ -1,6 +1,7 @@
 <template>
-  <div class="pl-select" v-on="$listeners" :class="[
+  <div class="pl-select" :class="[
     calcSize ? 'pl-select--' + calcSize : '',
+    multiple ? 'pl-select--multiple' : '',
     {
       'is-disabled': calcDisabled,
       'pl-select--error': ruleMessage
@@ -14,7 +15,10 @@
         <slot name="prepend"></slot>
       </div>
       <div class="pl-select-inner" @click="open">
-        <span v-if="currentItem || currentValue" class="title">{{valueTitle}}</span>
+        <span v-if="multiple && currentValue && currentValue.length" class="title">
+          <em class="tag" v-for="(item, i) in currentValue" :key="i">{{calcOptions.get(item)}}</em>
+        </span>
+        <span v-else-if="!multiple && currentValue">{{calcOptions.get(currentValue)}}</span>
         <span class="placeholder" v-else>{{placeholder}}</span>
       </div>
       <div class="pl-select-clear" @touchstart.stop.prevent="clear" @mousedown.stop.prevent="clear">
@@ -27,28 +31,33 @@
         <slot name="append"></slot>
       </div>
     </div>
-
     <div class="pl-select-error" v-if="ruleMessage">{{ruleMessage}}</div>
 
-    <picker :options="getPickerOption()" :defaultValue="[currentValue]" :title="placeholder" :prop="prop" @submit="submit" @cancel="cancel" ref="picker">
-      <template v-slot="scope">
-        <slot :item="scope.item"></slot>
-      </template>
-    </picker>
+    <div class="pl-select-popup" :class="[isOpen ? 'pl-select-popup--open' : 'pl-select-popup--close', visible ? '' : 'pl-select-popup--hide']">
+      <div class="pl-select-popup-content" v-if="isOpen">
+        <div class="pl-select-popup-inner">
+          <ul class="pl-select-popup-inner-row">
+            <li class="pl-select-popup-inner-item" v-for="(item, i) in options" :key="i">
+              <input :type="multiple ? 'checkbox' : 'radio'" class="inner-input" v-model="currentValue" :value="item[prop.value]" :disabled="item.disabled" @change="emit">
+              <span><slot :item="item">{{item[prop.label]}}</slot></span>
+              <icon name="icon-duigou" class="checked-icon"></icon>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="pl-select-popup-layer" @click="close"></div>
+    </div>
   </div>
 </template>
 
 <script>
-  import picker from '../picker/index.vue'
   import icon from '../icon/index.vue'
   import {is, validate} from '../../src/assets/utils'
 
-  // TODO select 多选
   export default {
     name: 'plSelect',
     componentName: 'plSelect',
     components: {
-      picker,
       icon
     },
     props: {
@@ -78,6 +87,7 @@
           return {label: 'label', value: 'value'}
         }
       },
+      multiple: Boolean,        // 多选
       disabled: Boolean,        // 禁用
       readonly: Boolean,        // 只读
       required: Boolean,        // 必填 *号
@@ -96,25 +106,19 @@
     data () {
       return {
         currentValue: this.value === undefined ? '' : this.value,
-        currentItem: null,
+        isOpen: false,
+        visible: false,
 
         ruleMessage: '',
         handlers: []
       }
     },
     computed: {
-      valueTitle () {
-        if (this.currentItem) {
-          if (this.prop.label && is(this.currentItem, 'object')) {
-            return this.currentItem[this.prop.label]
-          } else {
-            return this.currentItem
-          }
-        }
-        return this.currentValue || ''
-      },
       showClear () {
-        return this.clearable && !this.calcDisabled && (this.currentItem || this.currentValue)
+        return this.clearable && !this.calcDisabled && (!this.multiple && this.currentValue || this.currentValue.length)
+      },
+      calcOptions () {
+        return new Map(this.options.map(item => [item[this.prop.value], item[this.prop.label]]))
       },
       calcSize () {
         return this.size || this.form && this.form.size || 'normal'
@@ -146,49 +150,41 @@
         if (this.calcDisabled || this.readonly || !this.options.length) {
           return false
         }
-        this.$refs.picker.open()
+        this.isOpen = true
+        this.visible = true
       },
-      cancel () {
-        this.$emit('cancel')
-      },
-      submit ([result]) {
-        let value = this.getValue(result)
-        this.currentItem = result
-        this.setCurrentValue(value)
+      close () {
+        this.isOpen = false
+        setTimeout(() => {
+          this.visible = false
+        }, 300)
       },
       clear () {
         this.$emit('input', '')
         this.$emit('change', '')
         this.$emit('clear')
-        this.setCurrentValue('')
+        this.setCurrentValue(null)
       },
       setCurrentValue (value) {
         if (value === this.currentValue) {
           return false
         }
         this.currentValue = value
+      },
+      emit () {
         this.validate()
-        this.$emit('input', value)
-        this.$emit('change', value)
-      },
-      getPickerOption () {
-        return [(function () {
-          return this.options
-        }).bind(this)]
-      },
-
-      getLabel (target) {
-        return this.prop.label && is(target, 'object') ? target[this.prop.label] : target
-      },
-      getValue (target) {
-        return this.prop.value && is(target, 'object') ? target[this.prop.value] : target
+        this.$emit('input', this.currentValue)
+        this.$emit('change', this.currentValue)
       }
     },
     watch: {
       'value': {
         handler (val) {
-          this.currentItem = this.options.find(item => this.getValue(item) === val)
-          this.setCurrentValue(val)
+          if (this.multiple && !is(val, 'array')) {
+            this.currentValue = []
+          } else {
+            this.setCurrentValue(val)
+          }
         },
         immediate: true
       }
@@ -211,7 +207,7 @@
     background-color: #fff;
     padding: 0 1.2em;
     line-height: normal;
-    overflow: hidden;
+    position: relative;
 
     * {
       box-sizing: border-box;
@@ -235,7 +231,6 @@
     &--error {
       position: relative;
     }
-
     &-inner {
       padding: 1em 0;
       flex: 1;
@@ -245,6 +240,22 @@
 
       .placeholder {
         color: var(--primary-text);
+      }
+    }
+    &--multiple {
+      .pl-select-inner {
+        white-space: normal;
+
+        .tag {
+          font-style: normal;
+          margin: 2px 5px 2px 0;
+          display: inline-block;
+          padding: 0 0.3em;
+          height: 100%;
+          background-color: var(--tag-bg);
+          color: #fff;
+          border-radius: 5px;
+        }
       }
     }
     &-label {
@@ -301,6 +312,152 @@
 
     &.is-disabled {
       background-color: #ebebe4;
+    }
+
+    @keyframes up {
+      from {
+        transform: translateY(100%);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
+    @keyframes down {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(100%);
+      }
+    }
+    @keyframes in {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    @keyframes out {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+
+    .pl-select-popup {
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      display: flex;
+      flex-direction: column-reverse;
+      width: 100%;
+      height: 100%;
+      overscroll-behavior: contain; // 阻止滚动传播
+
+      * {
+        box-sizing: border-box;
+      }
+
+      &--open {
+        display: flex;
+        .pl-select-popup-content {
+          animation: up 0.3s ease 1 forwards;
+        }
+        .pl-select-popup-layer {
+          animation: in 0.3s ease 1 forwards;
+        }
+      }
+
+      &--close {
+        .pl-select-popup-content {
+          animation: down 0.3s ease 1 forwards;
+        }
+        .pl-select-popup-layer {
+          animation: out 0.3s ease 1 forwards;
+        }
+      }
+      &--hide {
+        display: none;
+      }
+
+      &-content {
+        position: relative;
+        z-index: 1;
+        .font-size(16);
+        color: #333;
+        background-color: #fff;
+      }
+      &-layer {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      &-inner {
+        .height(194);
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow: hidden;
+
+        &-row {
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          -webkit-overflow-scrolling: touch;
+        }
+        &-item {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          position: relative;
+          padding: 0 1.2em;
+          .height(194 / 5);
+          .line-height(194 / 5);
+          border-bottom: 1px solid #ebedf0;
+
+          &:last-child {
+            border-bottom: 0 none;
+          }
+          .checked-icon {
+            margin-left: auto;
+            display: none;
+
+            /deep/ svg {
+              fill: var(--success)
+            }
+          }
+          .inner-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0;
+
+            &:checked ~ .checked-icon {
+              display: block;
+            }
+            &:checked ~ span {
+              color: var(--success);
+            }
+            &:disabled ~ span {
+              color: var(--disabled);
+            }
+          }
+        }
+      }
     }
   }
 </style>

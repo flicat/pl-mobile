@@ -3,7 +3,7 @@
     <pl-datetime
       ref="date-picker1"
       :rules="rules"
-      label="日期："
+      label="日期"
       labelWidth="4em"
       @change="onChange"
       placeholder="请选择日期"
@@ -11,7 +11,9 @@
       v-model="value"
       type="datetime"
       clearable
-      format="Y-M-D H:I:S"></pl-datetime>
+      format="Y-M-D H:I:S">
+      <span slot="label">日期：</span>
+    </pl-datetime>
     <pl-datetime
       ref="date-picker2"
       :rules="rules"
@@ -26,7 +28,9 @@
       type="datetime"
       isRange
       clearable
-      format="Y-M-D H:I:S"></pl-datetime>
+      format="Y-M-D H:I:S">
+      <pl-icon name="icon-time" slot="prepend"></pl-icon>
+    </pl-datetime>
     <pl-datetime
       ref="date-picker3"
       :rules="rules"
@@ -41,7 +45,10 @@
       type="time"
       isRange
       clearable
-      format="H:I:S"></pl-datetime>
+      format="H:I:S">
+      <pl-icon name="icon-time" slot="prepend"></pl-icon>
+      <pl-icon name="icon-time" slot="append"></pl-icon>
+    </pl-datetime>
     <p>
       <pl-button type="success" @click="validate">校验</pl-button>
     </p>
