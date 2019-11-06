@@ -44,8 +44,9 @@
 ```
 
 ### 表单验证
-<template>
-  <pl-select ref="select" :rules="rules" label="请选择：" labelWidth="5em" v-model="value" :options="data" @change="change" clearable></pl-select>
+```html
+<template> 
+  <pl-select ref="select" :rules="rules" label="请选择：" labelWidth="5em" v-model="value" :options="data" @change="change" clearable></pl-select> 
 </template>
 <script>
   export default {
@@ -72,9 +73,11 @@
     }
   }
 </script>
-
+```
+ 
 
 ### 自定义子项
+```html
 <template>
   <div class="content">
     <pl-select v-model="value" :options="data">
@@ -98,7 +101,7 @@
     }
   }
 </script>
-
+```
 
 ### Attributes
 | 参数      | 说明    | 类型      | 可选值       | 默认值   |
