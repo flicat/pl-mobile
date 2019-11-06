@@ -1,11 +1,11 @@
 <template>
   <div class="content">
-    <pl-select label="请选择：" labelWidth="5em" ref="select" :rules="rules" v-model="value1" :options="data" @change="change" @cancel="cancel" clearable>
+    <pl-select label="请选择：" labelWidth="5em" ref="select" :rules="rules" v-model="value1" :options="data" @change="change" clearable>
       <template v-slot="scope">
         <span>{{scope.item.label}}-{{scope.item.value}}</span>
       </template>
     </pl-select>
-    <pl-select label="请选择：" labelWidth="5em" v-model="value2" :options="data" @change="change" @cancel="cancel" multiple clearable></pl-select>
+    <pl-select label="请选择：" labelWidth="5em" v-model="value2" :options="data" @change="change" multiple clearable></pl-select>
   </div>
 </template>
 <script>
@@ -30,16 +30,8 @@
       },
       change (value) {
         console.log('change::', value)
-      },
-      cancel () {
-        console.log('cancel')
       }
     }
   }
 </script>
 
-<style lang="less" scoped>
-  .content {
-    background-color: #d9d9d9;
-  }
-</style>

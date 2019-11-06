@@ -1,21 +1,20 @@
-## checkbox 复选框
+## select 下拉菜单
 
 ### 基础用法
 
 ```html
 <template>
-  <div class="content">
-    <pl-select ref="select" v-model="value" :options="data"></pl-select>
-  </div>
+  <pl-select v-model="value" :options="data"></pl-select>
 </template>
 <script>
   export default {
     data () {
       return {
-        value: '',
+        value: null,
         data: [
           {label: '选项1', value: 1, disabled: false},
-          {label: '选项2', value: 2, disabled: true}
+          {label: '选项2', value: 2, disabled: false},
+          {label: '选项3', value: 3, disabled: true}
         ]
       }
     }
@@ -23,48 +22,41 @@
 </script>
 ```
 
-
-### 显示label的用法
-
+### 多选
 ```html
 <template>
-  <div class="content">
-    <pl-select ref="select" label="请选择：" labelWidth="5em" v-model="value" :options="data"></pl-select>
-  </div>
+  <pl-select v-model="value" :options="data" multiple></pl-select>
 </template>
 <script>
   export default {
     data () {
       return {
-        value: '',
+        value: null,
         data: [
           {label: '选项1', value: 1, disabled: false},
-          {label: '选项2', value: 2, disabled: true}
+          {label: '选项2', value: 2, disabled: false},
+          {label: '选项3', value: 3, disabled: true}
         ]
       }
     }
   }
 </script>
 ```
-
 
 ### 表单验证
-
-```html
 <template>
-  <div class="content">
-    <pl-select ref="select" :rules="rules" v-model="value" :options="data"></pl-select>
-  </div>
+  <pl-select ref="select" :rules="rules" label="请选择：" labelWidth="5em" v-model="value" :options="data" @change="change" clearable></pl-select>
 </template>
 <script>
   export default {
     data () {
       return {
-        value: '',
+        value: null,
         rules: [{required: true, message: '请输入', trigger: 'change'}],
         data: [
           {label: '选项1', value: 1, disabled: false},
-          {label: '选项2', value: 2, disabled: true}
+          {label: '选项2', value: 2, disabled: false},
+          {label: '选项3', value: 3, disabled: true}
         ]
       }
     },
@@ -73,19 +65,19 @@
         this.$refs.select.validate().then(() => {
           // 提交
         })
+      },
+      change (value) {
+        console.log('change::', value)
       }
     }
   }
 </script>
-```
 
 
 ### 自定义子项
-
-```html
 <template>
   <div class="content">
-    <pl-select :rules="rules" v-model="value" :options="data">
+    <pl-select v-model="value" :options="data">
       <template v-slot="scope">
         <span>{{scope.item.label}}-{{scope.item.value}}</span>
       </template>
@@ -96,16 +88,16 @@
   export default {
     data () {
       return {
-        value: '',
+        value: null,
         data: [
           {label: '选项1', value: 1, disabled: false},
-          {label: '选项2', value: 2, disabled: true}
+          {label: '选项2', value: 2, disabled: false},
+          {label: '选项3', value: 3, disabled: true}
         ]
       }
     }
   }
 </script>
-```
 
 
 ### Attributes
@@ -117,11 +109,13 @@
 | placeholder | 占位符   | String | — | —   |
 | prop       | 选项对应的key与value   | Object    | — | {label: 'label', value: 'value'}   |
 | disabled  | 是否禁用状态    | boolean   | —   | false   |
+| multiple  | 是否多选    | boolean   | —   | false   |
 | readonly  | 是否只读状态    | boolean   | —   | false   |
 | required   | 必填红色*号    | boolean   | —   | false   |
 | label      | label文字    | string   | —   | —   |
 | labelWidth | label宽度    | string   | —   | —   |
 | clearable  | 是否显示清除按钮 | boolean | —      |  false    |
+
 
 ### Slots
 | name      | 说明    | 
@@ -135,7 +129,6 @@
 | 事件名称      | 说明    | 回调参数      |
 |---------- |-------- |---------- |
 | change     |   value更改事件   | 更改后的value | 
-| cancel     |   取消选择事件    | 更改后的value | 
 
 ### Methods
 | 方法名 | 说明 | 参数 |
