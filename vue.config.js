@@ -2,8 +2,11 @@ const hljs = require('highlight.js');
 const MarkdownIt = require('markdown-it')
 
 const md = new MarkdownIt({
-  linkify: false,
-  typographer: false,
+  html:         false,        // 在源码中启用 HTML 标签
+  breaks:       false,        // 转换段落里的 '\n' 到 <br>。
+  linkify:      false,        // 将类似 URL 的文本自动转换为链接。
+  typographer:  false,       // 启用一些语言中立的替换 + 引号美化
+
   highlight: function (str, lang) {
     if (lang && hljs.getLanguage(lang)) {
       try {
@@ -39,7 +42,15 @@ module.exports = {
           options: {
             raw: true,
             middleware: function(source) {
-              return `<template><div class="markdown-body">${md.render(source)}</div></template>`
+              let html = md.render(source);
+              html = html
+              // 去掉{{}}转义
+              .replace(/\{\{/g, '<span>&#x7B;&#x7B;</span>')
+              .replace(/\}\}/g, '<span>&#x7D;&#x7D;</span>')
+              // 将MD文件链接改为页面链接
+              .replace(/href=".\/docs\/(\w+)\.md"/g, 'href="#/$1"');
+
+              return '<template><div class="markdown-body">' + html + '</div></template>'
             }
           }
         },

@@ -32,18 +32,6 @@ export default {
 
 <style lang="less">
   @import "./assets/base.less";
-  @import "../node_modules/github-markdown-css/github-markdown.css";
-
-  html,body,.wrap {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-  }
-  body {
-    --primary: #5fd3ff;
-  }
 </style>
 <style lang="less" scoped>
   .wrap {
@@ -77,17 +65,28 @@ export default {
           a {
             text-decoration: none;
             text-transform: capitalize;
-            color: #418be7;
+            color: #333;
           }
           /deep/ .router-link-active {
-            color: #e7763e;
+            color: #4f95ff;
           }
         }
       }
     }
     .docs {
       &:extend(.wrap .menu);
-
+      border-right: 400px solid #ddd;
+      position: relative;
+      .examples {
+        border: 20px solid #ddd;
+        background-color: #fff;
+        position: absolute;
+        left: 100%;
+        top: 0;
+        z-index: 10;
+        width: 360px;
+        height: 480px;
+      }
       /deep/ .markdown-body {
         &:extend(.wrap .menu .nav-list);
       }
