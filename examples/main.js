@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import UIMobile from '../src'
+import PlMobile from '../src'
 
-Vue.use(UIMobile)
+Vue.use(PlMobile)
 
 Vue.config.productionTip = false
 

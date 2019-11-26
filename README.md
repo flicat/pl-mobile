@@ -1,27 +1,15 @@
 ## 移动端UI框架 
-*（未完成）*
 
 #### git模块
 > 安装：
 ```
-npm i git+http://120.78.240.72:8012/gitlab/liyuelong/ui-mobile.git --save
+npm i pl-mobile --save
 ```
 
 > 使用：
 ```
-import UIMobile from 'ui-mobile'
-Vue.use(UIMobile)
-```
-
-#### 阿里云OSS
-> 安装： 
-```
-<link rel="stylesheet" href="http://poly-apt-oss.oss-cn-shenzhen.aliyuncs.com/poly-frontend-oss/ui-mobile/app.css">
-<script src="http://poly-apt-oss.oss-cn-shenzhen.aliyuncs.com/poly-frontend-oss/ui-mobile/index.js"></script>
-```
-> 使用： 
-``` 
-Vue.use(UIMobile)
+import PlMobile from 'pl-mobile'
+Vue.use(PlMobile)
 ```
 
 ### 组件列表

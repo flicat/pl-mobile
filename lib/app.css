@@ -668,6 +668,14 @@ to {
 .pl-input textarea[data-v-2f3bab39]::placeholder {
   color: var(--primary-text);
 }
+.pl-input input[data-v-2f3bab39]:active,
+.pl-input textarea[data-v-2f3bab39]:active,
+.pl-input input[data-v-2f3bab39]:focus,
+.pl-input textarea[data-v-2f3bab39]:focus,
+.pl-input input[data-v-2f3bab39]:hover,
+.pl-input textarea[data-v-2f3bab39]:hover {
+  outline: 0 none;
+}
 .pl-input.is-disabled[data-v-2f3bab39] {
   background-color: var(--disabled);
 }

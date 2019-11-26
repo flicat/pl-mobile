@@ -14,7 +14,7 @@ module.exports = {
     filename: 'index.js',
     chunkFilename: '[id].js',
     libraryExport: 'default',
-    library: 'UIMobile',
+    library: 'PlMobile',
     libraryTarget: 'umd'
   },
   resolve: {
