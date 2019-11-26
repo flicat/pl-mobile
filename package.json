@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "node build/build.js",
-    "build:examples": "vue-cli-service build",
-    "upload": "node build/upload.js"
+    "build:examples": "vue-cli-service build"
   },
   "dependencies": {
     "vue": "^2.6.10"
