@@ -1,5 +1,5 @@
 ## icon 图标
-图标库使用阿里iconfont，默认加载系统公共图标，可自行加载其他iconfont图标库
+图标库使用阿里iconfont，可自行加载其他iconfont图标库
 
 ### 基础用法
 

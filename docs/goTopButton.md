@@ -19,7 +19,7 @@
       }
     },
     mounted () {
-      this.wrap = this.$refs.wrap
+      this.wrap = this.$refs.wrap.parentNode
     }
   }
 </script>

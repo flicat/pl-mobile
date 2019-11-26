@@ -306,6 +306,11 @@
       &::placeholder {
         color: var(--primary-text);
       }
+      &:active,
+      &:focus,
+      &:hover {
+        outline: 0 none;
+      }
     }
 
     &.is-disabled {

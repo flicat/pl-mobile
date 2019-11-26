@@ -27,6 +27,9 @@ const components = [
   {name: 'upload', title: 'upload 文件上传'}
 ]
 
+const userAgent = window.navigator.userAgent;
+const isFromMobile = /android/gi.test(userAgent) || /iphone|ipod|ios/gi.test(userAgent)
+
 const importDoc = file => () => import('../../docs/' + file + '.md')
 const importExample = file => () => import('../components/' + file + '.vue')
 
@@ -36,13 +39,13 @@ const router = new Router({
     {
       path: '/',
       redirect: {name: 'docs'},
-      component: importExample('layout'),
+      component: () => import('../layout/index.vue'),
       children: [
         {
           path: '/docs',
           name: 'docs',
           redirect: {name: 'home'},
-          component: importExample('docs'),
+          component: () => import('../layout/docs.vue'),
           children: [
             {path: '/docs/home', component: () => import('../../README.md'), name: 'home', meta: {title: '介绍', type: 'docs'}},
             ...components.map(router => {
@@ -58,7 +61,8 @@ const router = new Router({
         {
           path: '/examples',
           name: 'examples',
-          component: importExample('examples'),
+          redirect: {name: `examples_${components[0].name}`},
+          component: () => import('../layout/examples.vue'),
           children: components.map(router => {
             return {
               path: `/examples/${router.name}`,
@@ -68,7 +72,14 @@ const router = new Router({
             }
           })
         }
-      ]
+      ],
+      beforeEnter (to, from, next) {
+        if (isFromMobile && to.meta.type !== 'examples') {
+          next({name: ['examples', to.meta.name].filter(Boolean).join('_')})
+        } else {
+          next()
+        }
+      }
     }
   ]
 })

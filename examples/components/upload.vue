@@ -1,11 +1,13 @@
 <template>
-  <pl-upload v-model="files" accept="image/*" class="file-upload">
-    <span slot="tips">请选择图片，格式不限</span>
-    <template v-slot="scope">
-      <pl-button class="home" @click="setHomePage(scope.file)" size="small">设为首页</pl-button>
-    </template>
-    <pl-button slot="button" size="small">添加图片</pl-button>
-  </pl-upload>
+  <div class="content">
+    <pl-upload v-model="files" accept="image/*" class="file-upload">
+      <span slot="tips">请选择图片，格式不限</span>
+      <template v-slot="scope">
+        <pl-button class="home" @click="setHomePage(scope.file)" size="small">设为首页</pl-button>
+      </template>
+      <pl-button slot="button" size="small">添加图片</pl-button>
+    </pl-upload>
+  </div>
 </template>
 <script>
   export default {

@@ -2,7 +2,7 @@ import Icon from './index.vue';
 
 // iconfont 阿里cdn地址
 const cndList = [
-  '//at.alicdn.com/t/font_1060557_knznc0n8ise.js',        // 系统公共图标
+  '//at.alicdn.com/t/font_1060557_lha3srxrpim.js',        // 系统公共图标
 ];
 
 cndList.forEach(src => {

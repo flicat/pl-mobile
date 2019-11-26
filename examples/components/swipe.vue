@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <pl-swipe width="600px" height="300px" @scroll="onScroll" :auto="2000" loop>
+    <pl-swipe height="12em" @scroll="onScroll" :auto="2000" loop>
       <div>
         <pl-swipe-item class="pl-swipe-item">1</pl-swipe-item>
         <pl-swipe-item class="pl-swipe-item">2</pl-swipe-item>
@@ -45,7 +45,7 @@
   .pl-swipe-item {
     text-align: center;
     font-size: 56px;
-    line-height: 300px;
+    line-height: 12rem;
 
     &:nth-child(1) {
       background-color: #f56c6c;

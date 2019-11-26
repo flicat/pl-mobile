@@ -14,15 +14,11 @@
       }
     },
     mounted () {
-      this.wrap = this.$refs.wrap
+      this.wrap = this.$refs.wrap.parentNode
     }
   }
 </script>
 
 <style>
-  .content {
-    width: 100%;
-    height: 90vh;
-    overflow: auto;
-  }
+
 </style>

@@ -1,7 +1,9 @@
 <template>
-  <pl-radio v-model="value" :options="data" label="单选：" labelWidth="4em">
-    <template v-slot="scope">{{scope.item.label}} - {{scope.item.value}}</template>
-  </pl-radio>
+  <div class="content">
+    <pl-radio v-model="value" :options="data" label="单选：" labelWidth="4em">
+      <template v-slot="scope">{{scope.item.label}} - {{scope.item.value}}</template>
+    </pl-radio>
+  </div>
 </template>
 <script>
   export default {

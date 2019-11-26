@@ -1,11 +1,9 @@
 <template>
   <div class="content">
-    <pl-cell :span="['6em', '6em', '6em', '6em', 1]" gap="10px">
-      <pl-button @click="alert">弹窗</pl-button>
-      <pl-button @click="confirm">确认弹窗</pl-button>
-      <pl-button @click="toast">消息提醒</pl-button>
-      <pl-button @click="dialog">模态框</pl-button>
-    </pl-cell>
+    <pl-button @click="alert">弹窗</pl-button>
+    <pl-button @click="confirm">确认弹窗</pl-button>
+    <pl-button @click="toast">消息提醒</pl-button>
+    <pl-button @click="dialog">模态框</pl-button>
   </div>
 </template>
 <script>
@@ -66,5 +64,8 @@
 </script>
 
 <style lang="less" scoped>
-
+  .pl-button {
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
 </style>

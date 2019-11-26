@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+  <section class="wrap">
     <div class="menu">
       <ul class="nav-list">
         <li v-for="router in routes" :key="router.path" >
@@ -13,7 +13,7 @@
         <iframe :src="'#/examples/' + $route.meta.name" frameborder="0" width="360" height="480"></iframe>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -31,6 +31,9 @@
 
 <style lang="less" scoped>
   .wrap {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
     display: grid;
     grid-template-columns: 260px 1fr;
     grid-template-rows: 1fr;
