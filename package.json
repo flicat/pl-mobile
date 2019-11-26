@@ -2,6 +2,7 @@
   "name": "pl-mobile",
   "version": "0.1.0",
   "main": "lib/index.js",
+  "homepage": "https://flicat.github.io/pl-mobile/",
   "license": "ISC",
   "scripts": {
     "dev": "vue-cli-service serve",
