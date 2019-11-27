@@ -1,14 +1,15 @@
 ## 移动端UI框架 
 
-#### git模块
-> 安装：
+### 安装
 ```
 npm i pl-mobile --save
 ```
 
-> 使用：
+### 使用
 ```
 import PlMobile from 'pl-mobile'
+import 'pl-mobile/lib/index.css'
+
 Vue.use(PlMobile)
 ```
 
@@ -18,8 +19,8 @@ Vue.use(PlMobile)
 >- [checkbox](./docs/checkbox.md)
 >- [collapse](./docs/collapse.md)
 >- [datetime](./docs/datetime.md)
-> - [form](./docs/form.md)
-> - [goTopButton](./docs/goTopButton.md)
+>- [form](./docs/form.md)
+>- [goTopButton](./docs/goTopButton.md)
 >- [icon](./docs/icon.md)
 >- [input](./docs/input.md)
 >- [list](./docs/list.md)
