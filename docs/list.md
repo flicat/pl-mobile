@@ -34,7 +34,7 @@
 
 ```html
 <template>
-  <pl-list :loading="loading" :finished="finished" @refresh="reload">
+  <pl-list :loading="loading" :finished="finished" @refresh="reload" loadingText="加载中..." refreshText="松开刷新">
     <p v-for="item in data" :key="item.value">{{item.label}}</p>  
   </pl-list>
 </template>
@@ -71,7 +71,7 @@
 
 ```html
 <template>
-  <pl-list :loading="loading" :finished="finished" @load="load">
+  <pl-list :loading="loading" :finished="finished" @load="load" loadingText="加载中..." finishedText="加载完成">
     <p v-for="item in data" :key="item.value">{{item.label}}</p>  
   </pl-list>
 </template>
@@ -107,9 +107,10 @@
 |---------- |-------- |---------- |-------------  |-------- |
 | loading      |  是否处于加载状态，加载过程中不触发load事件   | Boolean | —    | false |
 | finished     | 是否已加载完成，加载完成后不再触发load事件 | Boolean | —            | false |
-| loadingText  | 加载过程中的提示文字| String | —            | 加载中... |
-| finishedText | 加载完成后的提示文字 | String | —            | 加载完成 |
-| errorText    | 加载失败后的提示文字 | String | —            | 加载失败 |
+| loadingText  | 加载过程中的提示文字| String | —            | — |
+| refreshText  | 下拉刷新的提示文案  | String | —            | — |
+| finishedText | 加载完成后的提示文字 | String | —            | — |
+| errorText    | 加载失败后的提示文字 | String | —            | — |
 | topButton    | 是否显示返回顶部按钮 | Boolean | —            | false |
 
 ### Slots

@@ -4,7 +4,7 @@
       <h4>滚动列表 <em>下拉刷新</em><em>上拉加载</em></h4>
     </div>
     <div class="list">
-      <pl-list class="pl-list" :loading="loading" :finished="finished" @refresh="reload" @load="load">
+      <pl-list class="pl-list" :loading="loading" :finished="finished" @refresh="reload" @load="load" refreshText="松开刷新" loadingText="加载中..." finishedText="加载完成" errorText="加载失败">
         <p v-for="item in data" :key="item.value">{{item.label}}</p>
       </pl-list>
     </div>
@@ -57,7 +57,7 @@
           }
           setTimeout(() => {
             resolve(result)
-          }, 1000)
+          }, 500)
         })
       }
     }
@@ -74,15 +74,6 @@
 
     .list {
       flex: 1;
-      position: relative;
-      .pl-list {
-        position: absolute;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        right: 0;
-        bottom: 0;
-      }
     }
   }
   p {

@@ -11,7 +11,7 @@
         <icon name="icon-icon_loading"></icon>
         {{loadingText}}
       </div>
-      <div class="pl-list-refresh-tip" v-show="translate < 0 && !loading">松开刷新</div>
+      <div class="pl-list-refresh-tip" v-show="translate < 0 && !loading">{{refreshText}}</div>
       <div class="pl-list-inner" :style="innerStyle" ref="inner">
         <slot></slot>
         <div class="pl-list-loading-bottom" v-show="translate > 0 && !finished">
@@ -51,6 +51,11 @@
       loadingText: {
         type: String
         // default: '加载中...'
+      },
+      // 下拉刷新的提示文案
+      refreshText: {
+        type: String
+        // default: '松开刷新'
       },
       // 加载完成后的提示文案
       finishedText: {
