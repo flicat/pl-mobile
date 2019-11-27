@@ -40,37 +40,27 @@
       // 是否处于加载状态，加载过程中不触发load事件
       loading: {
         type: Boolean,
-        default () {
-          return false
-        }
+        default: false
       },
       // 是否已加载完成，加载完成后不再触发load事件
       finished: {
         type: Boolean,
-        default () {
-          return false
-        }
+        default: false
       },
       // 加载过程中的提示文案
       loadingText: {
-        type: String,
-        default () {
-          return '加载中...'
-        }
+        type: String
+        // default: '加载中...'
       },
       // 加载完成后的提示文案
       finishedText: {
-        type: String,
-        default () {
-          return '加载完成'
-        }
+        type: String
+        // default: '加载完成'
       },
       // 加载失败后的提示文案
       errorText: {
-        type: String,
-        default () {
-          return '加载失败'
-        }
+        type: String
+        // default: '加载失败'
       },
       topButton: Boolean    // 返回顶部按钮
     },

@@ -13,23 +13,17 @@
     props: {
       direction: {          // 排列方式  column，row
         type: String,
-        default () {
-          return 'row'
-        }
+        default: 'row'
       },
       span: Array,
       gap: String,
       justifyContent: {
         type: String,      // 横向排列方式：stretch | start | end | center | space-between | space-around | space-evenly
-        default () {
-          return 'space-evenly'
-        }
+        default: 'space-evenly'
       },
       alignContent: {
         type: String,      // 纵向排列方式：stretch | start | end | center | space-between | space-around | space-evenly
-        default () {
-          return 'center'
-        }
+        default: 'center'
       }
     },
     computed: {

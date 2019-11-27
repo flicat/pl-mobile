@@ -25,7 +25,7 @@
     },
     inject: {
       steps: {
-        default: () => ({})
+        default: {}
       }
     },
     data () {

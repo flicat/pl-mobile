@@ -18,7 +18,7 @@
     componentName: 'plSwipeItem',
     inject: {
       swipes: {
-        default: () => ({})
+        default: {}
       }
     },
     data () {

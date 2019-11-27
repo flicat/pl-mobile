@@ -15,7 +15,7 @@
     },
     inject: {
       tabs: {
-        default: () => ({})
+        default: {}
       }
     },
     data () {

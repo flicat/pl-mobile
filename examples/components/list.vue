@@ -17,6 +17,7 @@
       return {
         loading: false,
         finished: false,
+        page: 1,
         data: []
       }
     },
@@ -25,24 +26,39 @@
     },
     methods: {
       reload () {
-        this.finished = false
+        this.page = 1
 
-        let result = []
-        for (let i = 1; i <= 10; i++) {
-          result.push({label: '选项' + i, value: i})
-        }
-        this.data = result
+        this.finished = false
+        this.loading = true
+
+        this.getData().then(data => {
+          this.loading = false
+          this.data = data
+        })
       },
       load () {
-        if (this.data.length < 50) {
+        this.page++
+
+        this.finished = false
+        this.loading = true
+
+        this.getData().then(data => {
+          this.loading = false
+          this.data = this.data.concat(data)
+          this.finished = this.data.length >= 30
+        })
+      },
+      getData () {
+        return new Promise((resolve, reject) => {
           let result = []
-          for (let i = this.data.length + 1; i <= this.data.length + 10; i++) {
-            result.push({label: '选项' + i, value: i})
+          for (let i = 1; i < 11; i++) {
+            let index = i + 10 * (this.page - 1)
+            result.push({label: '选项' + index, value: index})
           }
-          this.data = this.data.concat(result)
-        } else {
-          this.finished = true
-        }
+          setTimeout(() => {
+            resolve(result)
+          }, 1000)
+        })
       }
     }
 
