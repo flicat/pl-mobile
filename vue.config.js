@@ -48,7 +48,7 @@ module.exports = {
               .replace(/\{\{/g, '<span>&#x7B;&#x7B;</span>')
               .replace(/\}\}/g, '<span>&#x7D;&#x7D;</span>')
               // 将MD文件链接改为页面链接
-              .replace(/href=".\/docs\/(\w+)\.md"/g, 'href="#/$1"');
+              .replace(/href=".\/docs\/(\w+)\.md"/g, 'href="#/docs/$1"');
 
               return '<template><div class="markdown-body">' + html + '</div></template>'
             }
