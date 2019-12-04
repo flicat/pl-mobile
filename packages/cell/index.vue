@@ -1,5 +1,5 @@
 <template>
-  <div class="pl-cell" :style="rowStyle">
+  <div :class="['pl-cell', 'pl-cell-' + direction]" :style="rowStyle">
     <slot></slot>
   </div>
 </template>
@@ -56,5 +56,12 @@
     display: grid;
     width: 100%;
     background-color: #fff;
+
+    &-row > * {
+      overflow-x: hidden;
+    }
+    &-column > * {
+      overflow-y: hidden;
+    }
   }
 </style>
