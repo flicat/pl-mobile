@@ -38,7 +38,7 @@
         <div class="pl-select-popup-inner">
           <ul class="pl-select-popup-inner-row">
             <li class="pl-select-popup-inner-item" v-for="(item, i) in options" :key="i">
-              <input :type="multiple ? 'checkbox' : 'radio'" class="inner-input" v-model="currentValue" :value="item[prop.value]" :disabled="item.disabled" @change="emit">
+              <input :type="multiple ? 'checkbox' : 'radio'" class="inner-input" v-model="currentValue" :value="getValue(item)" :disabled="item.disabled" @change="emit">
               <span><slot :item="item">{{item[prop.label]}}</slot></span>
               <icon name="icon-duigou" class="checked-icon"></icon>
             </li>
@@ -118,7 +118,7 @@
         return this.clearable && !this.calcDisabled && (!this.multiple && this.currentValue || this.currentValue.length)
       },
       calcOptions () {
-        return new Map(this.options.map(item => [item[this.prop.value], item[this.prop.label]]))
+        return new Map(this.options.map(item => [this.getValue(item), this.getLabel(item)]))
       },
       calcSize () {
         return this.size || this.form && this.form.size || 'normal'
@@ -175,6 +175,15 @@
         this.validate()
         this.$emit('input', this.currentValue)
         this.$emit('change', this.currentValue)
+        this.close()
+      },
+      // 获取标签名，如果没有指定 prop 则返回对象本身
+      getLabel (target) {
+        return this.prop.label ? target[this.prop.label] : String(target)
+      },
+      // 获取值，如果没有指定 prop 则返回对象本身
+      getValue (target) {
+        return this.prop.value ? target[this.prop.value] : target
       }
     },
     watch: {
@@ -385,6 +394,7 @@
       }
 
       &-content {
+        padding: 1em 0;
         position: relative;
         z-index: 1;
         .font-size(16);
