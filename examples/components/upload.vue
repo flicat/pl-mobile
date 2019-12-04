@@ -1,5 +1,8 @@
 <template>
   <div class="content">
+    <h3>基础用法</h3>
+    <pl-upload v-model="files" accept="image/*" class="file-upload"></pl-upload>
+    <h3>自定义按钮</h3>
     <pl-upload v-model="files" accept="image/*" class="file-upload">
       <span slot="tips">请选择图片，格式不限</span>
       <template v-slot="scope">
