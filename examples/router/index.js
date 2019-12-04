@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import platform from '../assets/js/platform'
 
 Vue.use(Router)
 
@@ -27,8 +28,7 @@ const components = [
   {name: 'upload', title: 'upload 文件上传'}
 ]
 
-const userAgent = window.navigator.userAgent;
-const isFromMobile = /android/gi.test(userAgent) || /iphone|ipod|ios/gi.test(userAgent)
+const isFromMobile = platform.isFromAndroid || platform.isFromIos
 
 const importDoc = file => () => import('../../docs/' + file + '.md')
 const importExample = file => () => import('../components/' + file + '.vue')

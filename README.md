@@ -48,7 +48,7 @@ Vue.use(PlMobile)
   --danger-light: #FA9191;
   --default-text: #1E3259;
   --info-text: #1D3456;
-  --primary-text: #9898B6;
+  --primary-text: #757575;
   --success-text: #3D7D11;
   --warning-text: #DE5E05;
   --error-text: #FF5555;

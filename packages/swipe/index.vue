@@ -171,6 +171,7 @@
 
         this.transDiff = this.translate
         this.transStart = this.vertical ? e.touches[0].clientY : e.touches[0].clientX
+        this.scrollList.style.transitionDuration = this.scrollList.style.webkitTransitionDuration = `0ms`
         this.stopAutoScroll()
       },
       // 触摸事件
@@ -183,7 +184,7 @@
 
         this.transEnd = this.vertical ? e.touches[0].clientY : e.touches[0].clientX
         this.translate = this.transDiff + this.transStart - this.transEnd
-        this.scrollTo()
+        this.scrollList.style.transform = this.scrollList.style.webkitTransform = `translate${this.vertical ? 'Y' : 'X'}(${-this.translate}px)`
       },
       // 触摸事件
       handlerTouchEnd (e) {
@@ -196,8 +197,8 @@
         let min = this.canLoop ? -1 : 0
         let max = this.canLoop ? this.children.length : this.children.length - 1
 
-        // 当前滚动到的项index
-        this.currentIndex = Math.round(this.translate / this.itemSize)
+        // 左划减1右划加1
+        this.currentIndex += this.transStart - this.transEnd > 0 ? 1 : -1
 
         if (this.currentIndex <= min) {
           this.currentIndex = min
