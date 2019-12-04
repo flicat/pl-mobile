@@ -97,6 +97,7 @@
     overflow: hidden;
     width: 100%;
     box-sizing: border-box;
+    padding: 0 1.2em;
 
     * {
       box-sizing: border-box;
