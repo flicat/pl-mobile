@@ -49,23 +49,23 @@
       },
       // 加载过程中的提示文案
       loadingText: {
-        type: String
-        // default: '加载中...'
+        type: String,
+         default: '加载中...'
       },
       // 下拉刷新的提示文案
       refreshText: {
-        type: String
-        // default: '松开刷新'
+        type: String,
+         default: '松开刷新'
       },
       // 加载完成后的提示文案
       finishedText: {
-        type: String
-        // default: '加载完成'
+        type: String,
+         default: '加载完成'
       },
       // 加载失败后的提示文案
       errorText: {
-        type: String
-        // default: '加载失败'
+        type: String,
+         default: '加载失败'
       },
       topButton: Boolean    // 返回顶部按钮
     },
