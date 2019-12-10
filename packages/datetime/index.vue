@@ -15,14 +15,14 @@
       </div>
       <div class="pl-datetime-inner">
         <div class="pl-datetime-inner-flex" v-if="isRange">
-          <span v-if="startValue" class="title" @click="open('start')">{{startValue}}</span>
+          <span v-if="startValue" class="title" @click="open('start')">{{getLabelFormat(startValue)}}</span>
           <span class="placeholder" v-else @click="open('start')">{{startPlaceholder}}</span>
           <span class="range-separator">{{rangeSeparator}}</span>
-          <span v-if="endValue" class="title" @click="open('end')">{{endValue}}</span>
+          <span v-if="endValue" class="title" @click="open('end')">{{getLabelFormat(endValue)}}</span>
           <span class="placeholder" v-else @click="open('end')">{{endPlaceholder}}</span>
         </div>
-        <div v-else @click="open">
-          <span v-if="currentValue" class="title">{{currentValue}}</span>
+        <div v-else @click="open()">
+          <span v-if="currentValue" class="title">{{getLabelFormat(currentValue)}}</span>
           <span class="placeholder" v-else>{{placeholder}}</span>
         </div>
       </div>
@@ -36,11 +36,11 @@
     <div class="pl-datetime-error" v-if="ruleMessage">{{ruleMessage}}</div>
 
     <div v-if="isRange">
-      <picker :options="datetimeOption" :defaultValue="defaultStartValue" :title="startPlaceholder" :prop="{label: 'label', value: 'value'}" @submit="submit" @cancel="cancel" ref="start-picker"></picker>
-      <picker :options="datetimeOption" :defaultValue="defaultEndValue" :title="endPlaceholder" :prop="{label: 'label', value: 'value'}" @submit="submit" @cancel="cancel" ref="end-picker"></picker>
+      <picker :options="startDatetimeOption" :pickerValue="pickerStartValue" :title="startPlaceholder" :prop="pickerProp" @submit="submitStartDate" @cancel="cancel" ref="start-picker"></picker>
+      <picker :options="endDatetimeOption" :pickerValue="pickerEndValue" :title="endPlaceholder" :prop="pickerProp" @submit="submitEndDate" @cancel="cancel" ref="end-picker"></picker>
     </div>
     <div v-else>
-      <picker :options="datetimeOption" :defaultValue="defaultValue" :title="placeholder" :prop="{label: 'label', value: 'value'}" @submit="submit" @cancel="cancel" ref="picker"></picker>
+      <picker :options="datetimeOption" :pickerValue="pickerValue" :title="placeholder" :prop="pickerProp" @submit="submitDate" @cancel="cancel" ref="picker"></picker>
     </div>
   </div>
 </template>
@@ -49,35 +49,21 @@
   // datetime
   import picker from '../picker/index.vue'
   import icon from '../icon/index.vue'
-  import {is, validate, getDateString, getDateFromString, getMonthDays} from '../../src/assets/utils'
-
-  // 获取日期的分割字符串
-  function getDateSplitArr (string) {
-    let result = getDateFromString(string)
-    if (result) {
-      return [result.getFullYear(), result.getMonth(), result.getDate()]
-    } else {
-      return []
-    }
-  }
-
-  // 获取时间的分割字符串
-  function getTimeSplitArr (string) {
-    let result = /\d{1,2}(:\d{1,2}){1,2}/.exec(String(string))
-    if (result) {
-      return result[0].split(':').map(item => Number(item))
-    } else {
-      return []
-    }
-  }
+  import {
+    is,
+    validate,
+    getDateString,
+    getDateFromString,
+    getMonthDays,
+    getRangeDate,
+    getDayDiff
+  } from '../../src/assets/utils'
 
   // 默认配置
   const defaultOptions = {
     onPick: () => false,   // 日期选择事件，只在日期范围选择有效
-    startDate: (new Date().getFullYear() - 5) + '-1-1',         // 开始时间
-    endDate: (new Date().getFullYear() + 5) + '-12-31',         // 结束时间
-    startTime: '00:00',     // 开始时间
-    endTime: '23:59',       // 结束时间
+    start: getDateFromString((new Date().getFullYear() - 5) + '-1-1 00:00:00'),
+    end: getDateFromString((new Date().getFullYear() + 5) + '-12-31 23:59:59'),
     timeStep: '00:01'       // 间隔时间
   }
 
@@ -130,18 +116,17 @@
     data () {
       return {
         currentValue: this.value === undefined ? '' : this.value,    // 默认值
-        defaultValue: [],                                            // 日期选择框默认值
+        startValue: Array.isArray(this.value) ? this.value[0] : null,// 开始默认值
+        endValue: Array.isArray(this.value) ? this.value[1] : null,  // 结束默认值
 
-        startValue: is(this.value, 'array') && this.value[0] || null,// 开始默认值
-        endValue: is(this.value, 'array') && this.value[1] || null,  // 结束默认值
-        defaultStartValue: [],                                       // 开始日期选择框默认值
-        defaultEndValue: [],                                         // 结束日期选择框默认值
+        pickerValue: [],                                            // 日期选择框默认值
+        pickerStartValue: [],                                       // 开始日期选择框默认值
+        pickerEndValue: [],                                         // 结束日期选择框默认值
 
-        fromType: null,                                              // 日期选择框类型
-        ruleMessage: '',
+        pickerOptions: {},
+        pickerProp: {label: 'label', value: 'value'},   // 日期选择框类型
 
-        pickerOptions: Object.assign({}, defaultOptions, this.options),
-        handlers: []
+        ruleMessage: ''
       }
     },
     computed: {
@@ -161,112 +146,40 @@
       calcDisabled () {
         return this.disabled !== undefined ? this.disabled : this.form && this.form.disabled !== undefined ? this.form.disabled : false
       },
-      // 时间日期菜单选项
+      // 开始日期选择框 options
+      startDatetimeOption () {
+        return this.getDatetimeOption('start')
+      },
+      // 结束日期选择框 options
+      endDatetimeOption () {
+        return this.getDatetimeOption('end')
+      },
+      // 日期选择框 options
       datetimeOption () {
-        return [
-          /^(month|date|datetime)$/i.test(this.type) && this.getYear.bind(this) || null,
-          /^(month|date|datetime)$/i.test(this.type) && this.getMonth.bind(this) || null,
-          /^(date|datetime)$/i.test(this.type) && this.getDate.bind(this) || null,
-          /^(time|datetime)$/i.test(this.type) && this.getHour.bind(this) || null,
-          /^(time|datetime)$/i.test(this.type) && this.getMinute.bind(this) || null
-        ].filter(Boolean)
+        return this.getDatetimeOption()
       },
-      // 最小年
-      minYear () {
-        if (this.isRange && this.fromType === 'end' && this.defaultStartValue && this.defaultStartValue.length) {
-          return this.defaultStartValue[0]
-        } else {
-          return getDateFromString(this.pickerOptions.startDate).getFullYear()
-        }
+      // 开始日期提交方法
+      submitStartDate () {
+        return this.submit.bind(this, 'start')
       },
-      // 最大年
-      maxYear () {
-        if (this.isRange && this.fromType === 'start' && this.defaultEndValue && this.defaultEndValue.length) {
-          return this.defaultEndValue[0]
-        } else {
-          return getDateFromString(this.pickerOptions.endDate).getFullYear()
-        }
+      // 结束日期提交方法
+      submitEndDate () {
+        return this.submit.bind(this, 'end')
       },
-      // 最小月
-      minMonth () {
-        if (this.isRange && this.fromType === 'end' && this.defaultStartValue && this.defaultStartValue.length) {
-          return this.defaultStartValue[1]
-        } else {
-          return getDateFromString(this.pickerOptions.startDate).getMonth()
-        }
-      },
-      // 最大月
-      maxMonth () {
-        if (this.isRange && this.fromType === 'start' && this.defaultEndValue && this.defaultEndValue.length) {
-          return this.defaultEndValue[1]
-        } else {
-          return getDateFromString(this.pickerOptions.endDate).getMonth()
-        }
-      },
-      // 最小日
-      minDate () {
-        if (this.isRange && this.fromType === 'end' && this.defaultStartValue && this.defaultStartValue.length) {
-          return this.defaultStartValue[2]
-        } else {
-          return getDateFromString(this.pickerOptions.startDate).getDate()
-        }
-      },
-      // 最大日
-      maxDate () {
-        if (this.isRange && this.fromType === 'start' && this.defaultEndValue && this.defaultEndValue.length) {
-          return this.defaultEndValue[2]
-        } else {
-          return getDateFromString(this.pickerOptions.endDate).getDate()
-        }
-      },
-      // 最小时
-      minHour () {
-        if (this.isRange && this.fromType === 'end' && this.defaultStartValue && this.defaultStartValue.length) {
-          return this.defaultStartValue[this.defaultStartValue.length - 2]
-        } else {
-          return Number(this.pickerOptions.startTime.split(':')[0])
-        }
-      },
-      // 最大时
-      maxHour () {
-        if (this.isRange && this.fromType === 'start' && this.defaultEndValue && this.defaultEndValue.length) {
-          return this.defaultEndValue[this.defaultEndValue.length - 2]
-        } else {
-          return Number(this.pickerOptions.endTime.split(':')[0])
-        }
-      },
-      // 最小分
-      minMinute () {
-        if (this.isRange && this.fromType === 'end' && this.defaultStartValue && this.defaultStartValue.length) {
-          return this.defaultStartValue[this.defaultStartValue.length - 1]
-        } else {
-          return Number(this.pickerOptions.startTime.split(':')[1])
-        }
-      },
-      // 最大分
-      maxMinute () {
-        if (this.isRange && this.fromType === 'start' && this.defaultEndValue && this.defaultEndValue.length) {
-          return this.defaultEndValue[this.defaultEndValue.length - 1]
-        } else {
-          return Number(this.pickerOptions.endTime.split(':')[1])
-        }
-      }
-    },
-    created () {
-      if (this.isRange && is(this.value, 'array') && this.value.length) {
-        this.defaultStartValue = [...getDateSplitArr(this.value[0]), ...getTimeSplitArr(this.value[0])]
-        this.defaultEndValue = [...getDateSplitArr(this.value[1]), ...getTimeSplitArr(this.value[1])]
-      } else {
-        this.defaultValue = [...getDateSplitArr(this.value), ...getTimeSplitArr(this.value)]
+      // 日期提交方法
+      submitDate () {
+        return this.submit.bind(this, null)
       }
     },
     mounted () {
       if (this.form) {
         this.form.updateItems(this);
       }
+      Object.keys(defaultOptions).forEach(name => {
+        this.pickerOptions[name] = this.options[name] || defaultOptions[name]
+      })
     },
     methods: {
-      // 手动验证方法
       validate () {
         return Promise.all(this.rules.map(rule => validate(rule, this.currentValue))).then(() => {
           this.ruleMessage = ''
@@ -282,11 +195,17 @@
           return false
         }
 
-        let picker
-        if (this.isRange) {
+        let picker, options = this.pickerOptions
+
+        if (type) {
+          if (type === 'start') {
+            this.pickerStartValue = this.getArrayByDate(this.startValue || options.start)
+          } else if (type === 'end') {
+            this.pickerEndValue = this.getArrayByDate(this.endValue || options.end)
+          }
           picker = this.$refs[type + '-picker']
-          this.fromType = type
         } else {
+          this.pickerValue = this.getArrayByDate(this.currentValue || options.start)
           picker = this.$refs.picker
         }
 
@@ -297,7 +216,38 @@
       cancel () {
         this.$emit('cancel')
       },
-      submit (result) {
+
+      getDateTime (dateString) {
+        let date = getDateFromString(dateString)
+        if (!date && dateString && this.type === 'time') {
+          let matchTime = /\d{1,2}(:\d{1,2}){1,2}/.exec(dateString)
+          if (matchTime) {
+            date = new Date()
+            date.setHours.apply(date, matchTime[0].split(':'))
+          }
+        }
+        return date
+      },
+      getLabelFormat (date) {
+        let dateObj = this.getDateTime(date)
+        if (this.format) {
+          return getDateString(dateObj, this.format)
+        } else if (this.valueFormat) {
+          return getDateString(dateObj, this.valueFormat)
+        } else {
+          return dateObj
+        }
+      },
+      getValueFormat (date) {
+        if (this.valueFormat) {
+          return getDateString(date, this.valueFormat)
+        } else if (this.format) {
+          return getDateString(date, this.format)
+        } else {
+          return date
+        }
+      },
+      getDateByArray (result) {
         let date = new Date()
         if (/^(month|date|datetime)$/i.test(this.type)) {
           date.setFullYear(result[0], result[1], result[2] || 1)
@@ -305,156 +255,139 @@
         if (/^(time|datetime)$/i.test(this.type)) {
           date.setHours(result[result.length - 2], result[result.length - 1], 0, 0)
         }
-
-        let value
-        if (this.valueFormat) {
-          value = getDateString(date, this.valueFormat)
-        } else if (this.format) {
-          value = getDateString(date, this.format)
-        } else {
-          value = date
+        return date
+      },
+      getArrayByDate (dateStr) {
+        let date = this.getDateTime(dateStr)
+        if (!date) {
+          return []
         }
 
-        if (this.isRange) {
-          if (this.fromType === 'start') {
-            this.defaultStartValue = result
+        return [
+          /^(month|date|datetime)$/i.test(this.type) ? date.getFullYear() : null,
+          /^(month|date|datetime)$/i.test(this.type) ? date.getMonth() : null,
+          /^(date|datetime)$/i.test(this.type) ? date.getDate() : null,
+          /^(time|datetime)$/i.test(this.type) ? date.getHours() : null,
+          /^(time|datetime)$/i.test(this.type) ? date.getMinutes() : null
+        ].filter(item => item !== null)
+      },
+      // 时间日期菜单选项
+      getDatetimeOption (action) {
+        return [
+          /^(month|date|datetime)$/i.test(this.type) && this.optionMethod(action, this.optionList.bind(this, 'year', '年', null, null)).bind(this) || null,
+          /^(month|date|datetime)$/i.test(this.type) && this.optionMethod(action, this.optionList.bind(this, 'month', '月', 0, 11)).bind(this) || null,
+          /^(date|datetime)$/i.test(this.type) && this.optionMethod(action, this.optionList.bind(this, 'date', '日', 1, null)).bind(this) || null,
+          /^(time|datetime)$/i.test(this.type) && this.optionMethod(action, this.optionList.bind(this, 'hour', '时', 0, 23)).bind(this) || null,
+          /^(time|datetime)$/i.test(this.type) && this.optionMethod(action, this.optionList.bind(this, 'minute', '分', 0, 59)).bind(this) || null
+        ].filter(item => item !== null)
+      },
+      optionMethod (action, method) {
+        if (action) {
+          if (action === 'start') {
+            return function (...args) {
+              return method(this.pickerOptions.start, this.endValue || this.pickerOptions.end, ...args)
+            }
+          } else if (action === 'end') {
+            return function (...args) {
+              return method(this.startValue || this.pickerOptions.start, this.pickerOptions.end, ...args)
+            }
+          }
+        } else {
+          return function (...args) {
+            return method(this.pickerOptions.start, this.pickerOptions.end, ...args)
+          }
+        }
+      },
+      optionList (name, label, defaultMinDate, defaultMaxDate, minDate, maxDate, ...args) {
+        let parentVal = args.map(item => item ? item.value : '-').join('-')
+        let minDateArr = this.getArrayByDate(minDate)
+        let maxDateArr = this.getArrayByDate(maxDate)
+        let step = 1
+
+        if (/^(hour|minute)$/.test(name) && this.pickerOptions.timeStep) {
+          let [hourStep, minuteStep] = this.pickerOptions.timeStep.split(':').map(item => Number(item))
+          if (name === 'hour') {
+            step = hourStep
+          }
+          if (name === 'minute') {
+            step = minuteStep
+          }
+          if (step < 1) {
+            step = 1
+          }
+        }
+
+        if (name === 'date' && args[0] && args[1]) {
+          defaultMaxDate = getMonthDays(args[0].value, args[1].value + 1) || 30
+        }
+
+        let min = !args.length || new RegExp(`^${parentVal}`).test(minDateArr.join('-')) ? minDateArr[args.length] : defaultMinDate
+        let max = !args.length || new RegExp(`^${parentVal}`).test(maxDateArr.join('-')) ? maxDateArr[args.length] : defaultMaxDate
+        if (name === 'hour' && min > max) {
+          max += 24
+        }
+
+        let result = []
+        for (let i = min; i <= max; i += step) {
+          let val = i
+          let text
+          if (name === 'hour') {
+            val %= 24
+          }
+          if (name === 'month') {
+            text = val + 1 + label
+          } else {
+            text = val + label
+          }
+          result.push({label: text, value: val})
+        }
+        return result
+      },
+
+      submit (action, result) {
+        let date = this.getDateByArray(result)
+        let value = this.getValueFormat(date)
+
+        if (action) {
+          if (action === 'start') {
+            // 赋值表单
             this.startValue = value
           } else {
-            this.defaultEndValue = result
+            // 赋值表单
             this.endValue = value
           }
-          if (is(this.pickerOptions.onPick, 'function')) {
-            this.pickerOptions.onPick({start: this.startValue, end: this.endValue, type: this.fromType})
-          }
+          // 触发 Pick 事件
+          this.pickerOptions.onPick({start: this.startValue, end: this.endValue, type: action})
+
+          // 如果开始值和结束值都集齐了则修改
           if (this.startValue && this.endValue) {
             this.setCurrentValue([this.startValue, this.endValue])
           }
         } else {
-          this.defaultValue = result
+          // 赋值表单
           this.setCurrentValue(value)
         }
       },
-      clear () {
-        this.$set(this, 'defaultValue', [])
-        this.$set(this, 'defaultStartValue', [])
-        this.$set(this, 'defaultEndValue', [])
-        this.$emit('input', '')
-        this.$emit('change', '')
-        this.$emit('clear')
-        this.setCurrentValue(null)
-      },
+
       setCurrentValue (value) {
         if (value === this.currentValue) {
           return false
         }
         this.currentValue = value
-        if (this.isRange) {
-          this.startValue = is(value, 'array') && value[0] || null
-          this.endValue = is(value, 'array') && value[1] || null
-        }
 
+        if (this.isRange) {
+          this.startValue = Array.isArray(value) ? value[0] : null
+          this.endValue = Array.isArray(value) ? value[1] : null
+        }
         this.validate()
         this.$emit('input', value)
         this.$emit('change', value)
       },
-      // 获取年列表
-      getYear () {
-        let year = []
-        for (let i = this.minYear; i <= this.maxYear; i++) {
-          year.push({label: i + '年', value: i})
-        }
-        return year
-      },
-      // 获取月列表
-      getMonth (year) {
-        let month = []
-        let min = year.value === this.minYear ? this.minMonth : 0
-        let max = year.value === this.maxYear ? this.maxMonth : 11
-        for (let i = min; i <= max; i++) {
-          month.push({label: i + 1 + '月', value: i})
-        }
-        return month
-      },
-      // 获取日列表
-      getDate (year, month) {
-        let date = []
-        let min = year.value === this.minYear && month.value === this.minMonth ? this.minDate : 1
-        let max = year.value === this.maxYear && month.value === this.maxMonth ? this.maxDate : getMonthDays(year.value, month.value + 1)
-        for (let i = min; i <= max; i++) {
-          date.push({label: i + '日', value: i})
-        }
-        return date
-      },
-      // 获取小时列表
-      getHour (year, month, date) {
-        let step = this.pickerOptions.timeStep.split(':')[0] | 0
-        if (step < 1) {
-          step = 1
-        }
-
-        let min = this.minHour;     // 默认开始时间/已选开始时间的小时
-        let max = this.maxHour;     // 默认结束时间/已选结束时间的小时
-
-        if (this.isRange) {
-          if (this.type === 'datetime') {
-            min = year.value === this.minYear &&
-              month.value === this.minMonth &&
-              date.value === this.minDate &&
-              this.minHour || 0
-            max = year.value === this.maxYear &&
-              month.value === this.maxMonth &&
-              date.value === this.maxDate &&
-              this.maxHour || 23
-          }
-        }
-        if (max < min) {
-          max += 24
-        }
-
-        let hours = []
-        for (let i = min; i <= max; i += step) {
-          hours.push({label: (i % 24) + '时', value: i % 24})
-        }
-        return hours
-      },
-      // 获取分钟列表
-      getMinute (yearOrHour, month, date, hour) {
-        let step = this.pickerOptions.timeStep.split(':')[1] | 0
-        if (step < 1) {
-          step = 1
-        }
-
-        let min = this.minMinute;     // 默认开始时间/已选开始时间的小时
-        let max = this.maxMinute;     // 默认结束时间/已选结束时间的小时
-
-        if (this.isRange) {
-          if (this.type === 'datetime') {
-            min = yearOrHour.value === this.minYear &&
-              month.value === this.minMonth &&
-              date.value === this.minDate &&
-              hour.value === this.minHour &&
-              this.minMinute || 0
-            max = yearOrHour.value === this.maxYear &&
-              month.value === this.maxMonth &&
-              date.value === this.maxDate &&
-              hour.value === this.maxHour &&
-              this.maxMinute || 59
-          } else if (this.type === 'time') {
-            min = yearOrHour.value === this.minHour &&
-              this.minMinute || 0
-            max = yearOrHour.value === this.maxHour &&
-              this.maxMinute || 59
-          }
-        }
-        if (max < min) {
-          max = 60
-        }
-
-        let minutes = []
-        for (let i = min; i <= max; i += step) {
-          minutes.push({label: (i % 60) + '分', value: i % 60})
-        }
-        return minutes
+      clear () {
+        this.$emit('input', '')
+        this.$emit('change', '')
+        this.$emit('clear')
+        this.setCurrentValue(null)
       }
     },
     watch: {
@@ -462,7 +395,7 @@
         handler (val) {
           this.setCurrentValue(val)
         },
-        immediate: true
+        deep: true
       }
     },
     destroyed () {
@@ -513,6 +446,8 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      text-align: right;
+
       .placeholder,
       .title {
         overflow: hidden;

@@ -92,10 +92,8 @@
       return {
         value: ['2018-10-01 10:00', '2019-10-01 10:00'],
         options: {
-          startDate: '2019-5-1',
-          endDate: '2019-12-31',
-          startTime: '8:30',    
-          endTime: '8:20',      
+          start: '2019-5-1 00:00',
+          end: '2019-12-31 23:59',
           timeStep: '00:10'     
         },
       }           
@@ -144,27 +142,24 @@
   export default {
     data () {
       return {
-        value: ['2018-10-01 10:00', '2019-10-01 10:00'],
+        value: ['2018-10-01', '2019-10-07'],
         options: {
           onPick ({start, end, type}) {
-            let startDate = getDateFromString(start)
-            let endDate = getDateFromString(end)
-            if (startDate && type === 'start') {
-              this.startDate = startDate
-              this.endDate = getRangeDate(7, 'Y-M-D', startDate)
-            } else if (endDate && type === 'end') {
-              this.startDate = getRangeDate(-7, 'Y-M-D', endDate)
-              this.endDate = endDate
+            let start = getDateFromString(start)
+            let end = getDateFromString(end)
+            if (start && type === 'start') {
+              this.start = start
+              this.end = getRangeDate(7, 'Y-M-D', start)
+            } else if (end && type === 'end') {
+              this.start = getRangeDate(-7, 'Y-M-D', end)
+              this.end = end
             } else {
-              this.startDate = '2019-5-1'
-              this.endDate = '2020-10-20'
+              this.start = '2019-5-1'
+              this.end = '2020-10-20'
             }
           },
-          startDate: '2019-5-1',
-          endDate: '2019-12-31',
-          startTime: '8:30',    
-          endTime: '8:20',      
-          timeStep: '00:10'     
+          start: '2019-5-1',
+          end: '2019-12-31'   
         },
       }           
     }
@@ -215,11 +210,9 @@
 | 参数      | 说明    | 类型      | 可选值       | 默认值   |
 |---------- |-------- |---------- |-------------  |-------- |
 | onPick    | 日期选择事件，只在日期范围选择有效 | Function | — | — |
-| startDate | 开始日期 | String / Date | — | 5年前 |
-| endDate   | 结束日期 | String / Date | — | 5年后 |
-| startTime | 开始时间 | String | — | 00:00 |
-| endTime   | 结束时间 | String | — | 23:59 |
-| timeStep  | 时间间隔 | String | — | 00:01 |
+| start | 开始日期时间 | String / Date | — | 5年前 |
+| end   | 结束日期时间 | String / Date | — | 5年后 |
+| timeStep  | 时间间隔 | String | — | — |
 
 ### 日期格式
 | 标识符      | 说明    | 

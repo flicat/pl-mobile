@@ -7,11 +7,12 @@
       labelWidth="4em"
       @change="onChange"
       placeholder="请选择日期"
-      :options="options"
+      :options="option1"
       v-model="value"
       type="datetime"
       clearable
-      format="Y-M-D H:I:S">
+      format="Y-M-D H:I"
+      valueFormat="Y-M-D H:I:S">
       <span slot="label">日期：</span>
     </pl-datetime>
     <pl-datetime
@@ -23,7 +24,7 @@
       startPlaceholder="请选择开始日期"
       endPlaceholder="请选择结束日期"
       range-separator="至"
-      :options="options"
+      :options="option2"
       v-model="value2"
       type="datetime"
       isRange
@@ -40,7 +41,7 @@
       startPlaceholder="请选择开始时间"
       endPlaceholder="请选择结束时间"
       range-separator="至"
-      :options="options"
+      :options="option3"
       v-model="value3"
       type="time"
       isRange
@@ -63,25 +64,32 @@
         value: null,
         value2: null,
         value3: null,
-        options: {
+        option1: {
+          start: '2011-12-31 10:40',
+          end: '2022-1-1 08:30',
+          timeStep: '00:10'       // 间隔时间
+        },
+        option2: {
           onPick ({start, end, type}) {
             let startDate = getDateFromString(start)
             let endDate = getDateFromString(end)
             if (startDate && type === 'start') {
-              this.startDate = startDate
-              this.endDate = getRangeDate(7, 'Y-M-D', startDate)
+              this.start = startDate
+              this.end = getRangeDate(7, 'Y-M-D', startDate)
             } else if (endDate && type === 'end') {
-              this.startDate = getRangeDate(-7, 'Y-M-D', endDate)
-              this.endDate = endDate
+              this.start = getRangeDate(-7, 'Y-M-D', endDate)
+              this.end = endDate
             } else {
-              this.startDate = '2019-5-1'
-              this.endDate = '2020-10-20'
+              this.start = '2012-12-31 23:59'
+              this.end = '2020-1-1 00:00'
             }
           },
-          startDate: '2019-5-1',
-          endDate: '2019-12-31',
-          startTime: '8:30',     // 开始时间
-          endTime: '8:20',       // 结束时间
+          start: '2012-12-31 23:59',
+          end: '2020-1-1 00:00'
+        },
+        option3: {
+          start: '00:00',
+          end: '23:59',
           timeStep: '00:10'       // 间隔时间
         },
         rules: [{required: true, message: '请选择', trigger: 'change'}]
@@ -92,9 +100,11 @@
         console.log('onChange::', val)
       },
       validate () {
-        this.$refs['date-picker1'].validate()
-        this.$refs['date-picker2'].validate()
-        this.$refs['date-picker3'].validate()
+        [1, 2, 3]
+        .map(i => 'date-picker' + i)
+        .map(name => this.$refs[name])
+        .filter(Boolean)
+        .map(picker => picker.validate())
       }
     }
   }
