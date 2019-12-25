@@ -36,7 +36,7 @@
 <style lang="less" scoped>
   .pl-loading {
     text-align: center;
-    color: #999;
+    color: var(--loading-text);
 
     * {
       box-sizing: border-box;

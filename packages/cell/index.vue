@@ -55,7 +55,7 @@
   .pl-cell {
     display: grid;
     width: 100%;
-    background-color: #fff;
+    background-color: var(--input-bg);
 
     &-row > * {
       overflow-x: hidden;

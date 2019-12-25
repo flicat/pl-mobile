@@ -21,6 +21,48 @@
 </script>
 ```
 
+### 按钮样式
+
+```html
+<template>
+  <pl-radio v-model="value" :options="data" button />
+</template>
+<script>
+  export default {
+    data () {
+      return {
+        value: [],
+        data: [
+          {label: '选项1', value: 1, disabled: false},
+          {label: '选项2', value: 2, disabled: true}
+        ]
+      }           
+    }
+  }
+</script>
+```
+
+### 竖向排列
+
+```html
+<template>
+  <pl-radio v-model="value" :options="data" vertical />
+</template>
+<script>
+  export default {
+    data () {
+      return {
+        value: [],
+        data: [
+          {label: '选项1', value: 1, disabled: false},
+          {label: '选项2', value: 2, disabled: true}
+        ]
+      }           
+    }
+  }
+</script>
+```
+
 
 ### 显示label的用法
 

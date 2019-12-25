@@ -253,7 +253,7 @@
     .pl-tab-title {
       grid-area: title;
       overflow: hidden;
-      background-color: #fff;
+      background-color: var(--input-bg);
     }
     .pl-tab-title-inner {
       display: grid;
@@ -314,9 +314,9 @@
 
   .is-border-card {
     .tab-title {
-      border: 1px solid #e4e7ed;
+      border: 1px solid var(--tab-card-border);
       &.is-disabled {
-        background-color: #f6f6f6;
+        background-color: var(--tab-card-disabled-bg);
       }
     }
     &.is-top {
@@ -370,7 +370,7 @@
 
         &.is-active {
           background-color: var(--primary);
-          color: #fff;
+          color: var(--tab-button-active-text);
         }
         &.is-disabled {
           background-color: var(--disabled);
@@ -419,7 +419,7 @@
 
     &.is-card {
       .pl-tab-title {
-        border-bottom: 1px solid #EFF2F5;
+        border-bottom: 1px solid var(--tab-border);
         .tab-line {
           bottom: -1px;
         }
@@ -433,7 +433,7 @@
 
     &.is-card {
       .pl-tab-title {
-        border-top: 1px solid #EFF2F5;
+        border-top: 1px solid var(--tab-border);
         .tab-line {
           top: -1px;
         }
@@ -447,7 +447,7 @@
 
     &.is-card {
       .pl-tab-title {
-        border-right: 1px solid #EFF2F5;
+        border-right: 1px solid var(--tab-border);
         .tab-line {
           right: -1px;
         }
@@ -461,7 +461,7 @@
 
     &.is-card {
       .pl-tab-title {
-        border-left: 1px solid #EFF2F5;
+        border-left: 1px solid var(--tab-border);
         .tab-line {
           left: -1px;
         }

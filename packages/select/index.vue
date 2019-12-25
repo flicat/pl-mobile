@@ -53,7 +53,7 @@
 <script>
   import icon from '../icon/index.vue'
   import {is, validate} from '../../src/assets/utils'
-
+  // TODO 弹窗优化
   export default {
     name: 'plSelect',
     componentName: 'plSelect',
@@ -213,7 +213,7 @@
   @import "../../src/assets/less/mixin.less";
 
   .pl-select {
-    background-color: #fff;
+    background-color: var(--input-bg);
     padding: 0 1.2em;
     line-height: normal;
     position: relative;
@@ -262,7 +262,7 @@
           padding: 0 0.3em;
           height: 100%;
           background-color: var(--tag-bg);
-          color: #fff;
+          color: var(--select-color);
           border-radius: 5px;
         }
       }
@@ -320,7 +320,7 @@
     }
 
     &.is-disabled {
-      background-color: #ebebe4;
+      background-color: var(--select-disabled-bg);
     }
 
     @keyframes up {
@@ -398,8 +398,8 @@
         position: relative;
         z-index: 1;
         .font-size(16);
-        color: #333;
-        background-color: #fff;
+        color: var(--select-popup-color);
+        background-color: var(--select-popup-bg);
       }
       &-layer {
         position: absolute;
@@ -434,7 +434,7 @@
           padding: 0 1.2em;
           .height(194 / 5);
           .line-height(194 / 5);
-          border-bottom: 1px solid #ebedf0;
+          border-bottom: 1px solid var(--select-popup-border);
 
           &:last-child {
             border-bottom: 0 none;

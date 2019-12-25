@@ -9,6 +9,13 @@
     <h3>表单验证</h3>
     <pl-checkbox v-model="value" :options="data" :rules="rules" required ref="checkbox" />
 
+    <h3>竖排样式</h3>
+    <pl-checkbox v-model="value" vertical :options="data" />
+
+    <h3>按钮样式</h3>
+    <pl-checkbox v-model="value" button :options="data" />
+    <pl-checkbox v-model="value" button vertical :options="data" />
+
     <h3>开关按钮</h3>
     <pl-checkbox v-model="boolValue" :trueValue="true" :falseValue="false">开关</pl-checkbox>
 

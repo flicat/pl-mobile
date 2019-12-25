@@ -205,7 +205,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #ccc;
+      color: var(--list-refresh-tip);
       font-size: 14px;
       position: absolute;
       left: 0;

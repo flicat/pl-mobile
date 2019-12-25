@@ -413,7 +413,7 @@
   @import "../../src/assets/less/mixin.less";
 
   .pl-datetime {
-    background-color: #fff;
+    background-color: var(--input-bg);
     padding: 0 1.2em;
     line-height: normal;
     overflow: hidden;
@@ -453,7 +453,7 @@
         overflow: hidden;
       }
       .placeholder {
-        color: #757575;
+        color: var(--primary-text);
       }
 
       &-flex {
@@ -513,7 +513,7 @@
       line-height: 2em;
     }
     &.is-disabled {
-      background-color: #ebebe4;
+      background-color: var(--datetime-disabled-bg);
     }
   }
 </style>

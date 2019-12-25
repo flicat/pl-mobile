@@ -98,14 +98,14 @@
           width: 0.6em;
           flex: 1;
           margin-top: 0.2em;
-          border-right: 1px solid #F2F3F5;
+          border-right: 1px solid var(--steps-line);
         }
         .icon-default {
           width: 1em;
           height: 1em;
           border: 0.3em solid transparent;
           border-radius: 50%;
-          background-color: #DCDEE0;
+          background-color: var(--steps-icon);
           background-clip: content-box;
         }
       }
@@ -129,13 +129,13 @@
           height: 0.6em;
           flex: 1;
           margin-left: 0.2em;
-          border-bottom: 1px solid #F2F3F5;
+          border-bottom: 1px solid var(--steps-line);
         }
         .icon-default {
           width: 0.5em;
           height: 0.5em;
-          border-top: 1px solid #DCDEE0;
-          border-right: 1px solid #DCDEE0;
+          border-top: 1px solid var(--steps-icon);
+          border-right: 1px solid var(--steps-icon);
           transform: rotate(45deg);
           transform-origin: -50% 50%;
         }

@@ -53,7 +53,7 @@
       z-index: 1;
       flex: 1;
       height: 0.4em;
-      background: #EBEDFB;
+      background: var(--progress-inner);
       border-radius: 0.4em;
 
       .progress-track {

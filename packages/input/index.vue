@@ -220,7 +220,7 @@
 <style lang="less" scoped>
 
   .pl-input {
-    background-color: #fff;
+    background-color: var(--input-bg);
     padding: 0 1.2em;
     line-height: normal;
 

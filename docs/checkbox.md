@@ -74,6 +74,42 @@
 ```
 
 
+### 竖排样式
+
+```html
+<template>
+  <pl-checkbox v-model="value" :trueValue="true" vertical :falseValue="false">开关</pl-checkbox>
+</template>
+<script>
+  export default {
+    data () {
+      return {
+        value: false,
+      }
+    }
+  }
+</script>
+```
+
+
+### 按钮样式
+
+```html
+<template>
+  <pl-checkbox v-model="value" :trueValue="true" button :falseValue="false">开关</pl-checkbox>
+</template>
+<script>
+  export default {
+    data () {
+      return {
+        value: false,
+      }
+    }
+  }
+</script>
+```
+
+
 ### 开关按钮
 
 ```html

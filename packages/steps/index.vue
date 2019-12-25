@@ -110,7 +110,7 @@
       width: 100%;
       text-align: center;
       .font-size(10);
-      color: #9898B6;
+      color: var(--steps-toggle-text);
       padding: 1em 0;
 
       /deep/ .pl-icon {

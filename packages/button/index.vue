@@ -48,7 +48,7 @@
     border: 0 none;
     outline: 0 none;
     text-align: center;
-    color: #fff;
+    color: var(--button-text-color);
 
     &:active {
       opacity: 0.8;

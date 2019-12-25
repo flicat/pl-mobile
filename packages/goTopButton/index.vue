@@ -75,12 +75,12 @@
     .line-height(38);
     .right(22);
     .bottom(22);
-    background: #fff;
+    background: var(--input-bg);
     box-shadow: 0 2px 7px 0 rgba(0,0,0,0.15);
     border-radius: 50%;
     text-align: center;
     .font-size(22);
-    color: #C1CEFF;
+    color: var(--to-top-text);
 
     * {
       box-sizing: border-box;

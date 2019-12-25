@@ -143,7 +143,7 @@
   @import "../../src/assets/less/mixin.less";
 
   .pl-radio {
-    background-color: #fff;
+    background-color: var(--input-bg);
     padding: 0 1.2em;
     line-height: normal;
 
@@ -191,7 +191,7 @@
       position: relative;
       display: inline-table;
       margin-right: 1em;
-      color: #333;
+      color: var(--radio-text);
 
       &:last-child {
         margin-right: 0;
@@ -218,14 +218,14 @@
           &:not(:last-child) {
             margin-bottom: 0.5em;
             padding-bottom: 0.5em;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid var(--radio-vertical-border);
           }
         }
       }
       &.is-button {
         margin: 0;
         padding: 0.3em 0.5em;
-        border: 1px solid #dcdfe6;
+        border: 1px solid var(--radio-button-border);
 
         .pl-radio-icon {
           display: none;
@@ -254,11 +254,11 @@
         }
         &.is-active {
           background-color: var(--primary);
-          color: #fff;
+          color: var(--radio-button-text);
         }
         &.is-disabled {
-          background-color: #ebebe4;
-          color: #999;
+          background-color: var(--radio-button-disabled-bg);
+          color: var(--radio-button-disabled-text);
         }
       }
       &.is-active {
@@ -266,7 +266,7 @@
         border-color: var(--primary);
       }
       &.is-disabled {
-        color: #c8c9cc;
+        color: var(--radio-disabled-text);
       }
     }
 

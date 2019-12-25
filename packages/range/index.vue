@@ -239,7 +239,7 @@
       z-index: 1;
       width: 100%;
       height: 3px;
-      background: #EBEDFB;
+      background: var(--range-bar);
       border-radius: 2px;
 
       .progress,
@@ -252,13 +252,13 @@
         top: 0;
         height: 3px;
         border-radius: 2px;
-        background: #5074FF;
+        background: var(--range-progress);
       }
       .thumb {
         left: -0.8em;
         top: -0.8em;
         z-index: 2;
-        background: #FFF;
+        background: var(--range-thumb);
         width: 1.6em;
         height: 1.6em;
         line-height: 1.6em;
@@ -271,7 +271,7 @@
       display: table;
       width: 100%;
       font-size: smaller;
-      color: #999;
+      color: var(--range-text);
       line-height: 2em;
 
       .pl-range-prepend,
@@ -294,7 +294,7 @@
     &.is-disabled {
       .slider-runnable-track {
         .progress {
-          background-color: #9D9FA8;
+          background-color: var(--range-disabled-bg);
         }
       }
     }

@@ -341,8 +341,8 @@
       position: relative;
       z-index: 1;
       .font-size(16);
-      color: #333;
-      background-color: #fff;
+      color: var(--picker-text);
+      background-color: var(--picker-bg);
     }
     &-layer {
       position: absolute;
@@ -359,14 +359,14 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      border-top: 1px solid #ebedf0;
-      border-bottom: 1px solid #ebedf0;
+      border-top: 1px solid var(--picker-border);
+      border-bottom: 1px solid var(--picker-border);
     }
     &-btn {
       &--cancel,
       &--submit {
         .font-size(14);
-        color: #3388FF;
+        color: var(--picker-btn-text);
         .margin(0, 20);
       }
     }
@@ -397,12 +397,12 @@
         &::before {
           background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.4) 100%);
           top: 0;
-          border-bottom: 1px solid #ebedf0;
+          border-bottom: 1px solid var(--picker-border);
         }
         &::after {
           background: linear-gradient(0deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.4) 100%);
           bottom: 0;
-          border-top: 1px solid #ebedf0;
+          border-top: 1px solid var(--picker-border);
         }
       }
       &-row {

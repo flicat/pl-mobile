@@ -287,7 +287,7 @@
         right: 0;
         top: 0;
         transform: translate(50%, -50%);
-        color: #ccc;
+        color: var(--upload-del-text);
       }
     }
     .pl-upload-button {
@@ -304,8 +304,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 1px solid #EBEDFB;
-        color: #EBEDFB;
+        border: 1px solid var(--upload-add-button);
+        color: var(--upload-add-button);
         width: 100%;
         height: 100%;
 
