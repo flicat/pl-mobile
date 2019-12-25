@@ -35,10 +35,15 @@
 
     <div class="pl-select-popup" :class="[isOpen ? 'pl-select-popup--open' : 'pl-select-popup--close', visible ? '' : 'pl-select-popup--hide']">
       <div class="pl-select-popup-content" v-if="isOpen">
+        <div class="pl-select-popup-top">
+          <div class="pl-select-popup-btn--cancel" @click="close">取消</div>
+          <div class="pl-select-popup-title">{{placeholder}}</div>
+          <div class="pl-select-popup-btn--submit" @click="emit">确认</div>
+        </div>
         <div class="pl-select-popup-inner">
           <ul class="pl-select-popup-inner-row">
             <li class="pl-select-popup-inner-item" v-for="(item, i) in options" :key="i">
-              <input :type="multiple ? 'checkbox' : 'radio'" class="inner-input" v-model="currentValue" :value="getValue(item)" :disabled="item.disabled" @change="emit">
+              <input :type="multiple ? 'checkbox' : 'radio'" class="inner-input" v-model="currentValue" :value="getValue(item)" :disabled="item.disabled">
               <span><slot :item="item">{{item[prop.label]}}</slot></span>
               <icon name="icon-duigou" class="checked-icon"></icon>
             </li>
@@ -394,7 +399,6 @@
       }
 
       &-content {
-        padding: 1em 0;
         position: relative;
         z-index: 1;
         .font-size(16);
@@ -409,6 +413,23 @@
         height: 100%;
         z-index: 0;
         background-color: rgba(0, 0, 0, 0.5);
+      }
+      &-top {
+        .height(44);
+        .line-height(44);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-top: 1px solid var(--picker-border);
+        border-bottom: 1px solid var(--picker-border);
+      }
+      &-btn {
+        &--cancel,
+        &--submit {
+          .font-size(14);
+          color: var(--picker-btn-text);
+          .margin(0, 20);
+        }
       }
       &-inner {
         .height(194);
@@ -455,6 +476,7 @@
             height: 100%;
             z-index: 1;
             opacity: 0;
+            margin: 0;
 
             &:checked ~ .checked-icon {
               display: block;
