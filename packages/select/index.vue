@@ -38,12 +38,12 @@
         <div class="pl-select-popup-top">
           <div class="pl-select-popup-btn--cancel" @click="close">取消</div>
           <div class="pl-select-popup-title">{{placeholder}}</div>
-          <div class="pl-select-popup-btn--submit" @click="emit">确认</div>
+          <div class="pl-select-popup-btn--submit" @click="submit">确认</div>
         </div>
         <div class="pl-select-popup-inner">
           <ul class="pl-select-popup-inner-row">
             <li class="pl-select-popup-inner-item" v-for="(item, i) in options" :key="i">
-              <input :type="multiple ? 'checkbox' : 'radio'" class="inner-input" v-model="currentValue" :value="getValue(item)" :disabled="item.disabled">
+              <input :type="multiple ? 'checkbox' : 'radio'" class="inner-input" v-model="popupValue" :value="getValue(item)" :disabled="item.disabled">
               <span><slot :item="item">{{item[prop.label]}}</slot></span>
               <icon name="icon-duigou" class="checked-icon"></icon>
             </li>
@@ -111,6 +111,7 @@
     data () {
       return {
         currentValue: this.value === undefined ? '' : this.value,
+        popupValue: null,
         isOpen: false,
         visible: false,
 
@@ -155,6 +156,11 @@
         if (this.calcDisabled || this.readonly || !this.options.length) {
           return false
         }
+        if (Array.isArray(this.currentValue)) {
+          this.popupValue = [...this.currentValue]
+        } else {
+          this.popupValue = this.currentValue
+        }
         this.isOpen = true
         this.visible = true
       },
@@ -175,6 +181,10 @@
           return false
         }
         this.currentValue = value
+      },
+      submit () {
+        this.setCurrentValue(this.popupValue)
+        this.emit()
       },
       emit () {
         this.validate()
