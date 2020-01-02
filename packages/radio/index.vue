@@ -7,7 +7,7 @@
       'pl-radio--error': ruleMessage
     }
     ]">
-    <div class="pl-radio-cell">
+    <div class="pl-radio-cell" :class="{'pl-radio-cell--label': label}">
       <div class="pl-radio-label" :class="{'pl-radio-label--require': required}" v-if="label" :style="{width: calcLabelWidth}">
         <slot name="label">{{label}}</slot>
       </div>
@@ -155,6 +155,11 @@
       display: flex;
       flex-wrap: nowrap;
       align-items: center;
+      &--label {
+        .pl-radio-inner {
+          text-align: right;
+        }
+      }
     }
 
     &--large {

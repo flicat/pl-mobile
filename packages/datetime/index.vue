@@ -6,7 +6,7 @@
       'pl-datetime--error': ruleMessage
     }
     ]">
-    <div class="pl-datetime-cell">
+    <div class="pl-datetime-cell" :class="{'pl-datetime-cell--label': label}">
       <div class="pl-datetime-label" :class="{'pl-datetime-label--require': required}" v-if="label" :style="{width: calcLabelWidth}">
         <slot name="label">{{label}}</slot>
       </div>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-  // datetime
+  // TODO 选择样式修改
   import picker from '../picker/index.vue'
   import icon from '../icon/index.vue'
   import {
@@ -425,6 +425,11 @@
       display: flex;
       flex-wrap: nowrap;
       align-items: center;
+      &--label {
+        .pl-datetime-inner {
+          text-align: right;
+        }
+      }
     }
 
     &--large {
@@ -446,7 +451,6 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      text-align: right;
 
       .placeholder,
       .title {

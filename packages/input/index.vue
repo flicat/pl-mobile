@@ -9,7 +9,7 @@
       'pl-input--error': ruleMessage
     }
     ]">
-    <div class="pl-input-cell">
+    <div class="pl-input-cell" :class="{'pl-input-cell--label': label}">
       <div :class="[
         type === 'textarea' ? 'pl-textarea-label' : 'pl-input-label',
         {'pl-input-label--require': required}
@@ -232,6 +232,14 @@
       display: flex;
       flex-wrap: nowrap;
       align-items: center;
+      &--label {
+        .pl-input-inner {
+          input,
+          textarea {
+            text-align: right;
+          }
+        }
+      }
     }
 
     &--large {

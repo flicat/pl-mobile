@@ -7,7 +7,7 @@
       'pl-checkbox--error': ruleMessage
     }
     ]">
-    <div class="pl-checkbox-cell">
+    <div class="pl-checkbox-cell" :class="{'pl-checkbox-cell--label': label}">
       <div class="pl-checkbox-label" :class="{'pl-checkbox-label--require': required}" v-if="label" :style="{width: calcLabelWidth}">
         <slot name="label">{{label}}</slot>
       </div>
@@ -163,6 +163,11 @@
       display: flex;
       flex-wrap: nowrap;
       align-items: center;
+      &--label {
+        .pl-checkbox-inner {
+          text-align: right;
+        }
+      }
     }
 
     &--large {

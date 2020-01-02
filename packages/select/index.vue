@@ -7,7 +7,7 @@
       'pl-select--error': ruleMessage
     }
     ]">
-    <div class="pl-select-cell">
+    <div class="pl-select-cell" :class="{'pl-select-cell--label': label}">
       <div class="pl-select-label" :class="{'pl-select-label--require': required}" v-if="label" :style="{width: calcLabelWidth}">
         <slot name="label">{{label}}</slot>
       </div>
@@ -241,6 +241,12 @@
       display: flex;
       flex-wrap: nowrap;
       align-items: center;
+
+      &--label {
+        .pl-select-inner {
+          text-align: right;
+        }
+      }
     }
 
     &--large {
