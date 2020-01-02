@@ -176,7 +176,7 @@
         this.form.updateItems(this);
       }
       Object.keys(defaultOptions).forEach(name => {
-        this.pickerOptions[name] = this.options[name] || defaultOptions[name]
+        this.pickerOptions[name] = this.options && this.options[name] || defaultOptions[name]
       })
     },
     methods: {
