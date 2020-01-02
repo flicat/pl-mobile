@@ -19,6 +19,7 @@ import Icon from '../packages/icon'
 import Input from '../packages/input'
 import List from '../packages/list'
 import Picker from '../packages/picker'
+import Popup from '../packages/popup'
 import Progress from '../packages/progress'
 import Radio from '../packages/radio'
 import Range from '../packages/range'
@@ -44,6 +45,7 @@ const components = [
   Input,
   List,
   Picker,
+  Popup,
   Progress,
   Radio,
   Range,
@@ -87,6 +89,7 @@ export default {
   Input,
   List,
   Picker,
+  Popup,
   Progress,
   Radio,
   Range,

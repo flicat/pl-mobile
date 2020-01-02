@@ -18,6 +18,7 @@ const components = [
   {name: 'loading', title: 'loading 加载提示'},
   {name: 'message', title: 'message 消息提示'},
   {name: 'picker', title: 'picker 联动菜单'},
+  {name: 'popup', title: 'popup 弹出框'},
   {name: 'progress', title: 'progress 进度条'},
   {name: 'radio', title: 'radio 单选框'},
   {name: 'range', title: 'range 范围选择框'},
