@@ -1,5 +1,5 @@
 <template>
-  <div class="pl-form">
+  <div class="pl-form" v-bind="$props" v-on="$listeners">
     <slot></slot>
   </div>
 </template>

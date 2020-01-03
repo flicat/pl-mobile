@@ -1,5 +1,5 @@
 <template>
-  <div class="pl-progress">
+  <div class="pl-progress" v-bind="$props" v-on="$listeners">
     <div class="progress-inner">
       <div class="progress-track" :style="trackStyle"></div>
     </div>

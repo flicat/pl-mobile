@@ -14,7 +14,7 @@
       <div class="pl-checkbox-inner">
         <template v-if="options && options.length">
           <div v-for="(item, i) in options" :key="i" class="pl-checkbox-item" :class="{'is-button': button, 'is-vertical': vertical}">
-            <input type="checkbox" :disabled="calcDisabled || item[prop.disabled]" v-model="currentValue" :value="item[prop.value]" @change="emit">
+            <input type="checkbox" :disabled="calcDisabled || item[prop.disabled]" v-model="currentValue" :value="item[prop.value]" v-on="$listeners" @change="emit">
             <icon v-if="!button" class="pl-checkbox-icon icon-unchecked" name="icon-kongjianweixuan"></icon>
             <icon v-if="!button" class="pl-checkbox-icon icon-checked" name="icon-kongjianxuanzhong"></icon>
             <span class="pl-checkbox-text"><slot :item="item">{{item[prop.label]}}</slot></span>
@@ -22,7 +22,7 @@
         </template>
         <template v-else>
           <div class="pl-checkbox-item" :class="{'is-button': button, 'is-vertical': vertical}">
-            <input type="checkbox" :disabled="calcDisabled" v-model="currentValue" :true-value="trueValue" :false-value="falseValue" @change="emit">
+            <input type="checkbox" :disabled="calcDisabled" v-model="currentValue" :true-value="trueValue" :false-value="falseValue" v-on="$listeners" @change="emit">
             <icon v-if="!button" class="pl-checkbox-icon icon-unchecked" name="icon-kongjianweixuan"></icon>
             <icon v-if="!button" class="pl-checkbox-icon icon-checked" name="icon-kongjianxuanzhong"></icon>
             <span class="pl-checkbox-text"><slot></slot></span>

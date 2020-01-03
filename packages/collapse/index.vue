@@ -1,5 +1,5 @@
 <template>
-  <div class="pl-collapse" v-on="$listeners" :class="{'pl-collapse--active': currentValue}">
+  <div class="pl-collapse" v-bind="$props" v-on="$listeners" :class="{'pl-collapse--active': currentValue}">
     <div class="pl-collapse-top" @click="toggle">
       <div class="pl-collapse-title">
         <slot name="title">{{title}}</slot>
