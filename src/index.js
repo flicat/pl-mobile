@@ -33,6 +33,7 @@ import Tabs from '../packages/tabs'
 import Upload from '../packages/upload'
 import './assets/less/variables.less'
 
+// TODO 属性与事件传递 v-bind="$props" v-on="$listeners"
 const components = [
   Button,
   Cell,

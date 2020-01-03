@@ -1,5 +1,5 @@
 <template>
-  <div :class="['pl-cell', 'pl-cell-' + direction]" :style="rowStyle">
+  <div v-bind="$props" v-on="$listeners" :class="['pl-cell', 'pl-cell-' + direction]" :style="rowStyle">
     <slot></slot>
   </div>
 </template>
