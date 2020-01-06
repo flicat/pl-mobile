@@ -294,7 +294,7 @@
 
       .file-input {
         position: absolute;
-        z-index: 9999;
+        z-index: 1;
         -webkit-appearance: none;
         opacity: 0;
         width: 100%;
@@ -317,7 +317,7 @@
 
     .pl-preview-dialog {
       position: fixed;
-      z-index: 999;
+      z-index: 99;
       width: 100%;
       height: 100%;
       left: 0;
@@ -328,7 +328,7 @@
         position: relative;
         width: 100%;
         height: 100%;
-        z-index: 10;
+        z-index: 1;
         list-style: none;
         margin: 0;
         padding: 0;
@@ -347,12 +347,13 @@
       }
       .preview-index {
         position: absolute;
-        z-index: 11;
+        z-index: 2;
         left: 0;
         top: 1em;
         width: 100%;
         text-align: center;
         color: #fff;
+        text-shadow: 0 0 2px #999;
       }
     }
   }

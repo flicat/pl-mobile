@@ -69,7 +69,7 @@
 
   .pl-to-top {
     position: fixed;
-    z-index: 999;
+    z-index: 99;
     .width(40);
     .height(40);
     .line-height(38);

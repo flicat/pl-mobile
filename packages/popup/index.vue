@@ -53,7 +53,7 @@
 
   .pl-popup {
     position: fixed;
-    z-index: 999;
+    z-index: 99;
     left: 0;
     top: 0;
     display: flex;

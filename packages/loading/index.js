@@ -17,7 +17,7 @@ plLoading.install = function (Vue) {
           top: 0,
           right: 0,
           bottom: 0,
-          zIndex: 9999,
+          zIndex: 998,
           backgroundColor: 'rgba(0, 0, 0, 0.5)'
         }
       }, [

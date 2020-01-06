@@ -304,7 +304,7 @@
 
   .pl-picker {
     position: fixed;
-    z-index: 9999;
+    z-index: 99;
     left: 0;
     top: 0;
     display: flex;
