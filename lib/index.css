@@ -368,7 +368,7 @@ to {
 }
 .pl-picker[data-v-5c700fd5] {
   position: fixed;
-  z-index: 9999;
+  z-index: 99;
   left: 0;
   top: 0;
   display: flex;
@@ -581,7 +581,7 @@ to {
 /* px转rem方法 */
 .pl-to-top[data-v-50daa70e] {
   position: fixed;
-  z-index: 999;
+  z-index: 99;
   width: 2.84444444rem;
   height: 2.84444444rem;
   line-height: 2.70222222rem;
@@ -758,7 +758,7 @@ to {
 /* px转rem方法 */
 .pl-popup[data-v-3286919b] {
   position: fixed;
-  z-index: 999;
+  z-index: 99;
   left: 0;
   top: 0;
   display: flex;
@@ -1235,7 +1235,7 @@ to {
 }
 .pl-select .pl-select-popup[data-v-0dd80ac3] {
   position: fixed;
-  z-index: 9999;
+  z-index: 99;
   left: 0;
   top: 0;
   display: flex;
@@ -1707,7 +1707,7 @@ to {
 }
 .pl-upload .pl-upload-button .file-input[data-v-be4dbcf0] {
   position: absolute;
-  z-index: 9999;
+  z-index: 1;
   -webkit-appearance: none;
   opacity: 0;
   width: 100%;
@@ -1727,7 +1727,7 @@ to {
 }
 .pl-upload .pl-preview-dialog[data-v-be4dbcf0] {
   position: fixed;
-  z-index: 999;
+  z-index: 99;
   width: 100%;
   height: 100%;
   left: 0;
@@ -1738,7 +1738,7 @@ to {
   position: relative;
   width: 100%;
   height: 100%;
-  z-index: 10;
+  z-index: 1;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -1756,12 +1756,13 @@ to {
 }
 .pl-upload .pl-preview-dialog .preview-index[data-v-be4dbcf0] {
   position: absolute;
-  z-index: 11;
+  z-index: 2;
   left: 0;
   top: 1em;
   width: 100%;
   text-align: center;
   color: #fff;
+  text-shadow: 0 0 2px #999;
 }
 
 :root {
