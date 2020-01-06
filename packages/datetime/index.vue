@@ -370,6 +370,8 @@
           // 赋值表单
           this.setCurrentValue(value)
         }
+        this.$emit('input', this.currentValue)
+        this.$emit('change', this.currentValue)
       },
 
       setCurrentValue (value) {
@@ -383,8 +385,6 @@
           this.endValue = Array.isArray(value) ? value[1] : null
         }
         this.validate()
-        this.$emit('input', value)
-        this.$emit('change', value)
       },
       clear () {
         this.$emit('input', '')

@@ -52,6 +52,8 @@
       toggle () {
         if (!this.disabled) {
           this.setCurrentValue(!this.currentValue)
+          this.$emit('input', this.currentValue)
+          this.$emit('change', this.currentValue)
         }
       },
       setCurrentValue (value) {
@@ -59,8 +61,6 @@
           return false
         }
         this.currentValue = value
-        this.$emit('input', value)
-        this.$emit('change', value)
 
         this.contentHeight = this.inner.scrollHeight + 'px'
         if (value) {
