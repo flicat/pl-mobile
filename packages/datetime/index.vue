@@ -175,9 +175,6 @@
       if (this.form) {
         this.form.updateItems(this);
       }
-      Object.keys(defaultOptions).forEach(name => {
-        this.pickerOptions[name] = this.options && this.options[name] || defaultOptions[name]
-      })
     },
     methods: {
       validate () {
@@ -187,6 +184,12 @@
         }).catch(e => {
           this.ruleMessage = e
           return Promise.reject(e)
+        })
+      },
+      // 合并配置
+      mergeOption () {
+        Object.keys(defaultOptions).forEach(name => {
+          this.pickerOptions[name] = this.options && this.options[name] || defaultOptions[name]
         })
       },
       // 打开选择框
@@ -396,6 +399,12 @@
           this.setCurrentValue(val)
         },
         deep: true
+      },
+      'options': {
+        handler () {
+          this.mergeOption()
+        },
+        immediate: true
       }
     },
     destroyed () {
