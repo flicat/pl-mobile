@@ -36,11 +36,11 @@
     <div class="pl-datetime-error" v-if="ruleMessage">{{ruleMessage}}</div>
 
     <div v-if="isRange">
-      <picker :options="startDatetimeOption" :pickerValue="pickerStartValue" :title="startPlaceholder" :prop="pickerProp" @submit="submitStartDate" @cancel="cancel" ref="start-picker"></picker>
-      <picker :options="endDatetimeOption" :pickerValue="pickerEndValue" :title="endPlaceholder" :prop="pickerProp" @submit="submitEndDate" @cancel="cancel" ref="end-picker"></picker>
+      <picker :options="startDatetimeOption" :defaultValue="pickerStartValue" :title="startPlaceholder" :prop="pickerProp" @submit="submitStartDate" @cancel="cancel" ref="start-picker"></picker>
+      <picker :options="endDatetimeOption" :defaultValue="pickerEndValue" :title="endPlaceholder" :prop="pickerProp" @submit="submitEndDate" @cancel="cancel" ref="end-picker"></picker>
     </div>
     <div v-else>
-      <picker :options="datetimeOption" :pickerValue="pickerValue" :title="placeholder" :prop="pickerProp" @submit="submitDate" @cancel="cancel" ref="picker"></picker>
+      <picker :options="datetimeOption" :defaultValue="pickerValue" :title="placeholder" :prop="pickerProp" @submit="submitDate" @cancel="cancel" ref="picker"></picker>
     </div>
   </div>
 </template>

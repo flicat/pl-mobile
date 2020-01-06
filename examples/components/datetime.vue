@@ -61,8 +61,8 @@
   export default {
     data () {
       return {
-        value: null,
-        value2: null,
+        value: '2019-12-21',
+        value2: ['2018-10-20', '2019-8-15'],
         value3: null,
         option1: {
           start: '2011-12-31 10:40',
