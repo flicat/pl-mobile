@@ -453,6 +453,7 @@
         flex-direction: row;
         flex-wrap: nowrap;
         overflow: hidden;
+        overscroll-behavior: contain; // 阻止滚动传播
 
         &-row {
           width: 100%;
