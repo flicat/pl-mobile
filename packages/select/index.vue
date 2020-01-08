@@ -18,7 +18,7 @@
         <span v-if="multiple && currentValue && currentValue.length" class="title">
           <em class="tag" v-for="(item, i) in currentValue" :key="i">{{calcOptions.get(item)}}</em>
         </span>
-        <span v-else-if="!multiple && currentValue">{{calcOptions.get(currentValue)}}</span>
+        <span v-else-if="!multiple && currentValue !== null && currentValue !== undefined">{{calcOptions.get(currentValue)}}</span>
         <span class="placeholder" v-else>{{placeholder}}</span>
       </div>
       <div class="pl-select-clear" @touchstart.stop.prevent="clear" @mousedown.stop.prevent="clear">
@@ -194,10 +194,12 @@
       },
       // 获取标签名，如果没有指定 prop 则返回对象本身
       getLabel (target) {
+        console.log('getLabel: ', target, this.prop.label)
         return this.prop.label ? target[this.prop.label] : String(target)
       },
       // 获取值，如果没有指定 prop 则返回对象本身
       getValue (target) {
+        console.log('getValue: ', target, this.prop.value)
         return this.prop.value ? target[this.prop.value] : target
       }
     },
