@@ -214,22 +214,23 @@
         display: table;
         width: 100%;
         margin-right: 0;
+        line-height: 1em;
 
         .pl-radio-icon {
           position: absolute;
           right: 0.5em;
         }
         &:not(.is-button) {
+          padding: 1em 0.5em;
+
           &:not(:last-child) {
-            margin-bottom: 0.5em;
-            padding-bottom: 0.5em;
             border-bottom: 1px solid var(--radio-vertical-border);
           }
         }
       }
       &.is-button {
         margin: 0;
-        padding: 0.3em 0.5em;
+        padding: 0.5em;
         border: 1px solid var(--radio-button-border);
 
         .pl-radio-icon {
@@ -247,6 +248,8 @@
           }
         }
         &.is-vertical {
+          padding: 1em 0.5em;
+
           &:not(:last-child) {
             border-bottom: 0 none;
           }
@@ -285,6 +288,9 @@
       .pl-radio-label {
         align-self: flex-start;
         margin-top: 1em;
+      }
+      .pl-radio-inner {
+        padding: 0;
       }
     }
   }

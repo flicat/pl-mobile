@@ -14,7 +14,7 @@
       <div class="pl-checkbox-inner">
         <template v-if="options && options.length">
           <div v-for="(item, i) in options" :key="i" class="pl-checkbox-item" :class="{'is-button': button, 'is-vertical': vertical}">
-            <input type="checkbox" :disabled="calcDisabled || item[prop.disabled]" v-model="currentValue" :value="item[prop.value]" v-on="$listeners" @change="emit">
+            <input type="checkbox" :disabled="calcDisabled || item[prop.disabled]" v-model="currentValue" :value="item[prop.value]" @change="emit">
             <icon v-if="!button" class="pl-checkbox-icon icon-unchecked" name="icon-kongjianweixuan"></icon>
             <icon v-if="!button" class="pl-checkbox-icon icon-checked" name="icon-kongjianxuanzhong"></icon>
             <span class="pl-checkbox-text"><slot :item="item">{{item[prop.label]}}</slot></span>
@@ -22,7 +22,7 @@
         </template>
         <template v-else>
           <div class="pl-checkbox-item" :class="{'is-button': button, 'is-vertical': vertical}">
-            <input type="checkbox" :disabled="calcDisabled" v-model="currentValue" :true-value="trueValue" :false-value="falseValue" v-on="$listeners" @change="emit">
+            <input type="checkbox" :disabled="calcDisabled" v-model="currentValue" :true-value="trueValue" :false-value="falseValue" @change="emit">
             <icon v-if="!button" class="pl-checkbox-icon icon-unchecked" name="icon-kongjianweixuan"></icon>
             <icon v-if="!button" class="pl-checkbox-icon icon-checked" name="icon-kongjianxuanzhong"></icon>
             <span class="pl-checkbox-text"><slot></slot></span>
@@ -270,8 +270,8 @@
         display: block;
         width: 100%;
         margin-right: 0;
-        margin-bottom: 0.5em;
-        padding-bottom: 0.5em;
+        padding: 1em 0;
+        line-height: 1em;
         border-bottom: 1px solid var(--checkbox-vertical-border);
 
         .pl-checkbox-icon {
@@ -292,7 +292,8 @@
           width: 100%;
           height: 100%;
           border: 1px solid var(--checkbox-button-border);
-          padding: 0.3em 0.5em;
+          padding: 0.5em;
+          line-height: 1em;
         }
         .pl-checkbox-icon {
           display: none;
@@ -304,21 +305,22 @@
         }
         &:first-child {
           .pl-checkbox-text {
-            border-top-left-radius: 5px;
-            border-bottom-left-radius: 5px;
+            border-radius: 5px 0 0 5px;
           }
         }
         &:last-child {
           .pl-checkbox-text {
-            border-top-right-radius: 5px;
-            border-bottom-right-radius: 5px;
+            border-radius: 0 5px 5px 0;
           }
         }
 
         &.is-vertical {
-          padding-bottom: 0;
+          padding: 0;
           border-bottom: 0 none;
 
+          .pl-checkbox-text {
+            padding: 1em 0.5em;
+          }
           &:not(:last-child) {
             .pl-checkbox-text {
               border-bottom: 0 none;
@@ -326,14 +328,12 @@
           }
           &:first-child {
             .pl-checkbox-text {
-              border-top-left-radius: 5px;
-              border-top-right-radius: 5px;
+              border-radius: 5px 5px 0 0;
             }
           }
           &:last-child {
             .pl-checkbox-text {
-              border-bottom-left-radius: 5px;
-              border-bottom-right-radius: 5px;
+              border-radius: 0 0 5px 5px;
             }
           }
         }
@@ -360,6 +360,9 @@
       .pl-checkbox-label {
         align-self: flex-start;
         margin-top: 1em;
+      }
+      .pl-checkbox-inner {
+        padding: 0;
       }
     }
   }
