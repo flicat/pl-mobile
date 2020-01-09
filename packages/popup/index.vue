@@ -31,10 +31,8 @@
       // 手动打开弹框
       open () {
         this.visible = true
-        setTimeout(() => {
-          this.isOpen = true
-          this.$emit('open')
-        }, 0)
+        this.isOpen = true
+        this.$emit('open')
       },
       close () {
         this.isOpen = false
@@ -141,7 +139,8 @@
       }
     }
     &--hide {
-      display: none;
+      transform: translate(-200%, 0);
+      visibility: hidden;
     }
   }
 </style>
