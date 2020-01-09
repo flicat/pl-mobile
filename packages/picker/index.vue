@@ -1,6 +1,6 @@
 <template>
-  <div class="pl-picker" :class="[isOpen ? 'pl-picker--open' : 'pl-picker--close', visible ? '' : 'pl-picker--hide']">
-    <div class="pl-picker-content" v-if="isOpen">
+  <popup ref="picker" position="bottom">
+    <div class="pl-picker-content">
       <div class="pl-picker-top">
         <div class="pl-picker-btn--cancel" @click="cancel">取消</div>
         <div class="pl-picker-title">{{title}}</div>
@@ -22,17 +22,19 @@
         </div>
       </div>
     </div>
-    <div class="pl-picker-layer" @click="close"></div>
-  </div>
+  </popup>
 </template>
 
 <script>
-  // TODO 弹窗优化
   import {is} from '../../src/assets/utils'
+  import popup from '../popup/index.vue'
 
   export default {
     name: 'plPicker',
     componentName: 'plPicker',
+    components: {
+      popup
+    },
     props: {
       title: String,        // 标题
       defaultValue: Array,  // 默认选中值
@@ -52,9 +54,6 @@
     data () {
       return {
         currentValue: this.defaultValue === undefined ? '' : this.defaultValue,
-
-        isOpen: false,
-        visible: false,
         renderType: 'function',    // 渲染模式，function：函数回调，object：children子项嵌套模式
 
         computedOption: [],        // 计算后的下拉选项
@@ -83,8 +82,7 @@
     methods: {
       // 手动打开弹框
       open () {
-        this.isOpen = true
-        this.visible = true
+        this.$refs.picker.open()
 
         this.$nextTick(() => {
           this.calculate()
@@ -105,10 +103,7 @@
         })
       },
       close () {
-        this.isOpen = false
-        setTimeout(() => {
-          this.visible = false
-        }, 300)
+        this.$refs.picker.close()
       },
       // 重置选项
       reset () {
@@ -269,90 +264,14 @@
 <style lang="less" scoped>
   @import "../../src/assets/less/mixin.less";
 
-  @keyframes up {
-    from {
-      transform: translateY(100%);
-    }
-    to {
-      transform: translateY(0);
-    }
-  }
-  @keyframes down {
-    from {
-      transform: translateY(0);
-    }
-    to {
-      transform: translateY(100%);
-    }
-  }
-  @keyframes in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  @keyframes out {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
-  }
 
   .pl-picker {
-    position: fixed;
-    z-index: 99;
-    left: 0;
-    top: 0;
-    display: flex;
-    flex-direction: column-reverse;
-    width: 100%;
-    height: 100%;
-
-    * {
-      box-sizing: border-box;
-    }
-
-    &--open {
-      display: flex;
-      .pl-picker-content {
-        animation: up 0.3s ease 1 forwards;
-      }
-      .pl-picker-layer {
-        animation: in 0.3s ease 1 forwards;
-      }
-    }
-
-    &--close {
-      .pl-picker-content {
-        animation: down 0.3s ease 1 forwards;
-      }
-      .pl-picker-layer {
-        animation: out 0.3s ease 1 forwards;
-      }
-    }
-    &--hide {
-      display: none;
-    }
-
     &-content {
       position: relative;
       z-index: 1;
       .font-size(16);
       color: var(--picker-text);
       background-color: var(--picker-bg);
-    }
-    &-layer {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      background-color: rgba(0, 0, 0, 0.5);
     }
     &-top {
       .height(44);
@@ -367,8 +286,13 @@
       &--cancel,
       &--submit {
         .font-size(14);
-        color: var(--picker-btn-text);
         .margin(0, 20);
+      }
+      &--cancel {
+        color: var(--picker-btn-cancle);
+      }
+      &--submit {
+        color: var(--picker-btn-submit);
       }
     }
     &-inner {

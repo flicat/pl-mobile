@@ -33,8 +33,8 @@
     </div>
     <div class="pl-select-error" v-if="ruleMessage">{{ruleMessage}}</div>
 
-    <div class="pl-select-popup" :class="[isOpen ? 'pl-select-popup--open' : 'pl-select-popup--close', visible ? '' : 'pl-select-popup--hide']">
-      <div class="pl-select-popup-content" v-if="isOpen">
+    <popup ref="picker" position="bottom">
+      <div class="pl-select-popup-content">
         <div class="pl-select-popup-top">
           <div class="pl-select-popup-btn--cancel" @click="close">取消</div>
           <div class="pl-select-popup-title">{{placeholder}}</div>
@@ -50,20 +50,21 @@
           </ul>
         </div>
       </div>
-      <div class="pl-select-popup-layer" @click="close"></div>
-    </div>
+    </popup>
   </div>
 </template>
 
 <script>
   import icon from '../icon/index.vue'
+  import popup from '../popup/index.vue'
   import {is, validate} from '../../src/assets/utils'
-  // TODO 弹窗优化
+
   export default {
     name: 'plSelect',
     componentName: 'plSelect',
     components: {
-      icon
+      icon,
+      popup
     },
     props: {
       rules: {          // 验证规则
@@ -112,8 +113,6 @@
       return {
         currentValue: this.value === undefined ? '' : this.value,
         popupValue: null,
-        isOpen: false,
-        visible: false,
 
         ruleMessage: '',
         handlers: []
@@ -161,14 +160,10 @@
         } else {
           this.popupValue = this.currentValue
         }
-        this.isOpen = true
-        this.visible = true
+        this.$refs.picker.open()
       },
       close () {
-        this.isOpen = false
-        setTimeout(() => {
-          this.visible = false
-        }, 300)
+        this.$refs.picker.close()
       },
       clear () {
         this.$emit('input', '')
@@ -194,12 +189,10 @@
       },
       // 获取标签名，如果没有指定 prop 则返回对象本身
       getLabel (target) {
-        console.log('getLabel: ', target, this.prop.label)
         return this.prop.label ? target[this.prop.label] : String(target)
       },
       // 获取值，如果没有指定 prop 则返回对象本身
       getValue (target) {
-        console.log('getValue: ', target, this.prop.value)
         return this.prop.value ? target[this.prop.value] : target
       }
     },
@@ -346,75 +339,7 @@
       background-color: var(--select-disabled-bg);
     }
 
-    @keyframes up {
-      from {
-        transform: translateY(100%);
-      }
-      to {
-        transform: translateY(0);
-      }
-    }
-    @keyframes down {
-      from {
-        transform: translateY(0);
-      }
-      to {
-        transform: translateY(100%);
-      }
-    }
-    @keyframes in {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-    @keyframes out {
-      from {
-        opacity: 1;
-      }
-      to {
-        opacity: 0;
-      }
-    }
-
     .pl-select-popup {
-      position: fixed;
-      z-index: 99;
-      left: 0;
-      top: 0;
-      display: flex;
-      flex-direction: column-reverse;
-      width: 100%;
-      height: 100%;
-      overscroll-behavior: contain; // 阻止滚动传播
-
-      * {
-        box-sizing: border-box;
-      }
-
-      &--open {
-        display: flex;
-        .pl-select-popup-content {
-          animation: up 0.3s ease 1 forwards;
-        }
-        .pl-select-popup-layer {
-          animation: in 0.3s ease 1 forwards;
-        }
-      }
-
-      &--close {
-        .pl-select-popup-content {
-          animation: down 0.3s ease 1 forwards;
-        }
-        .pl-select-popup-layer {
-          animation: out 0.3s ease 1 forwards;
-        }
-      }
-      &--hide {
-        display: none;
-      }
 
       &-content {
         position: relative;
@@ -423,15 +348,7 @@
         color: var(--select-popup-color);
         background-color: var(--select-popup-bg);
       }
-      &-layer {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-        background-color: rgba(0, 0, 0, 0.5);
-      }
+
       &-top {
         .height(44);
         .line-height(44);
@@ -445,12 +362,18 @@
         &--cancel,
         &--submit {
           .font-size(14);
-          color: var(--picker-btn-text);
           .margin(0, 20);
+        }
+        &--cancel {
+          color: var(--picker-btn-cancle);
+        }
+        &--submit {
+          color: var(--picker-btn-submit);
         }
       }
       &-inner {
-        .height(194);
+        max-height: 70vh;
+        min-height: (150 / @rem);
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
@@ -459,12 +382,11 @@
 
         &-row {
           width: 100%;
-          height: 100%;
           overflow: auto;
           margin: 0;
           padding: 0;
           list-style: none;
-          -webkit-overflow-scrolling: touch;
+          -webkit-overflow-scrolling: auto;
         }
         &-item {
           display: flex;
@@ -472,8 +394,8 @@
           align-items: center;
           position: relative;
           padding: 0 1.2em;
-          .height(194 / 5);
-          .line-height(194 / 5);
+          .height(50);
+          .line-height(50);
           border-bottom: 1px solid var(--select-popup-border);
 
           &:last-child {
@@ -484,7 +406,7 @@
             display: none;
 
             /deep/ svg {
-              fill: var(--success)
+              fill: var(--primary)
             }
           }
           .inner-input {
@@ -501,7 +423,7 @@
               display: block;
             }
             &:checked ~ span {
-              color: var(--success);
+              color: var(--primary);
             }
             &:disabled ~ span {
               color: var(--disabled);
