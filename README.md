@@ -94,7 +94,8 @@ Vue.use(PlMobile)
   /* picker */
   --picker-text: #333;
   --picker-bg: #fff;
-  --picker-btn-text: #3388FF;
+  --picker-btn-cancle: #bec5cb;
+  --picker-btn-submit: #3388FF;
   --picker-border: #ebedf0;
 
   /* progress */
