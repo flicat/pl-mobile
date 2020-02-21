@@ -7,7 +7,7 @@ export default function (Vue) {
         style: {
           display: 'flex',
           position: 'fixed',
-          zIndex: 999,
+          zIndex: 998,
           left: '0',
           top: '0',
           width: '100%',
