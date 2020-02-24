@@ -16,5 +16,7 @@ jobs:
         npm install
         npm run-script build
     - name: publish
-      run: |
-        npm publish
+      - uses: primer/publish@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
