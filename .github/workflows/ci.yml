@@ -3,6 +3,11 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'src/**'
+      - 'packages/**'
+      - 'docs/**'
+      - 'examples/**'
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
