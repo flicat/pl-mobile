@@ -1,0 +1,34 @@
+<template>
+  <div class="content">
+    <h3>基础用法</h3>
+    <pl-input type="text" v-model="value" placeholder="请输入文本" />
+    <h3>文本域</h3>
+    <pl-input type="textarea" rows="5" cols="10" v-model="value" placeholder="请输入文本" />
+    <h3>表单验证</h3>
+    <pl-input v-model="value" :rules="rules" required ref="input" label="名字：" placeholder="请输入文本" />
+  </div>
+</template>
+<script>
+  export default {
+    data () {
+      return {
+        value: '',
+        rules: [{required: true, message: '请输入', trigger: 'blur'}]
+      }
+    },
+    methods: {
+      submit () {
+        this.$refs.input.validate().then(() => {
+          // 提交
+        })
+      }
+    }
+  }
+</script>
+
+<style lang="less" scoped>
+  .pl-input {
+    /*border-top: 1px solid #ccc;*/
+    border-bottom: 1px solid #ccc;
+  }
+</style>
