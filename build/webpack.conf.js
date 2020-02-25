@@ -3,6 +3,22 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+let isShowReport = false
+try {
+  let original = JSON.parse(process.env.npm_config_argv).original
+  isShowReport = original.indexOf('--report') > -1
+} catch (e) {}
+
+let plugins = [
+  new MiniCssExtractPlugin({
+    filename: 'index.css'
+  }),
+  new VueLoaderPlugin()
+]
+if (isShowReport) {
+  plugins.push(new BundleAnalyzerPlugin())
+}
+
 module.exports = {
   mode: 'production',
   entry: {
@@ -27,9 +43,6 @@ module.exports = {
   stats: {
     children: false
   },
-  // optimization: {
-  //   minimize: false
-  // },
   module: {
     rules: [
       {
@@ -51,7 +64,6 @@ module.exports = {
         test: /\.less$/,
         use: [
           MiniCssExtractPlugin.loader,
-          // 'vue-style-loader',
           'css-loader',
           'less-loader'
         ]
@@ -60,7 +72,6 @@ module.exports = {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          // 'style-loader',
           'css-loader'
         ]
       },
@@ -74,11 +85,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: 'index.css'
-    }),
-    new VueLoaderPlugin(),
-    new BundleAnalyzerPlugin()
-  ]
+  plugins
 };
