@@ -3,6 +3,17 @@
   "version": "0.3.4",
   "description": "a mobile component library for Vue.js.",
   "main": "lib/index.js",
+  "keywords": [
+    "vue",
+    "components",
+    "frontend",
+    "ui"
+  ],
+  "author": {
+    "name": "flicat",
+    "email": "liyuelong1020@gmail.com",
+    "url": "https://github.com/flicat"
+  },
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "node build/build.js",

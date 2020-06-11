@@ -8,14 +8,20 @@
         <pl-swipe-item class="pl-swipe-item">4</pl-swipe-item>
       </div>
     </pl-swipe>
+    <p>{{scrollIndex + 1}} / 4</p>
   </div>
 </template>
 
 <script>
   export default {
+    data () {
+      return {
+        scrollIndex: 0
+      }
+    },
     methods: {
       onScroll (index) {
-        console.log('index: ', index)
+        this.scrollIndex = index
       },
       submit () {
         return new Promise((resolve, reject) => {

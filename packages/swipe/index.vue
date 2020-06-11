@@ -257,6 +257,12 @@
           this.setFirstChild(val >= this.children.length - 1)
           this.setLastChild(val <= 0)
         }
+        if (val > this.children.length - 1) {
+          val = this.children.length - 1
+        }
+        if (val < 0) {
+          val = 0
+        }
         this.$emit('scroll', val)
       }
     }

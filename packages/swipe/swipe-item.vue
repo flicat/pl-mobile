@@ -1,7 +1,5 @@
 <template>
   <div class="pl-swipe-item" :style="{
-          width: swipes.width,
-          height: swipes.height,
           left: swipes.vertical ? 0 : index * 100 + '%',
           top: swipes.vertical ? index * 100 + '%' : 0,
           transform: `translate${swipes.vertical ? 'Y' : 'X'}(${translate}px)`,
@@ -42,7 +40,9 @@
 <style lang="less" scoped>
   .pl-swipe-item {
     position: absolute;
-
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
     * {
       box-sizing: border-box;
     }
