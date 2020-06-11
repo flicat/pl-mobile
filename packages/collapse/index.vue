@@ -23,6 +23,9 @@
     components: {
       icon
     },
+    model: {
+      event: 'change'
+    },
     props: {
       size: {         // 尺寸 可选值为 normal，large, small
         type: String,
@@ -52,7 +55,6 @@
       toggle () {
         if (!this.disabled) {
           this.setCurrentValue(!this.currentValue)
-          this.$emit('input', this.currentValue)
           this.$emit('change', this.currentValue)
         }
       },

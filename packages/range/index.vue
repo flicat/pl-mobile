@@ -41,6 +41,9 @@
   export default {
     name: 'plRange',
     componentName: 'plRange',
+    model: {
+      event: 'change'
+    },
     props: {
       rules: {          // 验证规则
         type: Array,
@@ -159,7 +162,6 @@
               currentValue = this.max
             }
             this.currentValue = currentValue
-            this.$emit('input', this.currentValue)
             this.$emit('change', this.currentValue)
             break;
           case 'touchend':

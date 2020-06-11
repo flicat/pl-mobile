@@ -66,6 +66,9 @@
       icon,
       popup
     },
+    model: {
+      event: 'change'
+    },
     props: {
       rules: {          // 验证规则
         type: Array,
@@ -166,7 +169,6 @@
         this.$refs.picker.close()
       },
       clear () {
-        this.$emit('input', '')
         this.$emit('change', '')
         this.$emit('clear')
         this.setCurrentValue(null)
@@ -183,7 +185,6 @@
       },
       emit () {
         this.validate()
-        this.$emit('input', this.currentValue)
         this.$emit('change', this.currentValue)
         this.close()
       },

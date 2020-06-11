@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <pl-tabs v-model="active" type="card">
+    <pl-tabs v-model="active" type="card" @change="onChange">
       <pl-tab-item v-for="item in data" :name="item.name" :disabled="item.disabled" :label="item.label" :key="item.name">
         这里是{{item.label}}
       </pl-tab-item>
@@ -22,6 +22,11 @@
           {label: '选项2', name: 'tab2', disabled: false},
           {label: '选项3', name: 'tab3', disabled: true}
         ]
+      }
+    },
+    methods: {
+      onChange () {
+        console.log('onChange::', this.active)
       }
     }
   }

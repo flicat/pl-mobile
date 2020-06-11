@@ -45,6 +45,9 @@
     components: {
       icon
     },
+    model: {
+      event: 'change'
+    },
     props: {
       rules: {          // 验证规则
         type: Array,
@@ -127,7 +130,6 @@
       },
       emit () {
         this.validate()
-        this.$emit('input', this.currentValue)
         this.$emit('change', this.currentValue)
       }
     },

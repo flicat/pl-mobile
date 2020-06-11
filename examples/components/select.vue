@@ -5,7 +5,7 @@
         <span>{{scope.item.label}}-{{scope.item.value}}</span>
       </template>
     </pl-select>
-    <pl-select label="请选择：" labelWidth="5em" v-model="value2" :options="data" @change="change" multiple clearable></pl-select>
+    <pl-select label="请选择：" labelWidth="5em" v-model="value2" :options="data" @change="change2" multiple clearable></pl-select>
   </div>
 </template>
 <script>
@@ -28,8 +28,11 @@
           // 提交
         })
       },
-      change (value) {
-        console.log('change::', value)
+      change () {
+        console.log('change::', this.value1)
+      },
+      change2 () {
+        console.log('change::', this.value2)
       }
     }
   }

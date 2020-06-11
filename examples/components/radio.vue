@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <h3>基础用法</h3>
-    <pl-radio v-model="value" :options="data" label="单选：" labelWidth="4em">
+    <pl-radio v-model="value" :options="data" label="单选：" labelWidth="4em" @change="onChange">
       <template v-slot="scope">{{scope.item.label}} - {{scope.item.value}}</template>
     </pl-radio>
     <h3>表单验证</h3>
@@ -24,6 +24,11 @@
           {label: '选项3', value: 3, disabled: false}
         ],
         rules: [{required: true, message: '请选择', trigger: 'change'}]
+      }
+    },
+    methods: {
+      onChange () {
+        console.log('onChange::', this.value)
       }
     }
   }

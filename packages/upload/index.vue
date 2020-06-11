@@ -53,6 +53,9 @@
     components: {
       icon
     },
+    model: {
+      event: 'change'
+    },
     props: {
       value: Array,
       accept: {         // 接受的文件类型
@@ -103,8 +106,8 @@
     methods: {
       // 预览
       preview (file) {
-        if (file.type === 'img') {
-          this.previewList = this.files.filter(item => item.type === 'img')
+        if (file.type === 'image') {
+          this.previewList = this.files.filter(item => item.type === 'image')
           this.previewIndex = this.previewList.findIndex(item => item === file)
           this.dialogPreview = true
         } else {
@@ -120,7 +123,7 @@
       },
       // 获取文件类型
       getFileType (file) {
-        return /image/.test(file.type) || /\.(jpe?g|png|gif|bmp)$/i.test(file.name) ? 'img' :
+        return /image/.test(file.type) || /\.(jpe?g|png|gif|bmp)$/i.test(file.name) ? 'image' :
         /\.doc(x|m)?$/i.test(file.name) ? 'doc' :
         /\.xls(x|b|m)?$/i.test(file.name) ? 'xls' :
         /\.ppt(x|m)?$/i.test(file.name) ? 'ppt' :
@@ -128,7 +131,7 @@
       },
       // 根据文件类型获取预览图
       getFilePreview (file) {
-        if (this.getFileType(file) === 'img') {
+        if (this.getFileType(file) === 'image') {
           return this.getFileUrl(file)
         } else {
           return null
@@ -162,7 +165,14 @@
           this.$emit('oversize', oversizeFiles)       // 文件超大事件
         }
 
-        if (normalFiles.length && (!is(this.beforeRead, 'function') || this.beforeRead(normalFiles))) {    // 文件选择前置钩子
+        let beforeResult = true
+        if (is(this.beforeRead, 'function')) {
+          // 文件选择前置钩子，返回false则取消添加文件
+          beforeResult = this.beforeRead(normalFiles) !== false
+        }
+
+        if (normalFiles.length && beforeResult) {
+
           let fileLength = normalFiles.length + this.files.length
           if (fileLength > this.maxCount) {
             this.$emit('exceed', fileLength - this.maxCount)       // 文件数量超出事件
@@ -178,6 +188,8 @@
           }))
           // 文件选择后置钩子
           is(this.afterRead, 'function') && this.afterRead(normalFiles)
+
+          this.$emit('change', this.files)
         }
       },
       // 预览触摸滚动事件
@@ -213,13 +225,6 @@
       }
     },
     watch: {
-      'files': {
-        handler (val) {
-          this.$emit('input', val)
-          this.$emit('change', val)
-        },
-        deep: true
-      },
       'value': {
         handler (val) {
           if (Array.isArray(val)) {
@@ -230,7 +235,7 @@
               if (!file.type) {
                 file.type = this.getFileType(file)
               }
-              if (file.type === 'img' && !file.preview) {
+              if (file.type === 'image' && !file.preview) {
                 file.preview = this.getFilePreview(file)
               }
             })

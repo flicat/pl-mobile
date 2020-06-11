@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <h3>基础用法</h3>
-    <pl-checkbox v-model="value" :options="data" />
+    <pl-checkbox v-model="value" :options="data" @change="onChange" />
 
     <h3>显示label的用法</h3>
     <pl-checkbox v-model="value" :options="data" label="请选择：" labelWidth="5em" />
@@ -45,6 +45,9 @@
         this.$refs.checkbox.validate().then(() => {
           // 提交
         })
+      },
+      onChange () {
+        console.log('onChange::', this.value)
       }
     }
   }

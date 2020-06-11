@@ -27,7 +27,9 @@
   export default {
     name: 'plTabs',
     componentName: 'plTabs',
-
+    model: {
+      event: 'change'
+    },
     props: {
       // 风格类型：card/border-card/button
       type: {
@@ -128,7 +130,6 @@
           return false
         }
         this.currentName = value;
-        this.$emit('input', value);
         this.$emit('change', value);
       },
       // 更新内容节点
@@ -185,7 +186,7 @@
     },
     watch: {
       'value' (val) {
-        this.setCurrentName(val)
+        this.currentName = val;
       },
       'titleArray' () {
         this.$nextTick(() => {
