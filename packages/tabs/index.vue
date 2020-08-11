@@ -13,7 +13,8 @@
           @click="setCurrentName(title.name, title.disabled)"
           ref="title-item"
           :class="{'is-active': title.name === currentName, 'is-disabled': title.disabled}">
-          <span><slot name="title" :title="title">{{title.label}}</slot></span>
+          <span v-if="title.label">{{title.label}}</span>
+          <component v-else :is="title.titleSlot"></component>
         </div>
       </div>
     </div>
@@ -85,6 +86,11 @@
           return {
             name: item.name,
             label: item.label,
+            titleSlot: {
+              render (h) {
+                return h('span', null, item.$slots.title)
+              }
+            },
             disabled: item.disabled
           }
         })

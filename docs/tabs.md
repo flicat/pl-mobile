@@ -51,6 +51,35 @@
 ```
 
 
+
+### 自定义标题
+
+```html
+<template>
+  <pl-tabs v-model="active" type="card" position="right">
+    <pl-tab-item v-for="item in data" :name="item.name" :disabled="item.disabled" :key="item.name">
+      <span slot="title">--{{item.label}}--</span>
+      <span>{{item.label}}</span>
+    </pl-tab-item>
+  </pl-tabs>
+</template>
+<script>
+  export default {
+    data () {
+      return {
+        active: 'tab1',
+        data: [
+          {label: '选项1', name: 'tab1'},
+          {label: '选项2', name: 'tab2'},
+          {label: '选项3', name: 'tab3'}
+        ]
+      }           
+    }
+  }
+</script>
+```
+
+
 ### Tabs Attributes
 | 参数      | 说明    | 类型      | 可选值       | 默认值   |
 |---------- |-------- |---------- |-------------  |-------- |
@@ -75,3 +104,4 @@
 | name      | 说明    | 
 |---------- |-------- |
 | (default)     |   tab页内容   |
+| title     |   自定义标题   |

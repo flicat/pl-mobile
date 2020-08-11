@@ -74,7 +74,7 @@
         translate: 0,
         transition: null,
         transDiff: 0,
-
+        canDrag: true,
         scrollTop: 0
       }
     },
@@ -88,10 +88,6 @@
             'webkitTransition': this.transition
           } : null)
         }
-      },
-      // 是否能下拉或者上划加载
-      canDrag () {
-        return (this.scrollTop <= 1 || this.scrollBottom <= 1) && !this.loading
       }
     },
     mounted () {
@@ -106,6 +102,7 @@
           case 'touchstart':
             this.scrollTop = this.$refs.list.scrollTop
             this.scrollBottom = this.$refs.list.scrollHeight - this.scrollTop - this.$refs.list.clientHeight
+            this.canDrag = (this.scrollTop <= 1 || this.scrollBottom <= 1) && !this.loading
 
             this.transDiff = e.touches[0].clientY
             this.transition = 'none'

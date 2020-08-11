@@ -9,6 +9,13 @@
     <pl-tabs v-model="active" type="button" position="left">
       <pl-tab-item v-for="item in data" :name="item.name" :disabled="item.disabled" :key="item.name" :label="item.label">{{item.label}}</pl-tab-item>
     </pl-tabs>
+    <br/><br/><br/>
+    <pl-tabs v-model="active" type="card" position="right">
+      <pl-tab-item v-for="item in data" :name="item.name" :disabled="item.disabled" :key="item.name">
+        <span slot="title">--{{item.label}}--</span>
+        <span>{{item.label}}</span>
+      </pl-tab-item>
+    </pl-tabs>
   </div>
 </template>
 

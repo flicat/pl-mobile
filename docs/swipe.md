@@ -81,7 +81,7 @@
 ### SwipeItem Slots
 | name      | 说明    | 
 |---------- |-------- |
-| — | 轮播内容 |
+| (default) | 轮播内容 |
 
 ### Swipe Events
 | 事件名称      | 说明    | 回调参数      |
