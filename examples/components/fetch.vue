@@ -24,6 +24,21 @@
           method: 'get',
           type: 'blob'
         }
+      });
+      this.$fetchMiddleware(function (res) {
+        console.log('Middleware1::', res)
+        res.then(data => {
+          if (data && data.code === 401) {
+            console.log('Your parameters may be incorrect')
+          }
+        }).catch(e => {
+          console.log('network error')
+        })
+      })
+      this.$fetchMiddleware(function (res) {
+        res.then(data => {
+          console.log('Middleware2::', data)
+        })
       })
     },
     methods: {

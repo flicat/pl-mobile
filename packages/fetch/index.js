@@ -7,10 +7,16 @@ import request from './fetch'
 
 const API = {}
 const defaultConfig = {}
+const middleware = []
 
 function getHandler (options) {
   let handler = function (data, params) {
-    return request(Object.assign({}, defaultConfig, handler.options, params, {data}))
+    let resultPromise = request(Object.assign({}, defaultConfig, handler.options, params, {data}))
+    return Promise.all(middleware.map(handler => {
+      return Promise.resolve(handler(resultPromise))
+    })).then(() => {
+      return resultPromise
+    })
   };
   // url 拼接
   handler.url = function (...args) {
@@ -58,5 +64,13 @@ export default function (Vue) {
     Object.keys(target).forEach(name => {
       api[name] = getHandler(target[name])
     })
+  }
+
+  // 添加全局拦截函数
+  Vue.prototype.$fetchMiddleware = function (handler) {
+    if (typeof handler !== 'function') {
+      return false
+    }
+    middleware.push(handler)
   }
 }

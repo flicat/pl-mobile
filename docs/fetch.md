@@ -75,6 +75,18 @@ Vue.prototype.$fetch.my_api.userLogin.url('jerry', '13565498754')({
 })
 // post https://www.demo.com/user/login/jerry/13565498754
 ```
+#### 8、添加一个全局结果处理函数
+```
+Vue.prototype.$fetchMiddleware(function (res) {
+  res.then(data => {
+    if (!data) {
+      console.log('Your parameters may be incorrect')
+    }
+  }).catch(e => {
+    console.error('network error')
+  })
+})
+```
 
 
 ### 在组件中使用
@@ -99,11 +111,12 @@ Vue.prototype.$fetch.my_api.userLogin.url('jerry', '13565498754')({
 
 
 ### Methods
-| 方法名 | 说明 | 参数 | 说明 |返回值 | 
+| 方法名 | 说明 | 参数 | 参数描述 |返回值 | 
 | ---- | ---- | ---- | ---- | ---- |
 | $fetch | 接口api对象，根据 $fetchDefine 定义 API 路径和名称 | \<data>[, options] | data：请求的数据 | fetchHandler |
 | $fetchConfig | 设置默认请求配置 | \<options> | — | — |
 | $fetchDefine | 定义API | \<APIMap>[, namespace] | APIMap：定义API名称和配置，格式为 {name: \<options>}，namespace：接口命名空间 | — |
+| $fetchMiddleware | 添加请求结果拦截函数 | \<function> | — | Promise |
 
 
 ### options
