@@ -13,6 +13,7 @@ import Cell from '../packages/cell'
 import Checkbox from '../packages/checkbox'
 import Collapse from '../packages/collapse'
 import Datetime from '../packages/datetime'
+import Fetch from '../packages/fetch'
 import Form from '../packages/form'
 import GoTopButton from '../packages/goTopButton'
 import Icon from '../packages/icon'
@@ -66,6 +67,7 @@ const install = function (Vue) {
   });
 
   Vue.use(Loading);
+  Vue.use(Fetch);
   Vue.use(Alert);
   Vue.use(Confirm);
   Vue.use(Toast);
@@ -84,6 +86,7 @@ export default {
   Checkbox,
   Collapse,
   Datetime,
+  Fetch,
   Form,
   GoTopButton,
   Icon,

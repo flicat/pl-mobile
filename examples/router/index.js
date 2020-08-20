@@ -10,6 +10,7 @@ const components = [
   {name: 'checkbox', title: 'checkbox 多选框'},
   {name: 'collapse', title: 'collapse 折叠面板'},
   {name: 'datetime', title: 'datetime 时间选择框'},
+  {name: 'fetch', title: 'fetch 接口请求'},
   {name: 'form', title: 'form 表单'},
   {name: 'goTopButton', title: 'goTopButton 返回顶部'},
   {name: 'icon', title: 'icon 图标'},
