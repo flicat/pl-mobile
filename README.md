@@ -9,10 +9,24 @@ npm i pl-mobile --save
 ### 使用
 ```
 import PlMobile from 'pl-mobile'
-import 'pl-mobile/lib/index.css'
-
 Vue.use(PlMobile)
 ```
+
+
+### 按需引入
+```
+<script>
+import {Fetch, Button} from 'pl-mobile'
+Vue.use(Fetch)
+
+export default {
+  components: {
+    Button
+  }
+}
+</script>
+```
+
 
 ### 组件列表
 >- [button](./docs/button.md)
