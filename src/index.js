@@ -35,34 +35,32 @@ import Upload from '../packages/upload'
 import './assets/less/variables.less'
 
 // TODO 属性与事件传递 v-bind="$props" v-on="$listeners"
-const components = [
-  Button,
-  Cell,
-  Checkbox,
-  Collapse,
-  Datetime,
-  Form,
-  GoTopButton,
-  Icon,
-  Input,
-  List,
-  Picker,
-  Popup,
-  Progress,
-  Radio,
-  Range,
-  Select,
-  StepItem,
-  Steps,
-  SwipeItem,
-  Swipe,
-  TabItem,
-  Tabs,
-  Upload
-];
-
-const install = function (Vue) {
-  components.forEach(component => {
+function install (Vue) {
+  [
+    Button,
+    Cell,
+    Checkbox,
+    Collapse,
+    Datetime,
+    Form,
+    GoTopButton,
+    Icon,
+    Input,
+    List,
+    Picker,
+    Popup,
+    Progress,
+    Radio,
+    Range,
+    Select,
+    StepItem,
+    Steps,
+    SwipeItem,
+    Swipe,
+    TabItem,
+    Tabs,
+    Upload
+  ].forEach(component => {
     Vue.component(component.name, component);
   });
 
@@ -71,16 +69,14 @@ const install = function (Vue) {
   Vue.use(Alert);
   Vue.use(Confirm);
   Vue.use(Toast);
-};
+}
 
 /* istanbul ignore if */
 if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue);
 }
 
-export default {
-  version: '1.0.0',
-  install,
+export {
   Button,
   Cell,
   Checkbox,
@@ -105,4 +101,9 @@ export default {
   TabItem,
   Tabs,
   Upload
+}
+
+export default {
+  version: '1.0.0',
+  install
 };
