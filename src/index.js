@@ -5,9 +5,9 @@
  */
 
 import Loading from '../packages/loading'
-import Alert from '../packages/message/alert'
-import Confirm from '../packages/message/confirm'
-import Toast from '../packages/message/toast'
+import Alert from '../packages/alert'
+import Confirm from '../packages/confirm'
+import Toast from '../packages/toast'
 import Button from '../packages/button'
 import Cell from '../packages/cell'
 import Checkbox from '../packages/checkbox'
@@ -75,7 +75,9 @@ if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue);
 }
 
-export {
+export default {
+  version: '1.0.0',
+  install,
   Button,
   Cell,
   Checkbox,
@@ -99,10 +101,9 @@ export {
   Swipe,
   TabItem,
   Tabs,
-  Upload
-}
-
-export default {
-  version: '1.0.0',
-  install
+  Upload,
+  Loading,
+  Alert,
+  Confirm,
+  Toast
 };
