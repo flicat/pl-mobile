@@ -16,6 +16,8 @@
 </template>
 
 <script>
+  import './iconfont.js'
+
   export default {
     name: 'plIcon',
     componentName: 'plIcon',
