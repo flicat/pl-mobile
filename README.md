@@ -14,19 +14,47 @@ Vue.use(PlMobile)
 
 
 ### 按需引入
+通过使用 Ant Design 团队开发的 [`babel-plugin-import`](https://github.com/ant-design/babel-plugin-import) 插件来实现按需引入
+#### 安装插件
+```
+npm install babel-plugin-import -D
+```
+#### 配置babel
+```
+{
+  presets: [
+    '@vue/app'
+  ],
+  plugins: [
+    [
+      "import",
+      {
+        "libraryName": "pl-mobile",
+        "libraryDirectory": "packages",
+        "camel2DashComponentName": false
+      }
+    ]
+  ]
+}
+```
+#### 在项目中引用
 ```
 <script>
-import {Fetch, Button} from 'pl-mobile'
-Vue.use(Fetch)
+import {fetch, button} from 'pl-mobile'
+Vue.use(fetch)
 
 export default {
   components: {
-    Button
+    button
   }
 }
 </script>
 ```
-
+*注意：组件名称为小写，与下面组件列表名称相同，按需引入需要提前加载css全局变量：*
+```
+import 'pl-mobile/src/assets/less/variables.less'
+```
+或者在项目的样式表中添加 [css全局变量](#css全局变量)
 
 ### 组件列表
 >- [button](./docs/button.md)
@@ -41,15 +69,21 @@ export default {
 >- [input](./docs/input.md)
 >- [list](./docs/list.md)
 >- [loading](./docs/loading.md)
->- [message](./docs/message.md)
+>- [alert](./docs/message.md)
+>- [confirm](./docs/message.md)
+>- [toast](./docs/message.md)
 >- [picker](./docs/picker.md)
+>- [popup](./docs/popup.md)
 >- [progress](./docs/progress.md)
 >- [radio](./docs/radio.md)
 >- [range](./docs/range.md)
 >- [select](./docs/select.md)
 >- [steps](./docs/steps.md)
+>- [stepItem](./docs/steps.md)
 >- [swipe](./docs/swipe.md)
+>- [swipeItem](./docs/swipe.md)
 >- [tabs](./docs/tabs.md)
+>- [tabItem](./docs/tabs.md)
 >- [upload](./docs/upload.md)
 
 ### css全局变量
