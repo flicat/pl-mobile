@@ -3,22 +3,32 @@
     <div class="pl-list-wrap"
       ref="list"
       v-on="$listeners"
-      @touchstart="touchEvent($event)"
-      @touchmove="touchEvent($event)"
-      @touchend="touchEvent($event)"
-      @touchcancel="touchEvent($event)">
+      @scroll.stop="handlerScroll($event)"
+      @touchstart.stop="touchEvent($event)"
+      @touchmove.stop="touchEvent($event)"
+      @touchend.stop="touchEvent($event)"
+      @touchcancel.stop="touchEvent($event)">
+
       <div class="pl-list-loading-top" v-show="translate < 0 && loading">
-        <icon name="icon-icon_loading"></icon>
-        {{loadingText}}
-      </div>
-      <div class="pl-list-refresh-tip" v-show="translate < 0 && !loading">{{refreshText}}</div>
-      <div class="pl-list-inner" :style="innerStyle" ref="inner">
-        <slot></slot>
-        <div class="pl-list-loading-bottom" v-show="translate > 0 && !finished">
+        <slot name="top-loading">
           <icon name="icon-icon_loading"></icon>
           {{loadingText}}
+        </slot>
+      </div>
+      <div class="pl-list-refresh-tip" v-show="translate < 0 && !loading">
+        <slot name="top-refresh">{{refreshText}}</slot>
+      </div>
+      <div class="pl-list-inner" :style="innerStyle" ref="inner">
+        <slot></slot>
+        <div class="pl-list-loading-bottom" v-show="(translate > 0 || loading) && !finished">
+          <slot name="bottom-loading">
+            <icon name="icon-icon_loading"></icon>
+            {{loadingText}}
+          </slot>
         </div>
-        <div class="pl-list-loading-finished" v-show="translate > 0 && finished">{{finishedText}}</div>
+        <div class="pl-list-loading-finished" v-show="translate > 0 && finished">
+          <slot name="bottom-finished">{{finishedText}}</slot>
+        </div>
       </div>
     </div>
     <go-top-button v-if="topButton" :target="$refs.list"></go-top-button>
@@ -45,6 +55,11 @@
       // 是否已加载完成，加载完成后不再触发load事件
       finished: {
         type: Boolean,
+        default: false
+      },
+      // 是否滚动到底部自动加载，如果传入数字值则在距离该值的高度触发加载事件
+      autoLoad: {
+        type: [Boolean, Number],
         default: false
       },
       // 加载过程中的提示文案
@@ -142,6 +157,15 @@
             this.transition = null
             break;
         }
+      },
+      // 滚动事件
+      handlerScroll ({target: {scrollTop, clientHeight, scrollHeight}}) {
+        if (this.autoLoad === false || this.finished || this.loading) {
+          return false
+        }
+        if (scrollHeight - scrollTop - clientHeight <= Number(this.autoLoad)) {
+          this.$emit('load')
+        }
       }
     },
     watch: {
@@ -149,7 +173,7 @@
         if (!val) {
           this.translate = 0
 
-          if (!this.finished) {
+          if (!this.finished && !this.loading) {
             // 如果加载内容的高度不够则继续加载下一页
             this.$nextTick(() => {
               if (this.$refs.list && this.$refs.inner && this.$refs.inner.scrollHeight <= this.$refs.list.clientHeight) {
@@ -183,7 +207,8 @@
       top: 0;
       width: 100%;
       height: 100%;
-      overflow: auto;
+      overflow-x: hidden;
+      overflow-y: scroll;
       -webkit-overflow-scrolling: touch;
     }
     &-inner {

@@ -107,6 +107,7 @@
 |---------- |-------- |---------- |-------------  |-------- |
 | loading      |  是否处于加载状态，加载过程中不触发load事件   | Boolean | —    | false |
 | finished     | 是否已加载完成，加载完成后不再触发load事件 | Boolean | —            | false |
+| autoLoad     | 是否滚动到底部自动加载，如果传入数字值则在距离该值的高度触发加载事件 | [Boolean, Number] | —            | false |
 | loadingText  | 加载过程中的提示文字| String | —            | — |
 | refreshText  | 下拉刷新的提示文案  | String | —            | — |
 | finishedText | 加载完成后的提示文字 | String | —            | — |
@@ -117,6 +118,10 @@
 | name      | 说明    | 
 |---------- |-------- |
 | (default)     |   列表项   |
+| top-loading     |   头部下拉加载 loading   |
+| top-refresh     |   头部下拉刷新提示语   |
+| bottom-loading     |   底部加载 loading   |
+| bottom-finished     |   底部加载完成提示语   |
 
 
 ### Events

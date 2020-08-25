@@ -4,8 +4,12 @@
       <h4>滚动列表 <em>下拉刷新</em><em>上拉加载</em></h4>
     </div>
     <div class="list">
-      <pl-list class="pl-list" :loading="loading" :finished="finished" @refresh="reload" @load="load" refreshText="松开刷新" loadingText="加载中..." finishedText="加载完成" errorText="加载失败">
+      <pl-list class="pl-list" :autoLoad="50" :loading="loading" :finished="finished" @refresh="reload" @load="load" refreshText="松开刷新" loadingText="加载中..." finishedText="加载完成" errorText="加载失败">
         <p v-for="item in data" :key="item.value">{{item.label}}</p>
+        <span slot="top-loading">努力重刷中...</span>
+        <span slot="top-refresh">放开重刷</span>
+        <span slot="bottom-loading">努力加载中...</span>
+        <span slot="bottom-finished">全部加载完啦</span>
       </pl-list>
     </div>
   </div>
@@ -57,7 +61,7 @@
           }
           setTimeout(() => {
             resolve(result)
-          }, 500)
+          }, 3000)
         })
       }
     }
