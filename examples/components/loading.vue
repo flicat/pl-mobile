@@ -1,6 +1,7 @@
 <template>
   <div class="content">
     <pl-loading>加载中...</pl-loading>
+    <pl-loading vertical>加载中...</pl-loading>
   </div>
 </template>
 <script>

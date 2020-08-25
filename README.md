@@ -39,18 +39,24 @@ npm install babel-plugin-import -D
 ```
 #### 在项目中引用
 ```
+<template>
+  <div>
+    <pl-button type="default">按钮</pl-button>
+  </div>
+</template>
+
 <script>
-import {fetch, button} from 'pl-mobile'
-Vue.use(fetch)
+import {PlFetch, PlButton} from 'pl-mobile'
+Vue.use(PlFetch)
 
 export default {
   components: {
-    'pl-button': button
+    PlButton
   }
 }
 </script>
 ```
-*注意：组件名称为小写，与下面组件列表名称相同，按需引入需要提前加载css全局变量：*
+*注意：按需引入需要引入css全局变量：*
 ```
 import 'pl-mobile/src/assets/less/variables.less'
 ```
