@@ -45,7 +45,7 @@ Vue.use(fetch)
 
 export default {
   components: {
-    button
+    'pl-button': button
   }
 }
 </script>
@@ -54,7 +54,7 @@ export default {
 ```
 import 'pl-mobile/src/assets/less/variables.less'
 ```
-或者在项目的样式表中添加 [css全局变量](#css全局变量)
+*或者在项目的样式表中添加 [css全局变量](#css全局变量)*
 
 ### 组件列表
 >- [button](./docs/button.md)
