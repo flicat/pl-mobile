@@ -1,9 +1,10 @@
-name: GitHub Actions Build and Deploy
+name: GitHub Page
 on:
   push:
     branches:
       - master
     paths:
+      - '.github/**'
       - 'src/**'
       - 'packages/**'
       - 'docs/**'
@@ -11,6 +12,9 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x]
     steps:
     - name: Checkout
       uses: actions/checkout@v2 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
@@ -21,8 +25,7 @@ jobs:
         npm install
         npm run-script build:docs
     - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@releases/v3
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: dist
+        github_token: ${{ secrets.ACCESS_TOKEN }}
+        publish_dir: ./dist
