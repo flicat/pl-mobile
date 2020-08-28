@@ -9,6 +9,7 @@ import Alert from '../packages/PlAlert'
 import Confirm from '../packages/PlConfirm'
 import Toast from '../packages/PlToast'
 import Button from '../packages/PlButton'
+import Canvas from '../packages/PlCanvas'
 import Cell from '../packages/PlCell'
 import Checkbox from '../packages/PlCheckbox'
 import Collapse from '../packages/PlCollapse'
@@ -37,6 +38,7 @@ import './assets/less/variables.less'
 function install (Vue) {
   [
     Button,
+    Canvas,
     Cell,
     Checkbox,
     Collapse,
@@ -79,6 +81,7 @@ export default {
   version: '1.0.0',
   install,
   Button,
+  Canvas,
   Cell,
   Checkbox,
   Collapse,

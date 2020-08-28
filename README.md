@@ -123,6 +123,9 @@ import 'pl-mobile/src/assets/less/variables.less'
   /* button */
   --button-text-color: #fff;
 
+  /* canvas */
+  --canvas-bg: #ffffdc;
+
   /* checkbox */
   --checkbox-disabled-text: #c8c9cc;
   --checkbox-disabled-border: #dcdfe6;

@@ -6,6 +6,7 @@ Vue.use(Router)
 
 const components = [
   {name: 'button', title: 'button 按钮'},
+  {name: 'canvas', title: 'canvas 签字板'},
   {name: 'cell', title: 'cell 布局'},
   {name: 'checkbox', title: 'checkbox 多选框'},
   {name: 'collapse', title: 'collapse 折叠面板'},
