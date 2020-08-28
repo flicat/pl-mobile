@@ -10,21 +10,42 @@
     <div class="docs" :class="{'has-examples': $route.meta.name}">
       <router-view></router-view>
       <div class="examples" v-if="$route.meta.name">
-        <iframe :src="'#/examples/' + $route.meta.name" frameborder="0" width="360" height="480"></iframe>
+        <div class="mobile">
+          <iframe :src="'#/examples/' + $route.meta.name" frameborder="0" width="360" height="480"></iframe>
+        </div>
+        <div class="qrcode">
+          <qrCode :value="QRCodeValue" :size="200"/>
+          <p>手机扫码查看</p>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <script>
+  import qrCode from './qrcode'
+
   export default {
+    components: {
+      qrCode
+    },
     data () {
       return {
-        routes: []
+        routes: [],
+        QRCodeValue: null
       }
     },
     created () {
       this.routes = this.$router.options.routes[0].children[0].children.filter(route => route.meta && route.meta.type === 'docs');
+    },
+    watch: {
+      '$route.meta.name': {
+        handler (val) {
+          this.QRCodeValue = window.location.origin + '#/examples/' + val
+
+        },
+        immediate: true
+      }
     }
   }
 </script>
@@ -80,14 +101,33 @@
       }
 
       .examples {
-        border: 20px solid #ddd;
-        background-color: #fff;
         position: absolute;
         left: 100%;
         top: 0;
+        bottom: 0;
         z-index: 10;
-        width: 360px;
-        height: 480px;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        .mobile {
+          border: 20px solid #ddd;
+          background-color: #fff;
+          width: 360px;
+          height: 480px;
+        }
+        .qrcode {
+          width: 200px;
+          padding: 10px;
+          margin: 10px auto;
+          text-align: center;
+          background-color: #fff;
+
+          p {
+            font: 400 14px/1em '微软雅黑';
+            color: #999;
+            margin: 0;
+          }
+        }
       }
       /deep/ .markdown-body {
         &:extend(.wrap .menu .nav-list);

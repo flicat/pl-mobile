@@ -1,6 +1,6 @@
 {
   "name": "pl-mobile",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "a mobile component library for Vue.js.",
   "main": "src/index.js",
   "keywords": [
@@ -29,6 +29,7 @@
     "url": "https://github.com/flicat/pl-mobile/issues"
   },
   "dependencies": {
+    "qrious": "^4.0.2",
     "vue": "^2.6.10",
     "whatwg-fetch": "^3.4.0"
   },
