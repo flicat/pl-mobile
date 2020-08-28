@@ -64,6 +64,7 @@ import 'pl-mobile/src/assets/less/variables.less'
 
 ### 组件列表
 >- [button](./docs/button.md)
+> - [canvas](./docs/canvas.md)
 >- [cell](./docs/cell.md)
 >- [checkbox](./docs/checkbox.md)
 >- [collapse](./docs/collapse.md)
