@@ -17,7 +17,7 @@ Vue.use(PlMobile)
 通过使用 Ant Design 团队开发的 [`babel-plugin-import`](https://github.com/ant-design/babel-plugin-import) 插件来实现按需引入
 #### 安装插件
 ```
-npm install babel-plugin-import -D
+npm install babel-plugin-import@1.13.0 -D
 ```
 #### 配置babel
 ```
