@@ -8,6 +8,7 @@
 </template>
 
 <script>
+  // TODO 添加动画支持，环形进度条和饼图
   export default {
     name: 'plProgress',
     componentName: 'plProgress',

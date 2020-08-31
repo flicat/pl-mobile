@@ -5,6 +5,7 @@
 </template>
 
 <script>
+  // TODO 样式优化，添加两头图标支持和行高控制
   import {is} from '../../src/assets/utils'
 
   export default {

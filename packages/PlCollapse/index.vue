@@ -17,6 +17,7 @@
 <script>
   import icon from '../PlIcon/index.vue'
 
+  // TODO 效果优化，样式调整
   export default {
     name: 'plCollapse',
     componentName: 'plCollapse',

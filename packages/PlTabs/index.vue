@@ -25,6 +25,7 @@
 </template>
 
 <script>
+  // TODO button模式修改为菜单式tab
   export default {
     name: 'plTabs',
     componentName: 'plTabs',

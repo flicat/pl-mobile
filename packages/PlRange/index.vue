@@ -37,7 +37,7 @@
 <script>
   import {validate} from '../../src/assets/utils'
 
-  // range
+  // TODO 文字样式调整
   export default {
     name: 'plRange',
     componentName: 'plRange',
