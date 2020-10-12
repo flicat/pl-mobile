@@ -1,0 +1,29 @@
+/* 设计稿尺寸 */
+/* 基础字体大小 */
+/* px转rem方法 */
+.pl-canvas[data-v-f918efc2] {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 26.66666667rem;
+  background-color: var(--canvas-bg);
+}
+.pl-canvas canvas[data-v-f918efc2] {
+  position: relative;
+  z-index: 1;
+}
+.pl-canvas .placeholder[data-v-f918efc2] {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.5em;
+  transform-origin: 50% 50%;
+  color: #ccc;
+  font-size: 4em;
+  text-align: center;
+}
+

@@ -1,0 +1,57 @@
+.pl-icon[data-v-2f231500] {
+  width: 1.2em;
+  height: 1.2em;
+  display: inline-block;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  vertical-align: middle;
+  line-height: 0;
+}
+.pl-icon *[data-v-2f231500] {
+  box-sizing: border-box;
+}
+.pl-icon .icon-svg[data-v-2f231500] {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+/* 设计稿尺寸 */
+/* 基础字体大小 */
+/* px转rem方法 */
+.pl-steps[data-v-02025656] {
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 1.2em;
+}
+.pl-steps *[data-v-02025656] {
+  box-sizing: border-box;
+}
+.pl-steps .pl-steps-items[data-v-02025656] {
+  display: flex;
+}
+.pl-steps .pl-steps-toggle[data-v-02025656] {
+  width: 100%;
+  text-align: center;
+  font-size: 0.71111111rem;
+  color: var(--steps-toggle-text);
+  padding: 1em 0;
+}
+.pl-steps .pl-steps-toggle[data-v-02025656] .pl-icon {
+  vertical-align: text-bottom;
+  margin-right: 0.2em;
+}
+.pl-steps--horizontal .pl-steps-items[data-v-02025656] {
+  flex-direction: row;
+}
+.pl-steps--vertical .pl-steps-items[data-v-02025656] {
+  flex-direction: column;
+}
+.pl-steps--vertical .pl-steps-fold[data-v-02025656] .pl-step + .pl-step {
+  display: none;
+}
+

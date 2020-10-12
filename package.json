@@ -1,8 +1,8 @@
 {
   "name": "pl-mobile",
-  "version": "0.7.1",
+  "version": "1.0.0",
   "description": "a mobile component library for Vue.js.",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "keywords": [
     "vue",
     "components",

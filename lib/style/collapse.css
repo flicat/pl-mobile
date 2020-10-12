@@ -1,0 +1,49 @@
+.pl-icon[data-v-2f231500] {
+  width: 1.2em;
+  height: 1.2em;
+  display: inline-block;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  vertical-align: middle;
+  line-height: 0;
+}
+.pl-icon *[data-v-2f231500] {
+  box-sizing: border-box;
+}
+.pl-icon .icon-svg[data-v-2f231500] {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.pl-collapse *[data-v-2e625534] {
+  box-sizing: border-box;
+}
+.pl-collapse-top[data-v-2e625534] {
+  display: flex;
+  padding: 1em 1.2em;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.pl-collapse-top .icon-arrow[data-v-2e625534] {
+  transition: all 0.3s ease;
+}
+.pl-collapse-content[data-v-2e625534] {
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.pl-collapse-inner[data-v-2e625534] {
+  transform: translateY(-100%);
+  transition: all 0.3s ease;
+}
+.pl-collapse--active > .pl-collapse-top > .icon-arrow[data-v-2e625534] {
+  transform: rotate(90deg);
+}
+.pl-collapse--active > .pl-collapse-content > .pl-collapse-inner[data-v-2e625534] {
+  transform: translateY(0);
+}
+

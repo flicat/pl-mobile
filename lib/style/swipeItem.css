@@ -1,0 +1,10 @@
+.pl-swipe-item[data-v-02a9c702] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.pl-swipe-item *[data-v-02a9c702] {
+  box-sizing: border-box;
+}
+

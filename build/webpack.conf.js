@@ -2,6 +2,15 @@ const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const getPkgEntry = require('./getPkgEntry.js');
+
+let entry = {
+  base: './src/assets/less/variables.less',
+  index: './src/index.js'
+};
+let packages = getPkgEntry('packages').forEach(function (name) {
+  entry[name] = './packages/' + name + '/index.js'
+})
 
 let isShowReport = false
 try {
@@ -11,7 +20,7 @@ try {
 
 let plugins = [
   new MiniCssExtractPlugin({
-    filename: 'index.css'
+    filename: 'style/[name].css'
   }),
   new VueLoaderPlugin()
 ]
@@ -21,13 +30,11 @@ if (isShowReport) {
 
 module.exports = {
   mode: 'production',
-  entry: {
-    app: ['./src/index.js']
-  },
+  entry: entry,
   output: {
     path: path.resolve(process.cwd(), './lib'),
     publicPath: './',
-    filename: 'index.js',
+    filename: '[name].js',
     chunkFilename: '[id].js',
     libraryExport: 'default',
     library: 'PlMobile',

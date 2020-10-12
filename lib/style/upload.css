@@ -1,0 +1,120 @@
+.pl-icon[data-v-2f231500] {
+  width: 1.2em;
+  height: 1.2em;
+  display: inline-block;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  vertical-align: middle;
+  line-height: 0;
+}
+.pl-icon *[data-v-2f231500] {
+  box-sizing: border-box;
+}
+.pl-icon .icon-svg[data-v-2f231500] {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.pl-upload *[data-v-be4dbcf0] {
+  box-sizing: border-box;
+}
+.pl-upload .rows[data-v-be4dbcf0] {
+  width: 100%;
+  display: grid;
+  grid-gap: 1em;
+}
+.pl-upload .rows .cols[data-v-be4dbcf0] {
+  position: relative;
+  height: 0;
+  padding-bottom: 100%;
+}
+.pl-upload .rows .cols .pl-file-preview[data-v-be4dbcf0],
+.pl-upload .rows .cols .pl-upload-button[data-v-be4dbcf0] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.pl-upload .pl-file-preview .pl-upload-img[data-v-be4dbcf0] {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  border-radius: 4px;
+  background-image: url(./static/word.2e203ff.png);
+}
+.pl-upload .pl-file-preview .pl-upload-img.pdf[data-v-be4dbcf0] {
+  background-image: url(./static/pdf.57b4050.png);
+}
+.pl-upload .pl-file-preview .pl-upload-del[data-v-be4dbcf0] {
+  padding: 1em;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(50%, -50%);
+  color: var(--upload-del-text);
+}
+.pl-upload .pl-upload-button .file-input[data-v-be4dbcf0] {
+  position: absolute;
+  z-index: 1;
+  -webkit-appearance: none;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+}
+.pl-upload .pl-upload-button .pl-add-button[data-v-be4dbcf0] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--upload-add-button);
+  color: var(--upload-add-button);
+  width: 100%;
+  height: 100%;
+}
+.pl-upload .pl-upload-button .pl-add-button .pl-upload-add[data-v-be4dbcf0] {
+  font-size: 2em;
+}
+.pl-upload .pl-preview-dialog[data-v-be4dbcf0] {
+  position: fixed;
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+.pl-upload .pl-preview-dialog .preview-list[data-v-be4dbcf0] {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+.pl-upload .pl-preview-dialog .preview-list .preview-item[data-v-be4dbcf0] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-position: 50% 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.pl-upload .pl-preview-dialog .preview-index[data-v-be4dbcf0] {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  top: 1em;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 0 2px #999;
+}
+

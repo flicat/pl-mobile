@@ -1,0 +1,21 @@
+.pl-icon[data-v-2f231500] {
+  width: 1.2em;
+  height: 1.2em;
+  display: inline-block;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  vertical-align: middle;
+  line-height: 0;
+}
+.pl-icon *[data-v-2f231500] {
+  box-sizing: border-box;
+}
+.pl-icon .icon-svg[data-v-2f231500] {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  overflow: hidden;
+  vertical-align: top;
+}
+

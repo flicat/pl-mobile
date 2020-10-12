@@ -1,0 +1,12 @@
+.pl-cell[data-v-ffcfdaae] {
+  display: grid;
+  width: 100%;
+  background-color: var(--input-bg);
+}
+.pl-cell-row > *[data-v-ffcfdaae] {
+  overflow-x: hidden;
+}
+.pl-cell-column > *[data-v-ffcfdaae] {
+  overflow-y: hidden;
+}
+

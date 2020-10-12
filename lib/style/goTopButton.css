@@ -1,0 +1,43 @@
+.pl-icon[data-v-2f231500] {
+  width: 1.2em;
+  height: 1.2em;
+  display: inline-block;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  vertical-align: middle;
+  line-height: 0;
+}
+.pl-icon *[data-v-2f231500] {
+  box-sizing: border-box;
+}
+.pl-icon .icon-svg[data-v-2f231500] {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+/* 设计稿尺寸 */
+/* 基础字体大小 */
+/* px转rem方法 */
+.pl-to-top[data-v-50daa70e] {
+  position: fixed;
+  z-index: 99;
+  width: 2.84444444rem;
+  height: 2.84444444rem;
+  line-height: 2.70222222rem;
+  right: 1.56444444rem;
+  bottom: 1.56444444rem;
+  background: var(--input-bg);
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 50%;
+  text-align: center;
+  font-size: 1.56444444rem;
+  color: var(--to-top-text);
+}
+.pl-to-top *[data-v-50daa70e] {
+  box-sizing: border-box;
+}
+

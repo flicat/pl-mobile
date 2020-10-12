@@ -1,0 +1,64 @@
+/* 设计稿尺寸 */
+/* 基础字体大小 */
+/* px转rem方法 */
+.pl-button[data-v-cf1b9d0e] {
+  border-radius: 3px;
+  line-height: normal;
+  background: none;
+  border: 0 none;
+  outline: 0 none;
+  text-align: center;
+  color: var(--button-text-color);
+}
+.pl-button[data-v-cf1b9d0e]:active {
+  opacity: 0.8;
+}
+.pl-button--default[data-v-cf1b9d0e] {
+  background: var(--default);
+}
+.pl-button--primary[data-v-cf1b9d0e] {
+  background: var(--primary);
+}
+.pl-button--success[data-v-cf1b9d0e] {
+  background: var(--success);
+}
+.pl-button--warning[data-v-cf1b9d0e] {
+  background: var(--warning);
+}
+.pl-button--danger[data-v-cf1b9d0e] {
+  background: var(--danger);
+}
+.pl-button--text[data-v-cf1b9d0e] {
+  background: none;
+  color: var(--primary);
+}
+.pl-button--normal[data-v-cf1b9d0e] {
+  font-size: 1.06666667rem;
+  padding: 0.64rem;
+}
+.pl-button--small[data-v-cf1b9d0e] {
+  font-size: 0.85333333rem;
+  padding: 0.42666667rem;
+}
+.pl-button--lager[data-v-cf1b9d0e] {
+  font-size: 1.28rem;
+  padding: 0.85333333rem 1.28rem;
+}
+.pl-button > *[data-v-cf1b9d0e] {
+  vertical-align: bottom;
+}
+.is-disabled[data-v-cf1b9d0e] {
+  cursor: not-allowed;
+  background-color: var(--disabled);
+}
+.is-disabled.pl-button--text[data-v-cf1b9d0e] {
+  background: none;
+  color: var(--disabled);
+}
+.is-round[data-v-cf1b9d0e] {
+  border-radius: 1em;
+}
+.is-circle[data-v-cf1b9d0e] {
+  border-radius: 50%;
+}
+
