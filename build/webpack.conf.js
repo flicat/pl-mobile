@@ -2,6 +2,7 @@ const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OutputFilter = require('./outputFilter.js');
 const getPkgEntry = require('./getPkgEntry.js');
 
 let entry = {
@@ -22,7 +23,8 @@ let plugins = [
   new MiniCssExtractPlugin({
     filename: 'style/[name].css'
   }),
-  new VueLoaderPlugin()
+  new VueLoaderPlugin(),
+  new OutputFilter()
 ]
 if (isShowReport) {
   plugins.push(new BundleAnalyzerPlugin())
@@ -86,7 +88,7 @@ module.exports = {
         test: /\.(svg|otf|ttf|woff2?|eot|gif|png|jpe?g)(\?\S*)?$/,
         loader: 'url-loader',
         query: {
-          limit: 1000,
+          limit: 10000,
           name: path.posix.join('static', '[name].[hash:7].[ext]')
         }
       }

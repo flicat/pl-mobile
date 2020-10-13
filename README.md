@@ -16,10 +16,11 @@ Vue.use(PlMobile)
 
 
 ### 按需引入
-通过使用 Ant Design 团队开发的 [`babel-plugin-import`](https://github.com/ant-design/babel-plugin-import) 插件来实现按需引入
+通过使用饿了么团队开发的[`babel-plugin-component`](https://github.com/ElementUI/babel-plugin-component)
+插件来实现按需引入
 #### 安装插件
 ```
-npm install babel-plugin-import@1.13.0 -D
+npm i babel-plugin-component -D
 ```
 #### 配置babel
 ```
@@ -29,11 +30,10 @@ npm install babel-plugin-import@1.13.0 -D
   ],
   plugins: [
     [
-      "import",
+      "component",
       {
         "libraryName": "pl-mobile",
-        "libraryDirectory": "packages",
-        "camel2DashComponentName": false
+        "styleLibraryName": "style"
       }
     ]
   ]
@@ -48,21 +48,16 @@ npm install babel-plugin-import@1.13.0 -D
 </template>
 
 <script>
-import {PlFetch, PlButton} from 'pl-mobile'
+import {fetch, button} from 'pl-mobile'
 Vue.use(PlFetch)
 
 export default {
   components: {
-    PlButton
+    'pl-button': button
   }
 }
 </script>
 ```
-*注意：按需引入需要引入css全局变量：*
-```
-import 'pl-mobile/src/assets/less/variables.less'
-```
-*或者在项目的样式表中添加 [css全局变量](#css全局变量)*
 
 ### 组件列表
 >- [button](./docs/button.md)

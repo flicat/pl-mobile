@@ -132,6 +132,7 @@ Vue.prototype.$fetchMiddleware(function (res) {
 | credentials| 请求的 credentials 。为了在当前域名内自动发送 cookie ， 必须提供这个选项 | String | omit / same-origin / include | — |            
 | cache      | 请求的 cache 模式 | String | default / no-store / reload / no-cache / force-cache / only-if-cached | no-cache |            
 | signal     | AbortSignal 接口表示一个信号对象（ signal object ），它允许您通过 AbortController 对象与DOM请求（如Fetch）进行通信并在需要时将其中止。 | AbortController | — | — |   
+| redirect   | 根据请求地址转成get请求，直接重定向URL  | Boolean | — | false |          
 | onDownload | onDownload 回调方法 | Function | — | — |          
 
 
