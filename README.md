@@ -20,7 +20,7 @@ Vue.use(PlMobile)
 插件来实现按需引入
 #### 安装插件
 ```
-npm i babel-plugin-component -D
+npm i babel-plugin-component@1.1.1 -D
 ```
 #### 配置babel
 ```
