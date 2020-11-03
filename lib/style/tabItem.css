@@ -1,0 +1,7 @@
+.pl-tab-item[data-v-bcd783b0] {
+  display: none;
+}
+.pl-tab-item.is-active[data-v-bcd783b0] {
+  display: block;
+}
+

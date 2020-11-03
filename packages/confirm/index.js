@@ -1,89 +1,35 @@
+import plConfirm from './index.vue'
+
 // confirm
 export default function (Vue) {
   let Confirm = Vue.extend({
+    components: {
+      plConfirm
+    },
     render (createElement) {
       return this.display && createElement('div', {
-        class: 'pl-confirm',
         style: {
-          display: 'flex',
-          position: 'fixed',
-          zIndex: 998,
-          left: '0',
-          top: '0',
-          width: '100%',
-          height: '100%',
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
           transition: 'all 0.3s ease',
           opacity: this.visible ? 1 : 0,
         }
       }, [
-        createElement('div', {
-          class: 'pl-confirm-inner',
-          style: {
-            margin: 'auto',
-            width: '80%',
-            paddingTop: '1em',
-            textAlign: 'center',
-            backgroundColor: '#fff',
-            borderRadius: '0.5em'
+        createElement('plConfirm', {
+          props: {
+            title: this.title,
+            message: this.message,
+            html: this.html,
+            component: this.component,
+            submitText: this.submitText,
+            cancelText: this.cancelText,
+            submit: this.submit,
+            cancel: this.cancel
+          },
+          on: {
+            hide: () => {
+              this.hide()
+            }
           }
-        }, [
-          createElement('div', {
-            class: 'pl-confirm-title',
-            style: {
-              color: '#333',
-              paddingBottom: '1em',
-              fontWeight: '700'
-            }
-          }, this.title),
-          createElement('div', {
-            class: 'pl-confirm-content',
-            domProps: this.html ? {innerHTML: this.message} : null,
-            style: {
-              color: '#666',
-              lineHeight: '1.5em',
-              padding: '0 1em 1em',
-              borderBottom: '1px solid #EBEDFB'
-            }
-          }, [this.component ? createElement(this.component) : this.html ? null : this.message]),
-          createElement('div', {
-            class: 'pl-confirm-button-wrap',
-            style: {
-              lineHeight: '3em',
-              display: 'table',
-              width: '100%',
-              fontWeight: '700'
-            }
-          }, [
-            createElement('div', {
-              class: 'pl-confirm-button-cancel',
-              style: {
-                color: '#333',
-                display: 'table-cell',
-                width: '50%',
-                borderRight: '1px solid #EBEDFB'
-              },
-              on: {
-                click: () => {
-                  this.onCancel()
-                }
-              }
-            }, this.cancelText),
-            createElement('div', {
-              class: 'pl-confirm-button-submit',
-              style: {
-                color: '#5074FF',
-                display: 'table-cell',
-                width: '50%'
-              },
-              on: {
-                click: () => {
-                  this.onSubmit()
-                }
-              }
-            }, this.submitText)
-          ])
-        ])
+        })
       ]) || null
     },
     data: function () {
@@ -102,34 +48,6 @@ export default function (Vue) {
       }
     },
     methods: {
-      onSubmit () {
-        new Promise((resolve, reject) => {
-          if (this.$children[0] && typeof this.$children[0].submit === 'function') {
-            resolve(this.$children[0].submit())
-          } else {
-            resolve()
-          }
-        }).then(() => {
-          if (typeof this.submit === 'function') {
-            this.submit()
-          }
-          this.hide()
-        })
-      },
-      onCancel () {
-        new Promise((resolve, reject) => {
-          if (this.$children[0] && typeof this.$children[0].cancel === 'function') {
-            resolve(this.$children[0].cancel())
-          } else {
-            resolve()
-          }
-        }).then(() => {
-          if (typeof this.cancel === 'function') {
-            this.cancel()
-          }
-          this.hide()
-        })
-      },
       show () {
         this.display = true
         this.$nextTick(() => {
@@ -151,8 +69,8 @@ export default function (Vue) {
 
   function showConfirm ({title, message, component, html, submitText, cancelText, submit, cancel}) {
     confirmDom.component = component
-    confirmDom.html = !!html && !confirmDom.component
-    confirmDom.message = !confirmDom.component && message || ''
+    confirmDom.html = !!html && !component
+    confirmDom.message = !component && message || ''
     confirmDom.title = title || ''
     confirmDom.submitText = submitText || '确认'
     confirmDom.cancelText = cancelText || '取消'

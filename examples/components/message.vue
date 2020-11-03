@@ -3,7 +3,8 @@
     <pl-button @click="alert">弹窗</pl-button>
     <pl-button @click="confirm">确认弹窗</pl-button>
     <pl-button @click="toast">消息提醒</pl-button>
-    <pl-button @click="dialog">模态框</pl-button>
+    <pl-button @click="dialog1">模态框1</pl-button>
+    <pl-button @click="dialog2">模态框2</pl-button>
   </div>
 </template>
 <script>
@@ -38,7 +39,18 @@
           }
         })
       },
-      dialog () {
+      dialog1 () {
+        this.$alert({
+          component: swipe,
+          submitText: '确定',
+          cancelText: '取消',
+          action: () => {
+            // 确定
+            console.log('确定')
+          }
+        })
+      },
+      dialog2 () {
         this.$confirm({
 //          title: '提示',
           component: swipe,

@@ -1,5 +1,5 @@
 <template>
-  <div class="pl-tab-item" v-show="active" :class="{'is-active': active}">
+  <div class="pl-tab-item" :class="{'is-active': active}">
     <slot></slot>
   </div>
 </template>
@@ -48,3 +48,12 @@
     }
   };
 </script>
+
+<style lang="less" scoped>
+  .pl-tab-item {
+    display: none;
+    &.is-active {
+      display: block;
+    }
+  }
+</style>

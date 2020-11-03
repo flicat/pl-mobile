@@ -1,35 +1,34 @@
+import plToast from './index.vue'
+
 // toast
 export default function (Vue) {
   let Toast = Vue.extend({
+    components: {
+      plToast
+    },
     render (createElement) {
       return this.display && createElement('div', {
-        class: 'pl-toast',
         style: {
-          display: 'block',
-          position: 'fixed',
-          zIndex: 1000,
-          left: '50%',
-          top: '75%',
-          backgroundColor: 'rgba(0,0,0,0.5)',
-          color: '#d6d6d6',
-          borderRadius: '3px',
-          padding: '0.3em 1em',
-          lineHeight: 'normal',
-          textAlign: 'center',
-          maxWidth: '90%',
-          wordBreak: 'break-all',
-          transform: 'translate(-50%, -50%)',
           transition: 'all 0.3s ease',
           opacity: this.visible ? 1 : 0,
         }
-      }, this.text) || null
+      }, [
+        createElement('plToast', {
+          props: {
+            text: this.text,
+            html: this.html
+          }
+        })
+      ]) || null
     },
     data: function () {
       return {
         display: false,
         visible: false,
         timer: null,
+
         duration: 3000,
+        html: false,               // 是否显示为HTML
         text: ''
       }
     },
@@ -58,8 +57,9 @@ export default function (Vue) {
     el: document.createElement('div')
   })
 
-  function showToast (text, duration) {
+  function showToast (text, duration, html = false) {
     toastDom.text = text
+    toastDom.html = html
     if (typeof duration === 'number') {
       toastDom.duration = duration
     }
