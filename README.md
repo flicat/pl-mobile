@@ -90,6 +90,42 @@ export default {
 >- [tabItem](./docs/tabs.md)
 >- [upload](./docs/upload.md)
 
+
+### 所有组件 
+```
+import {
+  alert,
+  button,
+  canvas,
+  cell,
+  checkbox,
+  collapse,
+  confirm,
+  datetime,
+  fetch,
+  form,
+  goTopButton,
+  icon,
+  input,
+  list,
+  loading,
+  picker,
+  popup,
+  progress,
+  radio,
+  range,
+  select,
+  stepItem,
+  steps,
+  swipe,
+  swipeItem,
+  tabItem,
+  tabs,
+  toast,
+  upload
+} from 'pl-mobile'
+```
+
 ### css全局变量
 ```css
 :root {
