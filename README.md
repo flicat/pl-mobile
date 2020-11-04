@@ -33,7 +33,8 @@ npm i babel-plugin-component@1.1.1 -D
       "component",
       {
         "libraryName": "pl-mobile",
-        "styleLibraryName": "style"
+        "styleLibraryName": "style",
+        "camel2Dash": false
       }
     ]
   ]
