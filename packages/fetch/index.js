@@ -11,9 +11,10 @@ const middleware = []
 
 function getHandler (options) {
   let handler = function (data, params) {
-    let resultPromise = request(Object.assign({}, defaultConfig, handler.options, params, {data}))
+    let resOptions = Object.assign({}, defaultConfig, handler.options, params, {data})
+    let resultPromise = request(resOptions)
     return Promise.all(middleware.map(handler => {
-      return Promise.resolve(handler(resultPromise))
+      return Promise.resolve(handler(resultPromise, resOptions))
     })).then(() => {
       return resultPromise
     })
