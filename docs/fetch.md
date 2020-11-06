@@ -77,7 +77,7 @@ Vue.prototype.$fetch.my_api.userLogin.url('jerry', '13565498754')({
 ```
 #### 8、添加一个全局结果处理函数
 ```
-Vue.prototype.$fetchMiddleware(function (res) {
+Vue.prototype.$fetchMiddleware(function (res, options) {
   res.then(data => {
     if (!data) {
       console.log('Your parameters may be incorrect')
