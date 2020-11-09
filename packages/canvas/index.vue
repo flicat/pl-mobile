@@ -98,6 +98,7 @@
         let y1 = this.startPoint.y
         this.pointArr.unshift({x1, y1})
         this.showPlaceholder = false
+        this.$emit('drawStart')
       },
       handlerMove (e) {
         if (!this.writeFlag) {
@@ -122,6 +123,7 @@
             this.penSize = Math.ceil(this.size / 2)
           }
         }
+        this.$emit('drawing')
       },
       handlerEnd () {
         this.writeFlag = false
@@ -144,6 +146,7 @@
           this.context2D.drawImage(this.penImg, this.pointArr[0].x1 - this.penSize / 2, this.pointArr[0].y1 - this.penSize / 2, this.penSize, this.penSize)
           this.pointArr.length = 0
         }
+        this.$emit('drawEnd')
       },
       // 获取笔触坐标点
       getPointPosition (e) {
@@ -168,6 +171,7 @@
           this.context2D.fillRect(0, 0, this.canvas.width, this.canvas.height)
         }
         this.showPlaceholder = true
+        this.$emit('clear')
       },
       // dataURL 转 Blob
       dataURLtoBlob (dataUrl) {

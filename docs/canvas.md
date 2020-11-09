@@ -88,3 +88,13 @@
 | clear | 清空画板 | — |
 | getImageDataUrl | 获取图像 DataUrl | [type, encoderOptions] |
 | getImageBlob | 获取图像 Blob | [type, encoderOptions] |
+
+
+
+### Events
+| 事件名称      | 说明    | 回调参数      |
+|---------- |-------- |---------- |
+| drawStart    |   开始绘画   | — | 
+| drawing    |   绘画中   | — | 
+| drawEnd    |   绘画结束   | — | 
+| clear    |   清除画布   | — | 
