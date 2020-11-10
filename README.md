@@ -50,7 +50,7 @@ npm i babel-plugin-component@1.1.1 -D
 
 <script>
 import {fetch, button} from 'pl-mobile'
-Vue.use(PlFetch)
+Vue.use(fetch)
 
 export default {
   components: {
