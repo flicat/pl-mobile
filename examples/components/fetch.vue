@@ -20,7 +20,7 @@
       });
       this.$fetchDefine({
         getImg: {
-          url: 'logo.png',
+          url: './logo.png',
           method: 'get',
           type: 'blob'
         }
