@@ -41,7 +41,7 @@
     watch: {
       '$route.meta.name': {
         handler (val) {
-          this.QRCodeValue = window.location.origin + '#/examples/' + val
+          this.QRCodeValue = window.location.href.split('#')[0] + '#/examples/' + val
 
         },
         immediate: true
