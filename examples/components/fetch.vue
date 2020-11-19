@@ -20,7 +20,8 @@
       });
       this.$fetchDefine({
         getImg: {
-          url: './logo.png',
+          baseUrl: window.location.href.split('#')[0],
+          url: '/logo.png',
           method: 'get',
           type: 'blob'
         }
