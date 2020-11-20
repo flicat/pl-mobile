@@ -68,7 +68,7 @@
       z-index: 1;
       .font-size(16);
       transition: all 0.3s ease;
-      will-change: transform;
+      will-change: transform, -webkit-transform;
     }
     &-layer {
       transition: all 0.3s ease;

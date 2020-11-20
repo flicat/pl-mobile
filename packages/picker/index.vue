@@ -335,6 +335,7 @@
         padding: 0;
         margin: 0;
         transition: all 0.3s ease;
+        will-change: transform, -webkit-transform;
       }
       &-item {
         white-space: nowrap;

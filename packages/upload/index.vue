@@ -338,6 +338,7 @@
         margin: 0;
         padding: 0;
         transition: all 0.3s ease;
+        will-change: transform, -webkit-transform;
 
         .preview-item {
           position: absolute;
