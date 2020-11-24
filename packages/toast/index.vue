@@ -20,7 +20,7 @@
 
 <style lang="less" scoped>
   .pl-toast {
-    display: block;
+    display: table;
     position: fixed;
     z-index: 1000;
     left: 50%;
@@ -31,7 +31,6 @@
     padding: 0.3em 1em;
     line-height: normal;
     text-align: center;
-    width: fit-content;
     max-width: 80%;
     word-break: break-word;
     transform: translate(-50%, -50%);
