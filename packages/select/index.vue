@@ -374,7 +374,7 @@
       }
       &-inner {
         max-height: 70vh;
-        min-height: (150 / @rem);
+        .min-height(150);
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
