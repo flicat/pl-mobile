@@ -24,15 +24,16 @@
     position: fixed;
     z-index: 1000;
     left: 50%;
-    top: 75%;
+    top: 65%;
     background-color: rgba(0, 0, 0, 0.5);
     color: rgb(214, 214, 214);
     border-radius: 3px;
     padding: 0.3em 1em;
     line-height: normal;
     text-align: center;
-    max-width: 90%;
-    word-break: break-all;
+    width: fit-content;
+    max-width: 80%;
+    word-break: break-word;
     transform: translate(-50%, -50%);
     span {
       font: inherit;
