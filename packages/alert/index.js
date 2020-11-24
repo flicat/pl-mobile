@@ -11,7 +11,8 @@ export default function (Vue) {
         style: {
           transition: 'all 0.3s ease',
           opacity: this.visible ? 1 : 0,
-        }
+          willChange: 'opacity'
+    }
       }, [
         createElement('plAlert', {
           props: {

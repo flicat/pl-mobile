@@ -213,6 +213,7 @@
       position: relative;
       z-index: 2;
       transition: all 0.3s ease;
+      will-change: transform, -webkit-transform;
     }
 
     &-loading-top,

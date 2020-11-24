@@ -284,6 +284,7 @@
 
       .pl-swipe-list {
         position: relative;
+        will-change: transform, -webkit-transform;
       }
     }
 

@@ -266,6 +266,7 @@
     .pl-tab-title-inner {
       display: grid;
       transition: all 0.3s ease;
+      will-change: transform, -webkit-transform;
 
       .tab-title {
         color: var(--primary-text);
@@ -309,6 +310,7 @@
         transition: all 0.3s ease;
         background-color: var(--primary);
         background-clip: content-box;
+        will-change: transform, -webkit-transform;
       }
 
       .is-active {
