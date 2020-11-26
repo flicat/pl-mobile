@@ -12,8 +12,8 @@ import PlMobile from 'pl-mobile'
 import 'pl-mobile/lib/style/index.css'
 Vue.use(PlMobile)
 ```
-*注意：这里需要单独引入样式文件*
-
+>- *注意：这里需要单独引入样式文件* 
+>- *组件字体及尺寸基于 rem 计算*
 
 ### 按需引入
 通过使用饿了么团队开发的[`babel-plugin-component`](https://github.com/ElementUI/babel-plugin-component)
