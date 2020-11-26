@@ -25,7 +25,6 @@
 </template>
 
 <script>
-  // TODO button模式修改为菜单式tab
   export default {
     name: 'plTabs',
     componentName: 'plTabs',
@@ -269,7 +268,7 @@
 
       .tab-title {
         color: var(--primary-text);
-        padding: 1em 1.2em;
+        padding: 0.6em 1em;
         white-space: nowrap;
         text-align: center;
         line-height: normal;
@@ -304,6 +303,9 @@
     .pl-tab-title-inner {
       position: relative;
 
+      .tab-title {
+        padding: 1em 1.2em;
+      }
       .tab-line {
         position: absolute;
         transition: all 0.3s ease;
@@ -327,6 +329,9 @@
         background-color: var(--tab-card-disabled-bg);
       }
     }
+    .pl-tab-content {
+      border: 1px solid var(--tab-card-border);
+    }
     &.is-top {
       .tab-title {
         & + .tab-title {
@@ -335,6 +340,9 @@
         &.is-active {
           border-bottom: 0 none;
         }
+      }
+      .pl-tab-content {
+        border-top: 0 none;
       }
     }
     &.is-bottom {
@@ -346,6 +354,9 @@
           border-top: 0 none;
         }
       }
+      .pl-tab-content {
+        border-bottom: 0 none;
+      }
     }
     &.is-left {
       .tab-title {
@@ -355,6 +366,9 @@
         &.is-active {
           border-right: 0 none;
         }
+      }
+      .pl-tab-content {
+        border-left: 0 none;
       }
     }
     &.is-right {
@@ -366,6 +380,9 @@
           border-left: 0 none;
         }
       }
+      .pl-tab-content {
+        border-right: 0 none;
+      }
     }
   }
 
@@ -374,7 +391,6 @@
       .tab-title {
         border: 1px solid var(--primary);
         color: var(--primary);
-        padding: 0.6em 1em;
 
         &.is-active {
           background-color: var(--primary);
