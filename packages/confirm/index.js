@@ -10,8 +10,7 @@ export default function (Vue) {
       return this.display && createElement('div', {
         style: {
           transition: 'all 0.3s ease',
-          opacity: this.visible ? 1 : 0,
-          willChange: 'opacity'
+          opacity: this.visible ? 1 : 0
         }
       }, [
         createElement('plConfirm', {

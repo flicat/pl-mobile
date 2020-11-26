@@ -79,7 +79,6 @@
       height: 100%;
       z-index: 0;
       background-color: rgba(0, 0, 0, 0.5);
-      will-change: opacity;
     }
     &--top {
       justify-content: flex-end;

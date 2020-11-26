@@ -99,13 +99,11 @@
 
       .icon-arrow {
         transition: all 0.3s ease;
-        will-change: transform, -webkit-transform;
       }
     }
     &-content {
       overflow: hidden;
       transition: all 0.3s ease;
-      will-change: height;
     }
     &-inner {
       transform: translateY(-100%);
