@@ -196,11 +196,38 @@
   background: none;
   color: var(--disabled);
 }
+.is-disabled.is-plain[data-v-cf1b9d0e] {
+  color: var(--disabled);
+  border: 1px solid var(--disabled);
+}
 .is-round[data-v-cf1b9d0e] {
   border-radius: 1em;
 }
 .is-circle[data-v-cf1b9d0e] {
   border-radius: 50%;
+}
+.is-plain[data-v-cf1b9d0e] {
+  background: transparent;
+}
+.is-plain.pl-button--default[data-v-cf1b9d0e] {
+  color: var(--default);
+  border: 1px solid var(--default);
+}
+.is-plain.pl-button--primary[data-v-cf1b9d0e] {
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+.is-plain.pl-button--success[data-v-cf1b9d0e] {
+  color: var(--success);
+  border: 1px solid var(--success);
+}
+.is-plain.pl-button--warning[data-v-cf1b9d0e] {
+  color: var(--warning);
+  border: 1px solid var(--warning);
+}
+.is-plain.pl-button--danger[data-v-cf1b9d0e] {
+  color: var(--danger);
+  border: 1px solid var(--danger);
 }
 
 /* 设计稿尺寸 */
@@ -1480,7 +1507,6 @@
 }
 
 .pl-swipe-item[data-v-02a9c702] {
-  position: absolute;
   width: 100%;
   height: 100%;
   overflow: hidden;
