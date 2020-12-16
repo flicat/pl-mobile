@@ -9,6 +9,7 @@
       size ? 'pl-button--' + size : '',
       {
         'is-disabled': disabled,
+        'is-plain': plain,
         'is-round': round,
         'is-circle': circle
       }
@@ -31,6 +32,7 @@
         type: String,
         default: 'default'
       },
+      plain: Boolean,         // 是否空心按钮 boolean
       round: Boolean,         // 是否圆角按钮 boolean
       circle: Boolean,          // 是否圆形按钮 boolean
       disabled: Boolean      // 是否禁用状态 boolean
@@ -100,6 +102,10 @@
       background: none;
       color: var(--disabled);
     }
+    &.is-plain {
+      color: var(--disabled);
+      border: 1px solid var(--disabled);
+    }
   }
 
   .is-round {
@@ -108,5 +114,32 @@
 
   .is-circle {
     border-radius: 50%;
+  }
+
+  .is-plain {
+    background: transparent;
+
+    &.pl-button {
+      &--default {
+        color: var(--default);
+        border: 1px solid var(--default);
+      }
+      &--primary {
+        color: var(--primary);
+        border: 1px solid var(--primary);
+      }
+      &--success {
+        color: var(--success);
+        border: 1px solid var(--success);
+      }
+      &--warning {
+        color: var(--warning);
+        border: 1px solid var(--warning);
+      }
+      &--danger {
+        color: var(--danger);
+        border: 1px solid var(--danger);
+      }
+    }
   }
 </style>

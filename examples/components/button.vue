@@ -25,13 +25,21 @@
     </div>
 
     <div>
+      <span><pl-button disabled plain>空心按钮</pl-button></span>
+      <span><pl-button type="primary" plain>主要按钮</pl-button></span>
+      <span><pl-button type="success" plain>成功按钮</pl-button></span>
+      <span><pl-button type="warning" plain>警告按钮</pl-button></span>
+      <span><pl-button type="danger" plain>危险按钮</pl-button></span>
+    </div>
+
+    <div>
       <span><pl-button type="text">文字按钮</pl-button></span>
       <span><pl-button type="text" disabled>文字按钮</pl-button></span>
     </div>
 
     <div>
       <span><pl-button>默认按钮</pl-button></span>
-      <span><pl-button size="small">小型按钮</pl-button></span>
+      <span><pl-button size="small" plain>小型按钮</pl-button></span>
       <span><pl-button size="lager">大型按钮</pl-button></span>
     </div>
   </div>

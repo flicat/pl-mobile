@@ -71,6 +71,7 @@ Button 组件提供除了默认值以外的三种尺寸，可以在不同场景�
 | type     | 类型   | string    |   default / primary / success / warning / danger / text |     default    |
 | round     | 是否圆角按钮   | boolean    | — | false   |
 | circle     | 是否圆形按钮   | boolean    | — | false   |
+| plain     | 是否空心按钮    | boolean   | —   | false   |
 | disabled  | 是否禁用状态    | boolean   | —   | false   |
 
 ### Slots
