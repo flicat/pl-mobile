@@ -5,7 +5,7 @@
 ```html
 <template>
   <div class="content">
-    <pl-swipe width="600px" height="300px">
+    <pl-swipe>
       <div>
         <pl-swipe-item class="pl-swipe-item">1</pl-swipe-item>
         <pl-swipe-item class="pl-swipe-item">2</pl-swipe-item>
@@ -22,7 +22,7 @@
 ```html
 <template>
   <div class="content">
-    <pl-swipe width="600px" height="300px" :auto="2000">
+    <pl-swipe :auto="2000">
       <div>
         <pl-swipe-item class="pl-swipe-item">1</pl-swipe-item>
         <pl-swipe-item class="pl-swipe-item">2</pl-swipe-item>
@@ -40,7 +40,7 @@
 ```html
 <template>
   <div class="content">
-    <pl-swipe width="600px" height="300px" @scroll="onScroll">
+    <pl-swipe @scroll="onScroll">
       <div>
         <pl-swipe-item class="pl-swipe-item">1</pl-swipe-item>
         <pl-swipe-item class="pl-swipe-item">2</pl-swipe-item>
@@ -74,8 +74,6 @@
 | indicatorSize         | 指示器大小          | String | — | 0.5em |
 | vertical              | 是否为纵向滚动        | Boolean | — | — |
 | touchable             | 是否可以通过手势滑动     | Boolean | — | true |
-| width                 | 组件宽度           | String | — | 100% |
-| height                | 组件高度           | String | — | 5em |
 
 
 ### SwipeItem Slots

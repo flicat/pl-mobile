@@ -1,6 +1,6 @@
 <template>
-  <div class="pl-swipe" :style="boxStyle">
-    <div class="pl-swipe-wrap" :style="boxStyle">
+  <div class="pl-swipe">
+    <div class="pl-swipe-wrap">
       <div class="pl-swipe-list"
         ref="list"
         :style="listStyle"
@@ -65,14 +65,6 @@
       touchable: {              // 是否可以通过手势滑动
         type: Boolean,
         default: true
-      },
-      width: {                   // 组件宽度
-        type: String,
-        default: '100%'
-      },
-      height: {                // 组件高度
-        type: String,
-        default: '5em'
       }
     },
     data () {
@@ -88,27 +80,10 @@
       }
     },
     computed: {
-      // 轮播图的宽高
-      boxStyle () {
-        return {
-          width: this.width,
-          height: this.height
-        }
-      },
       listStyle () {
         return {
-          width: this.width,
-          height: this.height,
           transition: `all ${this.duration}ms ease`,
           webkitTransition: `all ${this.duration}ms ease`
-        }
-      },
-      // 轮播图的实际尺寸 px
-      itemSize () {
-        if (this.scrollList) {
-          return this.vertical ? this.scrollList.clientHeight : this.scrollList.clientWidth
-        } else {
-          return 0
         }
       },
       // 三个子节点才能开启无限轮播
@@ -118,11 +93,19 @@
     },
     mounted () {
       this.scrollList = this.$refs['list']
-      this.translate = this.currentIndex * this.itemSize
+      this.translate = this.currentIndex * this.itemSize()
       this.scrollTo()
       this.startAutoScroll()
     },
     methods: {
+      // 轮播图的实际尺寸 px
+      itemSize () {
+        if (this.scrollList) {
+          return this.vertical ? this.scrollList.clientHeight : this.scrollList.clientWidth
+        } else {
+          return 0
+        }
+      },
       // 更新内容节点
       updateItems () {
         this.children = this.$children.filter(item => item.$options.name === 'plSwipeItem')
@@ -143,7 +126,7 @@
         if (this.canLoop && this.currentIndex === max) {
           this.moveToHead()
         }
-        this.translate = this.currentIndex * this.itemSize
+        this.translate = this.currentIndex * this.itemSize()
         this.scrollTo(true)
       },
       // 开始定时滚动
@@ -212,7 +195,7 @@
             this.moveToHead()
           }
         }
-        this.translate = this.currentIndex * this.itemSize
+        this.translate = this.currentIndex * this.itemSize()
 
         this.scrollTo(true)
         this.startAutoScroll()
@@ -220,7 +203,7 @@
       // 将队头调至队尾
       setFirstChild (act) {
         if (act) {
-          this.children[0].setTranslate(this.children.length * this.itemSize)
+          this.children[0].setTranslate(this.children.length * this.itemSize())
         } else {
           this.children[0].setTranslate(0)
         }
@@ -228,7 +211,7 @@
       // 将队尾调至队头
       setLastChild (act) {
         if (act) {
-          this.children[this.children.length - 1].setTranslate(-this.children.length * this.itemSize)
+          this.children[this.children.length - 1].setTranslate(-this.children.length * this.itemSize())
         } else {
           this.children[this.children.length - 1].setTranslate(0)
         }
@@ -237,7 +220,7 @@
       moveToEnd () {
         setTimeout(() => {
           this.currentIndex = this.children.length - 1
-          this.translate = this.currentIndex * this.itemSize
+          this.translate = this.currentIndex * this.itemSize()
           this.scrollTo()
         }, this.duration)
       },
@@ -245,7 +228,7 @@
       moveToHead () {
         setTimeout(() => {
           this.currentIndex = 0
-          this.translate = this.currentIndex * this.itemSize
+          this.translate = this.currentIndex * this.itemSize()
           this.scrollTo()
         }, this.duration)
       }

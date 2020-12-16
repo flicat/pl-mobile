@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <pl-swipe height="12em" @scroll="onScroll" :auto="2000" loop>
+    <pl-swipe @scroll="onScroll1" :auto="2000" loop>
       <div>
         <pl-swipe-item class="pl-swipe-item">1</pl-swipe-item>
         <pl-swipe-item class="pl-swipe-item">2</pl-swipe-item>
@@ -8,7 +8,16 @@
         <pl-swipe-item class="pl-swipe-item">4</pl-swipe-item>
       </div>
     </pl-swipe>
-    <p>{{scrollIndex + 1}} / 4</p>
+    <p>{{scrollIndex1 + 1}} / 4</p>
+    <pl-swipe @scroll="onScroll2" :auto="2000" vertical>
+      <div>
+        <pl-swipe-item class="pl-swipe-item">1</pl-swipe-item>
+        <pl-swipe-item class="pl-swipe-item">2</pl-swipe-item>
+        <pl-swipe-item class="pl-swipe-item">3</pl-swipe-item>
+        <pl-swipe-item class="pl-swipe-item">4</pl-swipe-item>
+      </div>
+    </pl-swipe>
+    <p>{{scrollIndex2 + 1}} / 4</p>
   </div>
 </template>
 
@@ -16,12 +25,16 @@
   export default {
     data () {
       return {
-        scrollIndex: 0
+        scrollIndex1: 0,
+        scrollIndex2: 0
       }
     },
     methods: {
-      onScroll (index) {
-        this.scrollIndex = index
+      onScroll1 (index) {
+        this.scrollIndex1 = index
+      },
+      onScroll2 (index) {
+        this.scrollIndex2 = index
       },
       submit () {
         return new Promise((resolve, reject) => {
@@ -49,6 +62,8 @@
 
 <style lang="less" scoped>
   .pl-swipe-item {
+    width: 100%;
+    height: 12rem;
     text-align: center;
     font-size: 56px;
     line-height: 12rem;
@@ -65,5 +80,8 @@
     &:nth-child(4) {
       background-color: #9b6ff5;
     }
+  }
+  p {
+    text-align: center;
   }
 </style>
