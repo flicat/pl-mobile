@@ -96,6 +96,7 @@
   margin: 0;
   padding: 0;
   transition: all 0.3s ease;
+  will-change: transform, -webkit-transform;
 }
 .pl-upload .pl-preview-dialog .preview-list .preview-item[data-v-be4dbcf0] {
   position: absolute;

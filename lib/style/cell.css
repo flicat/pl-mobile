@@ -2,6 +2,7 @@
   display: grid;
   width: 100%;
   background-color: var(--input-bg);
+  line-height: normal;
 }
 .pl-cell-row > *[data-v-ffcfdaae] {
   overflow-x: hidden;

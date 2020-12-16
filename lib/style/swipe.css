@@ -11,6 +11,7 @@
 }
 .pl-swipe .pl-swipe-wrap .pl-swipe-list[data-v-3d2606a9] {
   position: relative;
+  will-change: transform, -webkit-transform;
 }
 .pl-swipe .pl-indicators[data-v-3d2606a9] {
   position: absolute;

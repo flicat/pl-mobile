@@ -5,26 +5,33 @@
 </template>
 
 <script>
-  // TODO 样式优化，添加两头图标支持和行高控制
   import {is} from '../../src/assets/utils'
 
   export default {
     name: 'plCell',
     componentName: 'plCell',
     props: {
-      direction: {          // 排列方式  column，row
+      direction: {          // 排列方式  column / row
         type: String,
         default: 'row'
       },
       span: Array,
       gap: String,
+      justifyItems: {
+        type: String,      // 横向排列方式：normal / baseline / stretch / start / end / center / flex-start / flex-end / left / right / self-start / self-end / revert / legacy
+        default: 'normal'
+      },
+      alignItems: {
+        type: String,      // 纵向排列方式：normal / baseline / flex-start / flex-end / start / end / center / self-start / self-end / stretch / baseline
+        default: 'center'
+      },
       justifyContent: {
-        type: String,      // 横向排列方式：stretch | start | end | center | space-between | space-around | space-evenly
-        default: 'space-evenly'
+        type: String,      // 横向排列方式：normal / left / right / stretch / start / end / center / flex-start / flex-end / space-between / space-around / space-evenly / revert
+        default: 'normal'
       },
       alignContent: {
-        type: String,      // 纵向排列方式：stretch | start | end | center | space-between | space-around | space-evenly
-        default: 'center'
+        type: String,      // 纵向排列方式：normal / baseline / stretch / start / end / center / flex-start / flex-end / space-between / space-around / space-evenly / revert
+        default: 'normal'
       }
     },
     computed: {
@@ -44,6 +51,8 @@
         return {
           ...(this.templates ? {[this.direction === 'row' ? 'grid-template-columns' : 'grid-template-rows']: this.templates} : null),
           ...(this.gap ? {[this.direction === 'row' ? 'grid-column-gap' : 'grid-row-gap']: this.gap} : null),
+          ...(this.justifyItems ? {'justify-items': this.justifyItems} : null),
+          ...(this.alignItems ? {'align-items': this.alignItems} : null),
           ...(this.justifyContent ? {'justify-content': this.justifyContent} : null),
           ...(this.alignContent ? {'align-content': this.alignContent} : null)
         }
@@ -57,6 +66,7 @@
     display: grid;
     width: 100%;
     background-color: var(--input-bg);
+    line-height: normal;
 
     &-row > * {
       overflow-x: hidden;

@@ -120,19 +120,19 @@
 }
 
 .pl-toast[data-v-37134d54] {
-  display: block;
+  display: table;
   position: fixed;
   z-index: 1000;
   left: 50%;
-  top: 75%;
+  top: 65%;
   background-color: rgba(0, 0, 0, 0.5);
   color: #d6d6d6;
   border-radius: 3px;
   padding: 0.3em 1em;
   line-height: normal;
   text-align: center;
-  max-width: 90%;
-  word-break: break-all;
+  max-width: 80%;
+  word-break: break-word;
   transform: translate(-50%, -50%);
 }
 .pl-toast span[data-v-37134d54] {
@@ -236,6 +236,7 @@
   display: grid;
   width: 100%;
   background-color: var(--input-bg);
+  line-height: normal;
 }
 .pl-cell-row > *[data-v-ffcfdaae] {
   overflow-x: hidden;
@@ -492,7 +493,7 @@
   z-index: 1;
   font-size: 1.13777778rem;
   transition: all 0.3s ease;
-  will-change: transform;
+  will-change: transform, -webkit-transform;
 }
 .pl-popup-layer[data-v-3286919b] {
   transition: all 0.3s ease;
@@ -503,7 +504,6 @@
   height: 100%;
   z-index: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  will-change: opacity;
 }
 .pl-popup--top[data-v-3286919b] {
   justify-content: flex-end;
@@ -630,6 +630,7 @@
   padding: 0;
   margin: 0;
   transition: all 0.3s ease;
+  will-change: transform, -webkit-transform;
 }
 .pl-picker-inner-item[data-v-5c700fd5] {
   white-space: nowrap;
@@ -1483,8 +1484,9 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  will-change: transform, -webkit-transform;
 }
-.pl-swipe-item *[data-v-02a9c702] {
+.pl-swipe-item > *[data-v-02a9c702] {
   box-sizing: border-box;
 }
 
@@ -1501,6 +1503,7 @@
 }
 .pl-swipe .pl-swipe-wrap .pl-swipe-list[data-v-3d2606a9] {
   position: relative;
+  will-change: transform, -webkit-transform;
 }
 .pl-swipe .pl-indicators[data-v-3d2606a9] {
   position: absolute;
@@ -1541,7 +1544,7 @@
 }
 .pl-tabs .pl-tab-title-inner .tab-title[data-v-e9d26c76] {
   color: var(--primary-text);
-  padding: 1em 1.2em;
+  padding: 0.6em 1em;
   white-space: nowrap;
   text-align: center;
   line-height: normal;
@@ -1568,6 +1571,9 @@
 .is-card .pl-tab-title-inner[data-v-e9d26c76] {
   position: relative;
 }
+.is-card .pl-tab-title-inner .tab-title[data-v-e9d26c76] {
+  padding: 1em 1.2em;
+}
 .is-card .pl-tab-title-inner .tab-line[data-v-e9d26c76] {
   position: absolute;
   transition: all 0.3s ease;
@@ -1586,11 +1592,17 @@
 .is-border-card .tab-title.is-disabled[data-v-e9d26c76] {
   background-color: var(--tab-card-disabled-bg);
 }
+.is-border-card .pl-tab-content[data-v-e9d26c76] {
+  border: 1px solid var(--tab-card-border);
+}
 .is-border-card.is-top .tab-title + .tab-title[data-v-e9d26c76] {
   border-left: 0 none;
 }
 .is-border-card.is-top .tab-title.is-active[data-v-e9d26c76] {
   border-bottom: 0 none;
+}
+.is-border-card.is-top .pl-tab-content[data-v-e9d26c76] {
+  border-top: 0 none;
 }
 .is-border-card.is-bottom .tab-title + .tab-title[data-v-e9d26c76] {
   border-left: 0 none;
@@ -1598,11 +1610,17 @@
 .is-border-card.is-bottom .tab-title.is-active[data-v-e9d26c76] {
   border-top: 0 none;
 }
+.is-border-card.is-bottom .pl-tab-content[data-v-e9d26c76] {
+  border-bottom: 0 none;
+}
 .is-border-card.is-left .tab-title + .tab-title[data-v-e9d26c76] {
   border-top: 0 none;
 }
 .is-border-card.is-left .tab-title.is-active[data-v-e9d26c76] {
   border-right: 0 none;
+}
+.is-border-card.is-left .pl-tab-content[data-v-e9d26c76] {
+  border-left: 0 none;
 }
 .is-border-card.is-right .tab-title + .tab-title[data-v-e9d26c76] {
   border-top: 0 none;
@@ -1610,10 +1628,12 @@
 .is-border-card.is-right .tab-title.is-active[data-v-e9d26c76] {
   border-left: 0 none;
 }
+.is-border-card.is-right .pl-tab-content[data-v-e9d26c76] {
+  border-right: 0 none;
+}
 .is-button .pl-tab-title-inner .tab-title[data-v-e9d26c76] {
   border: 1px solid var(--primary);
   color: var(--primary);
-  padding: 0.6em 1em;
 }
 .is-button .pl-tab-title-inner .tab-title.is-active[data-v-e9d26c76] {
   background-color: var(--primary);
@@ -1769,6 +1789,7 @@
   margin: 0;
   padding: 0;
   transition: all 0.3s ease;
+  will-change: transform, -webkit-transform;
 }
 .pl-upload .pl-preview-dialog .preview-list .preview-item[data-v-be4dbcf0] {
   position: absolute;

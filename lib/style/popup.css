@@ -19,7 +19,7 @@
   z-index: 1;
   font-size: 1.13777778rem;
   transition: all 0.3s ease;
-  will-change: transform;
+  will-change: transform, -webkit-transform;
 }
 .pl-popup-layer[data-v-3286919b] {
   transition: all 0.3s ease;
@@ -30,7 +30,6 @@
   height: 100%;
   z-index: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  will-change: opacity;
 }
 .pl-popup--top[data-v-3286919b] {
   justify-content: flex-end;

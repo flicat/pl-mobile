@@ -16,7 +16,7 @@
 }
 .pl-tabs .pl-tab-title-inner .tab-title[data-v-e9d26c76] {
   color: var(--primary-text);
-  padding: 1em 1.2em;
+  padding: 0.6em 1em;
   white-space: nowrap;
   text-align: center;
   line-height: normal;
@@ -43,6 +43,9 @@
 .is-card .pl-tab-title-inner[data-v-e9d26c76] {
   position: relative;
 }
+.is-card .pl-tab-title-inner .tab-title[data-v-e9d26c76] {
+  padding: 1em 1.2em;
+}
 .is-card .pl-tab-title-inner .tab-line[data-v-e9d26c76] {
   position: absolute;
   transition: all 0.3s ease;
@@ -61,11 +64,17 @@
 .is-border-card .tab-title.is-disabled[data-v-e9d26c76] {
   background-color: var(--tab-card-disabled-bg);
 }
+.is-border-card .pl-tab-content[data-v-e9d26c76] {
+  border: 1px solid var(--tab-card-border);
+}
 .is-border-card.is-top .tab-title + .tab-title[data-v-e9d26c76] {
   border-left: 0 none;
 }
 .is-border-card.is-top .tab-title.is-active[data-v-e9d26c76] {
   border-bottom: 0 none;
+}
+.is-border-card.is-top .pl-tab-content[data-v-e9d26c76] {
+  border-top: 0 none;
 }
 .is-border-card.is-bottom .tab-title + .tab-title[data-v-e9d26c76] {
   border-left: 0 none;
@@ -73,11 +82,17 @@
 .is-border-card.is-bottom .tab-title.is-active[data-v-e9d26c76] {
   border-top: 0 none;
 }
+.is-border-card.is-bottom .pl-tab-content[data-v-e9d26c76] {
+  border-bottom: 0 none;
+}
 .is-border-card.is-left .tab-title + .tab-title[data-v-e9d26c76] {
   border-top: 0 none;
 }
 .is-border-card.is-left .tab-title.is-active[data-v-e9d26c76] {
   border-right: 0 none;
+}
+.is-border-card.is-left .pl-tab-content[data-v-e9d26c76] {
+  border-left: 0 none;
 }
 .is-border-card.is-right .tab-title + .tab-title[data-v-e9d26c76] {
   border-top: 0 none;
@@ -85,10 +100,12 @@
 .is-border-card.is-right .tab-title.is-active[data-v-e9d26c76] {
   border-left: 0 none;
 }
+.is-border-card.is-right .pl-tab-content[data-v-e9d26c76] {
+  border-right: 0 none;
+}
 .is-button .pl-tab-title-inner .tab-title[data-v-e9d26c76] {
   border: 1px solid var(--primary);
   color: var(--primary);
-  padding: 0.6em 1em;
 }
 .is-button .pl-tab-title-inner .tab-title.is-active[data-v-e9d26c76] {
   background-color: var(--primary);
