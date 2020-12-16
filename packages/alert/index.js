@@ -18,6 +18,7 @@ export default function (Vue) {
             title: this.title,
             message: this.message,
             component: this.component,
+            componentProps: this.componentProps,
             html: this.html,
             buttonText: this.buttonText,
             action: this.action
@@ -38,6 +39,7 @@ export default function (Vue) {
         title: '',                 // 弹框标题
         message: '',               // 弹框主体信息
         component: null,          // 子组件
+        componentProps: {},       // 子组件props
         html: false,               // 是否显示为HTML
         buttonText: '',            // 按钮文字
         action: () => {}           // 确认回调
@@ -63,9 +65,10 @@ export default function (Vue) {
     el: document.createElement('div'),
   })
 
-  function showAlert ({title, message, component, html, buttonText, action}) {
+  function showAlert ({title, message, component, componentProps, html, buttonText, action}) {
     alertDom.title = title || ''
     alertDom.component = component
+    alertDom.componentProps = componentProps || {}
     alertDom.html = !!html && !component
     alertDom.message = !component && message || ''
     alertDom.buttonText = buttonText || '好'

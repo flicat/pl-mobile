@@ -42,6 +42,9 @@
       dialog1 () {
         this.$alert({
           component: swipe,
+          componentProps: {
+            isMsg: true
+          },
           submitText: '确定',
           cancelText: '取消',
           action: () => {
@@ -54,6 +57,9 @@
         this.$confirm({
 //          title: '提示',
           component: swipe,
+          componentProps: {
+            isMsg: true
+          },
 //          message: '这个一个确认弹窗！',
           submitText: '确定',
           cancelText: '取消',

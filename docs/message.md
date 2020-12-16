@@ -29,6 +29,9 @@
       message () {
         this.$confirm({
           component: swipe,
+          componentProps: {
+            isMsg: true
+          },
           buttonText: '确定', 
           action: () => {
             // 确定
@@ -49,6 +52,7 @@
 | title      | 标题       | String  | —            |   —     |
 | message    | 消息内容     | String    | —   |  —    |
 | component  | 子组件弹窗内容 | Object | —  | — |
+| componentProps  | 子组件props | Object | —  | — |
 | html       | 消息内容是否是HTML   | Boolean | —  | false |
 | buttonText | 确定按钮文字   | String    | — | 好   |
 | action     | 确定后回调函数  | Function | —   | —   |
@@ -88,6 +92,9 @@
       message () {
         this.$confirm({
           component: swipe,
+          componentProps: {
+            isMsg: true
+          },
           submitText: '确定',
           cancelText: '取消',
           submit: () => {
@@ -114,6 +121,7 @@
 | title      | 标题         | String | —  | — |
 | message    | 消息内容         | String | —  | — |
 | component  | 子组件弹窗内容 | Object | —  | — |
+| componentProps  | 子组件props | Object | —  | — |
 | html       | 消息内容是否是HTML   | Boolean | —  | false |
 | submitText | 确定按钮文字  | String| —  | 确认 |
 | cancelText | 取消钮文字 | String| —  | 取消 |

@@ -3,7 +3,7 @@
     <div class="pl-confirm-inner">
       <div class="pl-confirm-title">{{title}}</div>
       <div class="pl-confirm-content">
-        <component v-if="component" :is="component" ref="child"></component>
+        <component v-if="component" :is="component" ref="child" v-bind="componentProps"></component>
         <span v-else-if="html" v-html="message"></span>
         <span v-else>{{message}}</span>
       </div>
@@ -26,6 +26,7 @@
       message: String,               // 弹框主体信息
       html: Boolean,                 // 是否显示为HTML
       component: Object,             // 子组件,
+      componentProps: Object,        // 子组件props,
       submitText: String,            // 提交按钮文字
       cancelText: String,            // 取消按钮文字
       submit: Function,              // 确认回调

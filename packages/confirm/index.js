@@ -19,6 +19,7 @@ export default function (Vue) {
             message: this.message,
             html: this.html,
             component: this.component,
+            componentProps: this.componentProps,
             submitText: this.submitText,
             cancelText: this.cancelText,
             submit: this.submit,
@@ -41,6 +42,7 @@ export default function (Vue) {
         message: '',               // 弹框主体信息
         html: false,               // 是否显示为HTML
         component: null,          // 子组件
+        componentProps: {},       // 子组件props
         submitText: '',            // 提交按钮文字
         cancelText: '',            // 取消按钮文字
         submit: () => {},           // 确认回调
@@ -67,8 +69,9 @@ export default function (Vue) {
     el: document.createElement('div'),
   })
 
-  function showConfirm ({title, message, component, html, submitText, cancelText, submit, cancel}) {
+  function showConfirm ({title, message, component, componentProps, html, submitText, cancelText, submit, cancel}) {
     confirmDom.component = component
+    confirmDom.componentProps = componentProps || {}
     confirmDom.html = !!html && !component
     confirmDom.message = !component && message || ''
     confirmDom.title = title || ''

@@ -1,28 +1,38 @@
 <template>
   <div class="content">
-    <pl-swipe @scroll="onScroll1" :auto="2000" loop>
-      <div>
-        <pl-swipe-item class="pl-swipe-item">1</pl-swipe-item>
-        <pl-swipe-item class="pl-swipe-item">2</pl-swipe-item>
-        <pl-swipe-item class="pl-swipe-item">3</pl-swipe-item>
-        <pl-swipe-item class="pl-swipe-item">4</pl-swipe-item>
-      </div>
-    </pl-swipe>
-    <p>{{scrollIndex1 + 1}} / 4</p>
-    <pl-swipe @scroll="onScroll2" :auto="2000" vertical>
-      <div>
-        <pl-swipe-item class="pl-swipe-item">1</pl-swipe-item>
-        <pl-swipe-item class="pl-swipe-item">2</pl-swipe-item>
-        <pl-swipe-item class="pl-swipe-item">3</pl-swipe-item>
-        <pl-swipe-item class="pl-swipe-item">4</pl-swipe-item>
-      </div>
-    </pl-swipe>
-    <p>{{scrollIndex2 + 1}} / 4</p>
+    <div class="swipe-1">
+      <pl-swipe @scroll="onScroll1" :auto="2000" loop>
+        <div>
+          <pl-swipe-item class="pl-swipe-item">1</pl-swipe-item>
+          <pl-swipe-item class="pl-swipe-item">2</pl-swipe-item>
+          <pl-swipe-item class="pl-swipe-item">3</pl-swipe-item>
+          <pl-swipe-item class="pl-swipe-item">4</pl-swipe-item>
+        </div>
+      </pl-swipe>
+      <p>{{scrollIndex1 + 1}} / 4</p>
+    </div>
+    <div class="swipe-2" v-if="!isMsg">
+      <pl-swipe @scroll="onScroll2" :auto="2000" vertical>
+        <div>
+          <pl-swipe-item class="pl-swipe-item">1</pl-swipe-item>
+          <pl-swipe-item class="pl-swipe-item">2</pl-swipe-item>
+          <pl-swipe-item class="pl-swipe-item">3</pl-swipe-item>
+          <pl-swipe-item class="pl-swipe-item">4</pl-swipe-item>
+        </div>
+      </pl-swipe>
+      <p>{{scrollIndex2 + 1}} / 4</p>
+    </div>
   </div>
 </template>
 
 <script>
   export default {
+    props: {
+      isMsg: {
+        type: Boolean,
+        default: false
+      }
+    },
     data () {
       return {
         scrollIndex1: 0,

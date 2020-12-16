@@ -3,7 +3,7 @@
     <div class="pl-alert-inner">
       <div class="pl-alert-title">{{title}}</div>
       <div class="pl-alert-content">
-        <component v-if="component" :is="component" ref="child"></component>
+        <component v-if="component" :is="component" ref="child" v-bind="componentProps"></component>
         <span v-else-if="html" v-html="message"></span>
         <span v-else>{{message}}</span>
       </div>
@@ -22,6 +22,7 @@
       title: String,         // 弹框标题
       message: String,       // 弹框主体信息
       component: Object,             // 子组件,
+      componentProps: Object,        // 子组件props,
       html: Boolean,          // 是否显示为HTML
       buttonText: String,     // 按钮文字
       action: Function        // 确认回调
