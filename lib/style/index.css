@@ -261,7 +261,6 @@
 
 .pl-cell[data-v-ffcfdaae] {
   display: grid;
-  width: 100%;
   background-color: var(--input-bg);
   line-height: normal;
 }
