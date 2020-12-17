@@ -106,7 +106,7 @@
 ### Attributes
 | 参数      | 说明    | 类型      | 可选值       | 默认值   |
 |---------- |-------- |---------- |-------------  |-------- |
-| rules      | 验证规则   | Array  | —            |   —     |
+| rules      | 验证规则 [rules](./docs/form.md)   | Array  | —            |   —     |
 | size       | 尺寸  | String    | normal / large / small   |  normal    |
 | options    | 选项列表   | Array    | — | —   |
 | placeholder | 占位符   | String | — | —   |

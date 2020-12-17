@@ -157,7 +157,7 @@
 ### Attributes
 | 参数      | 说明    | 类型      | 可选值       | 默认值   |
 |---------- |-------- |---------- |-------------  |-------- |
-| rules      | 验证规则   | Array  | —            |   —     |
+| rules      | 验证规则 [rules](./docs/form.md)   | Array  | —            |   —     |
 | size       | 尺寸  | String    | normal / large / small   |  normal    |
 | options    | 选项列表   | Array    | — | —   |
 | prop       | 选项对应的key与value   | Object    | — | {label: 'label', value: 'value', disabled: 'disabled'}   |

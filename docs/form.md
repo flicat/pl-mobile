@@ -111,3 +111,17 @@
 | 方法名 | 说明 | 参数 |
 | ---- | ---- | ---- |
 | validate | 表单验证方法 | — |
+
+
+### rules
+| 参数 | 说明 | 类型 | 可选值       | 默认值   |
+| ---- | ---- | ---- | ---- | ---- |
+| required | 是否必填 | Boolean | — | — |
+| message | 错误提示信息 | String | — | — |
+| type | 字段验证类型 | String | number / string / function / array / object / boolean | — |
+| pattern | 匹配的正则 | RegExp | — | — |
+| length | 匹配的长度 | Number | — | — |
+| range.min | 范围验证的最小值，不能小于0 | Number | — | — |
+| range.max | 范围验证的最大值，不能小于0 | Number | — | — |
+| validator | 自定义验证方法， rule：当前验证规则, value：表单值, callback：回调函数，返回验证结果，如果返回的是 Error 对象则message替换为抛出的错误信息 | Function | function (rule, value, callback) {} | — |
+
