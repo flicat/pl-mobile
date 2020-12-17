@@ -46,7 +46,7 @@
       icon
     },
     model: {
-      event: 'change'
+      event: '-pl-change'
     },
     props: {
       rules: {          // 验证规则
@@ -130,6 +130,7 @@
       },
       emit () {
         this.validate()
+        this.$emit('-pl-change', this.currentValue)
         this.$emit('change', this.currentValue)
       }
     },

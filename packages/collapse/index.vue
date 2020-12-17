@@ -25,7 +25,7 @@
       icon
     },
     model: {
-      event: 'change'
+      event: '-pl-change'
     },
     props: {
       size: {         // 尺寸 可选值为 normal，large, small
@@ -56,6 +56,7 @@
       toggle () {
         if (!this.disabled) {
           this.setCurrentValue(!this.currentValue)
+          this.$emit('-pl-change', this.currentValue)
           this.$emit('change', this.currentValue)
         }
       },

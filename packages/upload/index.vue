@@ -54,7 +54,7 @@
       icon
     },
     model: {
-      event: 'change'
+      event: '-pl-change'
     },
     props: {
       value: Array,
@@ -189,6 +189,7 @@
           // 文件选择后置钩子
           is(this.afterRead, 'function') && this.afterRead(normalFiles)
 
+          this.$emit('-pl-change', this.files)
           this.$emit('change', this.files)
         }
       },

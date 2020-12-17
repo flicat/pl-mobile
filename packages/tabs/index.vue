@@ -29,7 +29,7 @@
     name: 'plTabs',
     componentName: 'plTabs',
     model: {
-      event: 'change'
+      event: '-pl-change'
     },
     props: {
       // 风格类型：card/border-card/button
@@ -136,6 +136,7 @@
           return false
         }
         this.currentName = value;
+        this.$emit('-pl-change', value);
         this.$emit('change', value);
       },
       // 更新内容节点
