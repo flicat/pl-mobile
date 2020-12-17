@@ -40,15 +40,15 @@
 }
 .pl-button--normal[data-v-cf1b9d0e] {
   font-size: 1.06666667rem;
-  padding: 0.42666667rem 0.71111111rem;
+  padding: 0.56888889rem 0.85333333rem;
 }
 .pl-button--small[data-v-cf1b9d0e] {
   font-size: 0.85333333rem;
-  padding: 0.28444444rem 0.56888889rem;
+  padding: 0.35555556rem 0.64rem;
 }
 .pl-button--lager[data-v-cf1b9d0e] {
   font-size: 1.28rem;
-  padding: 0.56888889rem 1.13777778rem;
+  padding: 0.71111111rem 1.13777778rem;
 }
 .pl-button > *[data-v-cf1b9d0e] {
   vertical-align: bottom;
