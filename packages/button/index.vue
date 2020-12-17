@@ -84,15 +84,15 @@
 
     &--normal {
       .font-size(15);
-      .padding(6, 10);
+      .padding(8, 12);
     }
     &--small {
       .font-size(12);
-      .padding(4, 8);
+      .padding(5, 9);
     }
     &--lager {
       .font-size(18);
-      .padding(8, 16);
+      .padding(10, 16);
     }
 
     > * {
