@@ -1,6 +1,6 @@
 {
   "name": "pl-mobile",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "a mobile component library for Vue.js.",
   "main": "lib/index.js",
   "keywords": [
@@ -15,6 +15,7 @@
     "url": "https://github.com/flicat"
   },
   "scripts": {
+    "start": "npm run build & npm run build:docs",
     "dev": "vue-cli-service serve",
     "build": "node build/build.js",
     "build:docs": "vue-cli-service build"

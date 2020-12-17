@@ -64,7 +64,6 @@
 <style lang="less" scoped>
   .pl-cell {
     display: grid;
-    background-color: var(--input-bg);
     line-height: normal;
 
     &-row > * {

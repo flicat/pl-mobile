@@ -146,44 +146,50 @@
   border-radius: 3px;
   line-height: normal;
   background: none;
-  border: 0 none;
   outline: 0 none;
   text-align: center;
   color: var(--button-text-color);
+  border: 1px solid;
 }
 .pl-button[data-v-cf1b9d0e]:active {
   opacity: 0.8;
 }
 .pl-button--default[data-v-cf1b9d0e] {
   background: var(--default);
+  border-color: var(--default);
 }
 .pl-button--primary[data-v-cf1b9d0e] {
   background: var(--primary);
+  border-color: var(--primary);
 }
 .pl-button--success[data-v-cf1b9d0e] {
   background: var(--success);
+  border-color: var(--success);
 }
 .pl-button--warning[data-v-cf1b9d0e] {
   background: var(--warning);
+  border-color: var(--warning);
 }
 .pl-button--danger[data-v-cf1b9d0e] {
   background: var(--danger);
+  border-color: var(--danger);
 }
 .pl-button--text[data-v-cf1b9d0e] {
   background: none;
+  border: 0 none;
   color: var(--primary);
 }
 .pl-button--normal[data-v-cf1b9d0e] {
   font-size: 1.06666667rem;
-  padding: 0.64rem;
+  padding: 0.42666667rem 0.71111111rem;
 }
 .pl-button--small[data-v-cf1b9d0e] {
   font-size: 0.85333333rem;
-  padding: 0.42666667rem;
+  padding: 0.28444444rem 0.56888889rem;
 }
 .pl-button--lager[data-v-cf1b9d0e] {
   font-size: 1.28rem;
-  padding: 0.85333333rem 1.28rem;
+  padding: 0.56888889rem 1.13777778rem;
 }
 .pl-button > *[data-v-cf1b9d0e] {
   vertical-align: bottom;
@@ -191,6 +197,7 @@
 .is-disabled[data-v-cf1b9d0e] {
   cursor: not-allowed;
   background-color: var(--disabled);
+  border-color: var(--disabled);
 }
 .is-disabled.pl-button--text[data-v-cf1b9d0e] {
   background: none;
@@ -198,7 +205,6 @@
 }
 .is-disabled.is-plain[data-v-cf1b9d0e] {
   color: var(--disabled);
-  border: 1px solid var(--disabled);
 }
 .is-round[data-v-cf1b9d0e] {
   border-radius: 1em;
@@ -211,23 +217,18 @@
 }
 .is-plain.pl-button--default[data-v-cf1b9d0e] {
   color: var(--default);
-  border: 1px solid var(--default);
 }
 .is-plain.pl-button--primary[data-v-cf1b9d0e] {
   color: var(--primary);
-  border: 1px solid var(--primary);
 }
 .is-plain.pl-button--success[data-v-cf1b9d0e] {
   color: var(--success);
-  border: 1px solid var(--success);
 }
 .is-plain.pl-button--warning[data-v-cf1b9d0e] {
   color: var(--warning);
-  border: 1px solid var(--warning);
 }
 .is-plain.pl-button--danger[data-v-cf1b9d0e] {
   color: var(--danger);
-  border: 1px solid var(--danger);
 }
 
 /* 设计稿尺寸 */
@@ -261,7 +262,6 @@
 
 .pl-cell[data-v-ffcfdaae] {
   display: grid;
-  background-color: var(--input-bg);
   line-height: normal;
 }
 .pl-cell-row > *[data-v-ffcfdaae] {
