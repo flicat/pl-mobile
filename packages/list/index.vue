@@ -2,7 +2,6 @@
   <div class="pl-list">
     <div class="pl-list-wrap"
       ref="list"
-      v-on="$listeners"
       @scroll.stop="handlerScroll($event)"
       @touchstart.stop="touchEvent($event)"
       @touchmove.stop="touchEvent($event)"

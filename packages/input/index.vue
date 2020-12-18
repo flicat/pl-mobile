@@ -24,7 +24,7 @@
         <div class="pl-input-inner">
           <input
             v-bind="$attrs"
-            v-on="{...$listeners, input: emit, focus: emit, blur: emit}"
+            v-on="{input: emit, focus: emit, blur: emit}"
             v-if="type !== 'textarea'"
             :type="type"
             :disabled="calcDisabled"
@@ -43,7 +43,7 @@
         v-bind="$attrs"
         :rows="rows"
         :cols="cols"
-        v-on="{...$listeners, input: emit, focus: emit, blur: emit}"
+        v-on="{input: emit, focus: emit, blur: emit}"
         :value="currentValue"
         ref="input"
         :disabled="calcDisabled"></textarea>

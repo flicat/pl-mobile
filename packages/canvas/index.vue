@@ -1,5 +1,5 @@
 <template>
-  <div class="pl-canvas" ref="wrap" v-on="$listeners">
+  <div class="pl-canvas" ref="wrap">
     <canvas ref="canvas"
       v-bind="$attrs"
       @touchstart="handlerStart"

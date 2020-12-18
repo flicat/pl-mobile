@@ -1,5 +1,5 @@
 <template>
-  <div class="pl-datetime" v-on="$listeners" :class="[
+  <div class="pl-datetime" :class="[
     calcSize ? 'pl-datetime--' + calcSize : '',
     {
       'is-disabled': calcDisabled,

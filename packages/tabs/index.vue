@@ -1,5 +1,5 @@
 <template>
-  <div class="pl-tabs" v-on="$listeners" :class="['is-' + type, 'is-' + position]" ref="tabs">
+  <div class="pl-tabs" :class="['is-' + type, 'is-' + position]" ref="tabs">
     <div class="pl-tab-title"
       @touchstart="touchEvent($event)"
       @touchmove="touchEvent($event)"
