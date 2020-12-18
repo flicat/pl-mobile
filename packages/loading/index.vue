@@ -1,5 +1,5 @@
 <template>
-  <div class="pl-loading" v-bind="$props" v-on="$listeners" :class="[vertical ? 'pl-loading-vertical' : 'pl-loading-horizontal']">
+  <div class="pl-loading" v-bind="$props" :class="[vertical ? 'pl-loading-vertical' : 'pl-loading-horizontal']">
     <div class="loading-icon"><svg viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
         <g fill="none" fill-rule="evenodd">
           <g transform="translate(1 1)" stroke-width="2">
