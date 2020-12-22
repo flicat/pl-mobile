@@ -161,6 +161,10 @@
       &--label {
         .pl-radio-inner {
           text-align: right;
+          justify-content: flex-end;
+          .pl-radio-item {
+            margin: 0 0 0 1em;
+          }
         }
       }
     }
@@ -180,6 +184,9 @@
     &-inner {
       padding: 1em 0;
       flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
     }
     .pl-radio-label {
       padding-right: 0.4em;
@@ -198,12 +205,10 @@
     .pl-radio-item {
       position: relative;
       display: inline-table;
-      margin-right: 1em;
+      margin: 0 1em 0 0;
+      padding: 0.3em 0;
       color: var(--radio-text);
 
-      &:last-child {
-        margin-right: 0;
-      }
       .pl-radio-icon {
         margin-right: 0.5em;
         font-size: 1em;
@@ -223,8 +228,11 @@
           position: absolute;
           right: 0.5em;
         }
+        &.is-button {
+          text-align: left;
+        }
         &:not(.is-button) {
-          padding: 1em 0.5em;
+          padding: 1em 2.5em 1em 0;
 
           &:not(:last-child) {
             border-bottom: 1px solid var(--radio-vertical-border);
@@ -244,10 +252,12 @@
             border-right: 0 none;
           }
           &:first-child {
-            border-radius: 5px 0 0 5px;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
           }
           &:last-child {
-            border-radius: 0 5px 5px 0;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
           }
         }
         &.is-vertical {
@@ -257,10 +267,12 @@
             border-bottom: 0 none;
           }
           &:first-child {
-            border-radius: 5px 5px 0 0;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
           }
           &:last-child {
-            border-radius: 0 0 5px 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
           }
         }
         &.is-active {
@@ -269,6 +281,7 @@
         }
         &.is-disabled {
           background-color: var(--radio-button-disabled-bg);
+          border-color: var(--radio-button-disabled-bg);
           color: var(--radio-button-disabled-text);
         }
       }

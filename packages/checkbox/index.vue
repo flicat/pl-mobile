@@ -169,6 +169,10 @@
       &--label {
         .pl-checkbox-inner {
           text-align: right;
+          justify-content: flex-end;
+          .pl-checkbox-item {
+            margin: 0 0 0 1em;
+          }
         }
       }
     }
@@ -188,6 +192,9 @@
     &-inner {
       padding: 1em 0;
       flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
     }
     .pl-checkbox-label {
       padding-right: 0.4em;
@@ -206,9 +213,10 @@
     .pl-checkbox-item {
       position: relative;
       display: inline-table;
-      margin-right: 1em;
+      margin: 0 1em 0 0;
+      padding: 0.3em 0;
 
-      input {
+      input[type="checkbox"] {
         position: absolute;
         left: 0;
         top: 0;
@@ -216,6 +224,7 @@
         width: 100%;
         height: 100%;
         opacity: 0;
+        margin: 0;
         -webkit-appearance: none;
 
         &:checked {
@@ -266,14 +275,11 @@
           fill: var(--checkbox-bg);
         }
       }
-      &:last-child {
-        margin-right: 0;
-      }
       &.is-vertical {
         display: block;
         width: 100%;
         margin-right: 0;
-        padding: 1em 0;
+        padding: 1em 2.5em 1em 0;
         line-height: 1em;
         border-bottom: 1px solid var(--checkbox-vertical-border);
 
@@ -282,13 +288,12 @@
           right: 0.5em;
         }
         &:last-child {
-          margin-bottom: 0;
-          padding-bottom: 0;
           border-bottom: 0 none;
         }
       }
       &.is-button {
         margin: 0;
+        padding: 0;
 
         .pl-checkbox-text {
           display: block;
@@ -308,12 +313,14 @@
         }
         &:first-child {
           .pl-checkbox-text {
-            border-radius: 5px 0 0 5px;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
           }
         }
         &:last-child {
           .pl-checkbox-text {
-            border-radius: 0 5px 5px 0;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
           }
         }
 
@@ -322,7 +329,9 @@
           border-bottom: 0 none;
 
           .pl-checkbox-text {
+            border-radius: 0;
             padding: 1em 0.5em;
+            text-align: left;
           }
           &:not(:last-child) {
             .pl-checkbox-text {
@@ -331,16 +340,18 @@
           }
           &:first-child {
             .pl-checkbox-text {
-              border-radius: 5px 5px 0 0;
+              border-top-left-radius: 5px;
+              border-top-right-radius: 5px;
             }
           }
           &:last-child {
             .pl-checkbox-text {
-              border-radius: 0 0 5px 5px;
+              border-bottom-left-radius: 5px;
+              border-bottom-right-radius: 5px;
             }
           }
         }
-        input {
+        input[type="checkbox"] {
           &:checked ~ .pl-checkbox-text {
             background-color: var(--primary);
             color: var(--checkbox-button-text);
