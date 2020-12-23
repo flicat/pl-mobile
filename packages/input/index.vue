@@ -310,6 +310,7 @@
       line-height: normal;
       width: 100%;
       background-color: transparent;
+      font-size: 1em;
 
       &::placeholder {
         color: var(--primary-text);
