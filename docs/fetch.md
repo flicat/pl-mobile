@@ -5,10 +5,7 @@
 #### 1、定义默认配置
 ```
 Vue.prototype.$fetchConfig({
-  headers: {
-    'Accept': 'application/json, text/plain, */*'
-  },
-  baseUrl: 'https://www.demo.com',
+  baseUrl: 'https://www.demo.com'
 });
 ```
 

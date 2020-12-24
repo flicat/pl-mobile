@@ -6,6 +6,7 @@
 
 import 'whatwg-fetch'
 import './polyfill-patch-fetch'
+import {is} from '../../src/assets/utils'
 
 /*
 * @params {String} url                    请求URL地址
@@ -20,26 +21,27 @@ import './polyfill-patch-fetch'
 * @params {AbortController} signal        AbortSignal 接口表示一个信号对象（ signal object ），它允许您通过 AbortController 对象与DOM请求（如Fetch）进行通信并在需要时将其中止。
 * @params {Function} onDownload           onDownload 回调方法
 * */
-export default function ({url, baseUrl, method = 'POST', data, headers, type = 'json', mode, credentials, cache = 'no-cache', signal, onDownload, redirect}) {
+export default function ({url, baseUrl, method = 'POST', data, headers = {}, type = 'json', mode, credentials, cache = 'no-cache', signal, onDownload, redirect}) {
   // 请求地址
   let requestUrl = /^https?:\/\//.test(url) ? url : [baseUrl.replace(/\/$/, ''), url.replace(/^\//, '')].join('/')
 
   // fetch配置信息
   let param = {
     method: String(method).toUpperCase(),
+    headers: Object.assign({
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }, headers),
     mode,
     credentials,
     cache,
-    signal,
-    headers
+    signal
   }
 
-  let dataType = Object.prototype.toString.call(data).match(/\[\w+ (\w+)\]/)[1].toLowerCase()
-
-  if (!/null|undefined/.test(dataType)) {
+  if (!is(data, 'null', 'undefined')) {
     if (param.method === 'GET') {
       let searchParam
-      if (dataType === 'object') {
+      if (is(data, 'object')) {
         // get 请求参数转换
         searchParam = Object.keys(data).map(name => [name, encodeURIComponent(data[name])].join('=')).join('&')
       } else {
@@ -48,14 +50,31 @@ export default function ({url, baseUrl, method = 'POST', data, headers, type = '
       }
       requestUrl = [requestUrl, searchParam].join(/\?/.test(requestUrl) ? '&' : '?')
     } else {
-      if (/array|object/.test(dataType)) {
+      param.body = data
+
+      // 如果是formData则由浏览器设置 Content-Type
+      if (is(data, 'formdata')) {
+        delete param.headers['Content-Type'];
+      }
+
+      // url则传递字符串
+      if (is(data, 'urlsearchparams')) {
+        param.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8'
+        param.body = data.toString()
+      }
+
+      // 对象则默认传递json
+      if (is(data, 'array', 'object')) {
+        param.headers['Content-Type'] = 'application/json;charset=utf-8'
         param.body = JSON.stringify(data)
-      } else {
-        param.body = data
       }
     }
+  } else {
+    delete param.headers['Content-Type'];
   }
+
   if (redirect) {
+    // 如果是重定向则直接跳转
     setTimeout(() => {
       window.location = requestUrl
     }, 0)
