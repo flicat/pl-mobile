@@ -880,6 +880,7 @@
   line-height: normal;
   width: 100%;
   background-color: transparent;
+  font-size: 1em;
 }
 .pl-input input[data-v-2f3bab39]::placeholder,
 .pl-input textarea[data-v-2f3bab39]::placeholder {
