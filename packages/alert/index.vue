@@ -65,18 +65,18 @@
       border-radius: 0.5em;
     }
     &-title {
-      color: rgb(51, 51, 51);
+      color: var(--title-color);
       padding-bottom: 1em;
       font-weight: 700;
     }
     &-content {
-      color: rgb(102, 102, 102);
+      color: var(--content-color);
       line-height: 1.5em;
       padding: 0 1em 1em;
       border-bottom: 1px solid rgb(235, 237, 251);
     }
     &-button {
-      color: rgb(80, 116, 255);
+      color: var(--primary);
       line-height: 3em;
       font-weight: 700;
     }

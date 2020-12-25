@@ -26,7 +26,7 @@
     left: 50%;
     top: 65%;
     background-color: rgba(0, 0, 0, 0.5);
-    color: rgb(214, 214, 214);
+    color: var(--toast-text-color);
     border-radius: 3px;
     padding: 0.3em 1em;
     line-height: normal;

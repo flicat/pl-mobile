@@ -17,14 +17,14 @@
   border-radius: 0.5em;
 }
 .pl-confirm-title[data-v-1e5699af] {
-  color: #333333;
+  color: var(--title-color);
   padding-bottom: 1em;
   font-weight: 700;
 }
 .pl-confirm-content[data-v-1e5699af] {
-  color: #666666;
+  color: var(--content-color);
   line-height: 1.5em;
-  padding: 0px 1em 1em;
+  padding: 0 1em 1em;
   border-bottom: 1px solid #ebedfb;
 }
 .pl-confirm-button-wrap[data-v-1e5699af] {
@@ -34,13 +34,13 @@
   font-weight: 700;
 }
 .pl-confirm-button-cancel[data-v-1e5699af] {
-  color: #333333;
+  color: var(--default);
   display: table-cell;
   width: 50%;
   border-right: 1px solid #ebedfb;
 }
 .pl-confirm-button-submit[data-v-1e5699af] {
-  color: #5074ff;
+  color: var(--primary);
   display: table-cell;
   width: 50%;
 }

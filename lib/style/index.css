@@ -56,18 +56,18 @@
   border-radius: 0.5em;
 }
 .pl-alert-title[data-v-45ee8e4b] {
-  color: #333333;
+  color: var(--title-color);
   padding-bottom: 1em;
   font-weight: 700;
 }
 .pl-alert-content[data-v-45ee8e4b] {
-  color: #666666;
+  color: var(--content-color);
   line-height: 1.5em;
   padding: 0 1em 1em;
   border-bottom: 1px solid #ebedfb;
 }
 .pl-alert-button[data-v-45ee8e4b] {
-  color: #5074ff;
+  color: var(--primary);
   line-height: 3em;
   font-weight: 700;
 }
@@ -91,14 +91,14 @@
   border-radius: 0.5em;
 }
 .pl-confirm-title[data-v-1e5699af] {
-  color: #333333;
+  color: var(--title-color);
   padding-bottom: 1em;
   font-weight: 700;
 }
 .pl-confirm-content[data-v-1e5699af] {
-  color: #666666;
+  color: var(--content-color);
   line-height: 1.5em;
-  padding: 0px 1em 1em;
+  padding: 0 1em 1em;
   border-bottom: 1px solid #ebedfb;
 }
 .pl-confirm-button-wrap[data-v-1e5699af] {
@@ -108,13 +108,13 @@
   font-weight: 700;
 }
 .pl-confirm-button-cancel[data-v-1e5699af] {
-  color: #333333;
+  color: var(--default);
   display: table-cell;
   width: 50%;
   border-right: 1px solid #ebedfb;
 }
 .pl-confirm-button-submit[data-v-1e5699af] {
-  color: #5074ff;
+  color: var(--primary);
   display: table-cell;
   width: 50%;
 }
@@ -126,7 +126,7 @@
   left: 50%;
   top: 65%;
   background-color: rgba(0, 0, 0, 0.5);
-  color: #d6d6d6;
+  color: var(--toast-text-color);
   border-radius: 3px;
   padding: 0.3em 1em;
   line-height: normal;
@@ -255,7 +255,7 @@
   align-items: center;
   line-height: 1.5em;
   transform-origin: 50% 50%;
-  color: #ccc;
+  color: var(--canvas-placeholder);
   font-size: 4em;
   text-align: center;
 }
@@ -1883,10 +1883,15 @@
   --disabled: #E2E5F0;
   --tag-bg: #9898B6;
   --input-bg: #fff;
+  /* message */
+  --title-color: #333;
+  --content-color: #666;
+  --toast-text-color: #d6d6d6;
   /* button */
   --button-text-color: #fff;
   /* canvas */
   --canvas-bg: #ffffdc;
+  --canvas-placeholder: #ccc;
   /* checkbox */
   --checkbox-disabled-text: #c8c9cc;
   --checkbox-disabled-border: #dcdfe6;

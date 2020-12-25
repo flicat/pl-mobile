@@ -22,7 +22,7 @@
   align-items: center;
   line-height: 1.5em;
   transform-origin: 50% 50%;
-  color: #ccc;
+  color: var(--canvas-placeholder);
   font-size: 4em;
   text-align: center;
 }
