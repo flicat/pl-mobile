@@ -189,6 +189,9 @@
           return Promise.reject(e)
         })
       },
+      clearValidate () {
+        this.ruleMessage = ''
+      },
       // 合并配置
       mergeOption () {
         Object.keys(defaultOptions).forEach(name => {

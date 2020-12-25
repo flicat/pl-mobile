@@ -45,6 +45,9 @@
         }).catch(e => {
           return Promise.reject(e)
         })
+      },
+      clearValidate () {
+        this.children.map(item => item.clearValidate())
       }
     }
   }

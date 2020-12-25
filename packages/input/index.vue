@@ -131,6 +131,9 @@
           return Promise.reject(e)
         })
       },
+      clearValidate () {
+        this.ruleMessage = ''
+      },
       focus () {
         this.$refs.input.focus();
       },

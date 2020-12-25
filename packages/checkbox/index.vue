@@ -122,6 +122,9 @@
           return Promise.reject(e)
         })
       },
+      clearValidate () {
+        this.ruleMessage = ''
+      },
       setCurrentValue (value) {
         if (value === this.currentValue) {
           return false

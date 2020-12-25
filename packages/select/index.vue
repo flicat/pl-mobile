@@ -154,6 +154,9 @@
           return Promise.reject(e)
         })
       },
+      clearValidate () {
+        this.ruleMessage = ''
+      },
       open () {
         if (this.calcDisabled || this.readonly || !this.options.length) {
           return false
