@@ -52,6 +52,7 @@
     "less-loader": "^5.0.0",
     "markdown-it": "^10.0.0",
     "mini-css-extract-plugin": "^0.8.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
     "ora": "^3.4.0",
     "rimraf": "^3.0.0",
     "vue-loader": "15.7.1",

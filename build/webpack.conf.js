@@ -2,6 +2,7 @@ const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 const OutputFilter = require('./outputFilter.js');
 const getPkgEntry = require('./getPkgEntry.js');
 
@@ -23,6 +24,8 @@ let plugins = [
   new MiniCssExtractPlugin({
     filename: 'style/[name].css'
   }),
+  // 压缩css
+  new OptimizeCSSAssetsPlugin({}),
   new VueLoaderPlugin(),
   new OutputFilter()
 ]
