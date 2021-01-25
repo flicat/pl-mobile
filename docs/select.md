@@ -111,6 +111,7 @@
 | options    | 选项列表   | Array    | — | —   |
 | placeholder | 占位符   | String | — | —   |
 | prop       | 选项对应的key与value   | Object    | — | {label: 'label', value: 'value'}   |
+| wrap       | label是否折行显示  | boolean   | —   | false   |
 | disabled  | 是否禁用状态    | boolean   | —   | false   |
 | multiple  | 是否多选    | boolean   | —   | false   |
 | readonly  | 是否只读状态    | boolean   | —   | false   |

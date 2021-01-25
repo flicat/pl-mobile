@@ -7,28 +7,32 @@
       'pl-select--error': ruleMessage
     }
     ]">
-    <div class="pl-select-cell" :class="{'pl-select-cell--label': label}">
-      <div class="pl-select-label" :class="{'pl-select-label--require': required}" v-if="label" :style="{width: calcLabelWidth}">
-        <slot name="label">{{label}}</slot>
+    <div class="pl-select-cell" :class="{'pl-select-cell--label': label && !wrap, 'pl-select-cell--wrap': wrap && label}">
+      <div class="pl-select-title">
+        <div class="pl-select-prepend" v-if="$slots.prepend">
+          <slot name="prepend"></slot>
+        </div>
+        <div class="pl-select-label" :class="{'pl-select-label--require': required}" v-if="label" :style="{width: calcLabelWidth}">
+          <slot name="label">{{label}}</slot>
+        </div>
       </div>
-      <div class="pl-select-prepend" v-if="$slots.prepend">
-        <slot name="prepend"></slot>
-      </div>
-      <div class="pl-select-inner" @click="open">
+      <div class="pl-select-value">
+        <div class="pl-select-inner" @click="open">
         <span v-if="multiple && currentValue && currentValue.length" class="title">
           <em class="tag" v-for="(item, i) in currentValue" :key="i">{{calcOptions.get(item)}}</em>
         </span>
-        <span v-else-if="!multiple && currentValue !== null && currentValue !== undefined">{{calcOptions.get(currentValue)}}</span>
-        <span class="placeholder" v-else>{{placeholder}}</span>
-      </div>
-      <div class="pl-select-clear" @touchstart.stop.prevent="clear" @mousedown.stop.prevent="clear">
-        <icon name="icon-roundclosefill" fill="#ccc" v-if="showClear"></icon>
-      </div>
-      <div class="pl-select-icon">
-        <i class="icon-arrow"></i>
-      </div>
-      <div class="pl-select-append" v-if="$slots.append">
-        <slot name="append"></slot>
+          <span v-else-if="!multiple && currentValue !== null && currentValue !== undefined">{{calcOptions.get(currentValue)}}</span>
+          <span class="placeholder" v-else>{{placeholder}}</span>
+        </div>
+        <div class="pl-select-clear" @touchstart.stop.prevent="clear" @mousedown.stop.prevent="clear">
+          <icon name="icon-roundclosefill" fill="#ccc" v-if="showClear"></icon>
+        </div>
+        <div class="pl-select-icon">
+          <icon name="icon-unfold1" class="icon-arrow" fill="#ccc"></icon>
+        </div>
+        <div class="pl-select-append" v-if="$slots.append">
+          <slot name="append"></slot>
+        </div>
       </div>
     </div>
     <div class="pl-select-error" v-if="ruleMessage">{{ruleMessage}}</div>
@@ -96,6 +100,7 @@
           return {label: 'label', value: 'value'}
         }
       },
+      wrap: Boolean,            // label与value换行显示
       multiple: Boolean,        // 多选
       disabled: Boolean,        // 禁用
       readonly: Boolean,        // 只读
@@ -114,7 +119,7 @@
     },
     data () {
       return {
-        currentValue: this.value === undefined ? '' : this.value,
+        currentValue: this.value === undefined ? null : this.value,
         popupValue: null,
 
         ruleMessage: '',
@@ -123,7 +128,7 @@
     },
     computed: {
       showClear () {
-        return this.clearable && !this.calcDisabled && (!this.multiple && this.currentValue || this.currentValue.length)
+        return this.clearable && !this.calcDisabled && (!this.multiple ? this.currentValue : this.currentValue.length)
       },
       calcOptions () {
         return new Map(this.options.map(item => [this.getValue(item), this.getLabel(item)]))
@@ -172,8 +177,8 @@
         this.$refs.picker.close()
       },
       clear () {
-        this.$emit('-pl-change', '')
-        this.$emit('change', '')
+        this.$emit('-pl-change', null)
+        this.$emit('change', null)
         this.$emit('clear')
         this.setCurrentValue(null)
       },
@@ -182,13 +187,13 @@
           return false
         }
         this.currentValue = value
+        this.validate()
       },
       submit () {
         this.setCurrentValue(this.popupValue)
         this.emit()
       },
       emit () {
-        this.validate()
         this.$emit('-pl-change', this.currentValue)
         this.$emit('change', this.currentValue)
         this.close()
@@ -230,7 +235,7 @@
 
   .pl-select {
     background-color: var(--input-bg);
-    padding: 0 1.2em;
+    padding: 0 1.2rem;
     line-height: normal;
     position: relative;
 
@@ -242,12 +247,34 @@
       display: flex;
       flex-wrap: nowrap;
       align-items: center;
+      flex-direction: row;
 
       &--label {
         .pl-select-inner {
           text-align: right;
         }
       }
+      &--wrap {
+        flex-direction: column;
+
+        .pl-select-title,
+        .pl-select-value {
+          width: 100%;
+        }
+        .pl-select-title {
+          padding-top: 1em;
+        }
+      }
+    }
+    &-title,
+    &-value {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      flex-direction: row;
+    }
+    &-value {
+      flex: 1;
     }
 
     &--large {
@@ -285,7 +312,8 @@
           height: 100%;
           background-color: var(--tag-bg);
           color: var(--select-color);
-          border-radius: 5px;
+          border-radius: 2px;
+          white-space: nowrap;
         }
       }
     }
@@ -330,14 +358,14 @@
     }
     &-icon {
       .icon-arrow {
-        display: block;
-        width: 0;
-        height: 0;
-        border: 3px solid;
-        border-color: transparent transparent currentColor currentColor;
-        transform: rotate(-45deg);
-        transform-origin: 0 0;
-        opacity: 0.6;
+        /*display: block;*/
+        /*width: 0;*/
+        /*height: 0;*/
+        /*border: 3px solid;*/
+        /*border-color: transparent transparent currentColor currentColor;*/
+        /*transform: rotate(-45deg);*/
+        /*transform-origin: 0 0;*/
+        /*opacity: 0.6;*/
       }
     }
 
