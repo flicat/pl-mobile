@@ -1,23 +1,44 @@
 <template>
   <div class="content">
     <h3>基础用法</h3>
-    <pl-checkbox v-model="value" :options="data" @change="onChange" />
+    <pl-checkbox v-model="value" :options="data" />
+    <pl-checkbox v-model="value" :options="data" button/>
 
-    <h3>显示label的用法</h3>
-    <pl-checkbox v-model="value" :options="data" label="请选择：" labelWidth="5em" />
+    <h3>尺寸大小</h3>
+    <pl-checkbox v-model="value" :options="data" size="small" />
+    <pl-checkbox v-model="value" :options="data" size="normal" />
+    <pl-checkbox v-model="value" :options="data" size="large" />
 
-    <h3>表单验证</h3>
-    <pl-checkbox v-model="value" :options="data" :rules="rules" required ref="checkbox" />
+    <h3>显示label</h3>
+    <pl-checkbox v-model="value" :options="data" label="请选择：" />
+    <pl-checkbox v-model="value" :options="data" label="请选择：" wrap />
+
+    <h3>禁用</h3>
+    <pl-checkbox v-model="value" :options="data" label="请选择：" disabled />
+
+    <h3>必填</h3>
+    <pl-checkbox v-model="value" :options="data" :rules="rules" label="请选择：" required />
+
+    <h3>前置图标</h3>
+    <pl-checkbox v-model="value" :options="data" :rules="rules" label="请选择：">
+      <pl-icon name="icon-dingwei" fill="#999" slot="prepend"></pl-icon>
+    </pl-checkbox>
+    <pl-checkbox v-model="value" :options="data" :rules="rules" label="请选择：" wrap required>
+      <pl-icon name="icon-dingwei" fill="#999" slot="prepend"></pl-icon>
+    </pl-checkbox>
 
     <h3>竖排样式</h3>
-    <pl-checkbox v-model="value" vertical :options="data" />
+    <pl-checkbox v-model="value" :options="data" :rules="rules" required vertical />
+    <pl-checkbox v-model="value" :options="data" :rules="rules" label="请选择：" required vertical />
 
-    <h3>按钮样式</h3>
-    <pl-checkbox v-model="value" button :options="data" />
-    <pl-checkbox v-model="value" button vertical :options="data" />
 
     <h3>开关按钮</h3>
     <pl-checkbox v-model="boolValue" :trueValue="true" :falseValue="false">开关</pl-checkbox>
+    <pl-checkbox v-model="boolValue" :trueValue="true" :falseValue="false" button>开关</pl-checkbox>
+    <pl-checkbox v-model="boolValue" :trueValue="true" :falseValue="false" label="请选择："></pl-checkbox>
+    <pl-checkbox v-model="boolValue" :trueValue="true" :falseValue="false" label="请选择：" button></pl-checkbox>
+
+
 
     <h3>自定义子项</h3>
     <pl-checkbox v-model="value" :options="data">
@@ -54,5 +75,7 @@
 </script>
 
 <style lang="less" scoped>
-
+  .pl-checkbox {
+    border-bottom: 1px solid #ddd;
+  }
 </style>

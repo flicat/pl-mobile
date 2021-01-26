@@ -6,31 +6,35 @@
       'pl-datetime--error': ruleMessage
     }
     ]">
-    <div class="pl-datetime-cell" :class="{'pl-datetime-cell--label': label}">
-      <div class="pl-datetime-label" :class="{'pl-datetime-label--require': required}" v-if="label" :style="{width: calcLabelWidth}">
-        <slot name="label">{{label}}</slot>
-      </div>
-      <div class="pl-datetime-prepend" v-if="$slots.prepend">
-        <slot name="prepend"></slot>
-      </div>
-      <div class="pl-datetime-inner">
-        <div class="pl-datetime-inner-flex" v-if="isRange">
-          <span v-if="startValue" class="title" @click="open('start')">{{getLabelFormat(startValue)}}</span>
-          <span class="placeholder" v-else @click="open('start')">{{startPlaceholder}}</span>
-          <span class="range-separator">{{rangeSeparator}}</span>
-          <span v-if="endValue" class="title" @click="open('end')">{{getLabelFormat(endValue)}}</span>
-          <span class="placeholder" v-else @click="open('end')">{{endPlaceholder}}</span>
+    <div class="pl-datetime-cell" :class="{'pl-datetime-cell--label': label && !wrap, 'pl-datetime-cell--wrap': label && wrap}">
+      <div :class="['pl-datetime-title', {'pl-datetime-title--require': required}]">
+        <div class="pl-datetime-prepend" v-if="$slots.prepend">
+          <slot name="prepend"></slot>
         </div>
-        <div v-else @click="open()">
-          <span v-if="currentValue" class="title">{{getLabelFormat(currentValue)}}</span>
-          <span class="placeholder" v-else>{{placeholder}}</span>
+        <div class="pl-datetime-label" :class="{'pl-datetime-label--require': required}" v-if="label" :style="{width: calcLabelWidth}">
+          <slot name="label">{{label}}</slot>
         </div>
       </div>
-      <div class="pl-datetime-clear" @touchstart.stop.prevent="clear" @mousedown.stop.prevent="clear">
-        <icon name="icon-roundclosefill" fill="#ccc" v-if="showClear"></icon>
-      </div>
-      <div class="pl-datetime-append" v-if="$slots.append">
-        <slot name="append"></slot>
+      <div class="pl-datetime-value">
+        <div class="pl-datetime-inner">
+          <div class="pl-datetime-inner-flex" v-if="isRange">
+            <span v-if="startValue" class="title" @click="open('start')">{{getLabelFormat(startValue)}}</span>
+            <span class="placeholder" v-else @click="open('start')">{{startPlaceholder}}</span>
+            <span class="range-separator">{{rangeSeparator}}</span>
+            <span v-if="endValue" class="title" @click="open('end')">{{getLabelFormat(endValue)}}</span>
+            <span class="placeholder" v-else @click="open('end')">{{endPlaceholder}}</span>
+          </div>
+          <div v-else @click="open()">
+            <span v-if="currentValue" class="title">{{getLabelFormat(currentValue)}}</span>
+            <span class="placeholder" v-else>{{placeholder}}</span>
+          </div>
+        </div>
+        <div class="pl-datetime-clear" @touchstart.stop.prevent="clear" @mousedown.stop.prevent="clear">
+          <icon name="icon-roundclosefill" fill="#ccc" v-if="showClear"></icon>
+        </div>
+        <div class="pl-datetime-append" v-if="$slots.append">
+          <slot name="append"></slot>
+        </div>
       </div>
     </div>
     <div class="pl-datetime-error" v-if="ruleMessage">{{ruleMessage}}</div>
@@ -46,6 +50,7 @@
 </template>
 
 <script>
+  // TODO 默认日期为今天
   // TODO 选择样式修改
   import picker from '../picker/index.vue'
   import icon from '../icon/index.vue'
@@ -104,6 +109,7 @@
         default: 'Y-M-D'
       },
       valueFormat: String,         // 日期返回值格式，Y-M-D H:I:S 不传则返回日期对象
+      wrap: Boolean,            // label与value换行显示
       disabled: Boolean,           // 禁用
       readonly: Boolean,           // 只读
       required: Boolean,           // 必填 *号
@@ -429,7 +435,7 @@
 
   .pl-datetime {
     background-color: var(--input-bg);
-    padding: 0 1.2em;
+    padding: 0 1.2rem;
     line-height: normal;
     overflow: hidden;
 
@@ -445,6 +451,41 @@
           text-align: right;
         }
       }
+      &--wrap {
+        flex-direction: column;
+
+        .pl-datetime-title,
+        .pl-datetime-value {
+          width: 100%;
+        }
+        .pl-datetime-title {
+          padding-top: 1em;
+        }
+      }
+    }
+    &-title,
+    &-value {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      flex-direction: row;
+    }
+    &-title {
+      &--start {
+        align-self: flex-start;
+      }
+      &--require {
+        &::before {
+          display: inline-block;
+          width: 0.6rem;
+          content: '*';
+          color: var(--danger);
+          margin-left: -0.6rem;
+        }
+      }
+    }
+    &-value {
+      flex: 1;
     }
 
     &--large {
@@ -494,18 +535,6 @@
     }
     &-label {
       padding-right: 0.4em;
-
-      &--require {
-        position: relative;
-
-        &::before {
-          position: absolute;
-          content: '*';
-          color: var(--danger);
-          left: -0.6em;
-          top: 30%;
-        }
-      }
     }
     &-append,
     &-prepend {
@@ -518,7 +547,7 @@
       padding-right: 0.4em;
     }
     &-clear {
-      padding: 0 0.4em;
+      margin-left: 0.4em;
 
       .icon-clear {
         width: 1.2em;

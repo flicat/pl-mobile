@@ -69,6 +69,7 @@
 | size       | 尺寸      | String    | normal / large / small   |  normal    |
 | placeholder | 占位符   | String | — | —   |
 | type       | 表单类型，原生字段 | String | text / number / search / texarea        |  text   |
+| wrap       | label是否折行显示  | boolean   | —   | false   |
 | disabled   | 是否禁用状态    | boolean   | —   | false   |
 | required   | 必填红色*号    | boolean   | —   | false   |
 | rows       | texarea的rows属性     | String | —           |  —      |

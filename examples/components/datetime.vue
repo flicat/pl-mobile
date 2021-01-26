@@ -1,52 +1,33 @@
 <template>
   <div class="content">
-    <pl-datetime
-      ref="date-picker1"
-      :rules="rules"
-      label="日期"
-      labelWidth="4em"
-      @change="onChange"
-      placeholder="请选择日期"
-      :options="option1"
-      v-model="value"
-      type="datetime"
-      clearable
-      format="Y-M-D H:I"
-      valueFormat="Y-M-D H:I:S">
-      <span slot="label">日期：</span>
-    </pl-datetime>
-    <pl-datetime
-      ref="date-picker2"
-      :rules="rules"
-      label="日期："
-      labelWidth="4em"
-      @change="onChange"
-      startPlaceholder="请选择开始日期"
-      endPlaceholder="请选择结束日期"
-      range-separator="至"
-      :options="option2"
-      v-model="value2"
-      type="datetime"
-      isRange
-      clearable
-      format="Y-M-D H:I:S">
-      <pl-icon name="icon-time" slot="prepend"></pl-icon>
-    </pl-datetime>
-    <pl-datetime
-      ref="date-picker3"
-      :rules="rules"
-      label="时间："
-      labelWidth="4em"
-      @change="onChange"
-      startPlaceholder="请选择开始时间"
-      endPlaceholder="请选择结束时间"
-      range-separator="至"
-      :options="option3"
-      v-model="value3"
-      type="time"
-      isRange
-      clearable
-      format="H:I:S">
+    <h3>基础用法</h3>
+    <pl-datetime placeholder="请选择日期" :options="option1" v-model="value" type="datetime"></pl-datetime>
+    <pl-datetime placeholder="请选择时间" :options="option3" v-model="value3" type="time"></pl-datetime>
+    <pl-datetime startPlaceholder="开始日期" endPlaceholder="结束日期" :options="option2" v-model="value2" type="datetime" isRange></pl-datetime>
+
+
+    <h3>尺寸大小</h3>
+    <pl-datetime label="日期：" placeholder="请选择日期" :options="option1" v-model="value" type="datetime" size="small"></pl-datetime>
+    <pl-datetime label="日期：" placeholder="请选择日期" :options="option1" v-model="value" type="datetime" size="normal"></pl-datetime>
+    <pl-datetime label="日期：" placeholder="请选择日期" :options="option1" v-model="value" type="datetime" size="large"></pl-datetime>
+
+
+
+    <h3>禁用</h3>
+    <pl-datetime label="日期：" placeholder="请选择日期" :options="option1" v-model="value" type="datetime" disabled></pl-datetime>
+
+
+
+    <h3>标题换行</h3>
+    <pl-datetime label="请选择一个你喜欢的日期：" placeholder="请选择日期" :options="option1" v-model="value" type="datetime"  wrap></pl-datetime>
+
+
+    <h3>必填</h3>
+    <pl-datetime label="日期：" ref="date-picker" placeholder="请选择日期" :options="option1" v-model="value" type="datetime" required></pl-datetime>
+
+
+    <h3>图标填充</h3>
+    <pl-datetime label="日期：" placeholder="请选择日期" :options="option1" v-model="value" :rules="rules" type="datetime" size="small" clearable>
       <pl-icon name="icon-time" slot="prepend"></pl-icon>
       <pl-icon name="icon-time" slot="append"></pl-icon>
     </pl-datetime>
@@ -100,18 +81,15 @@
         console.log('onChange::', val)
       },
       validate () {
-        [1, 2, 3]
-        .map(i => 'date-picker' + i)
-        .map(name => this.$refs[name])
-        .filter(Boolean)
-        .map(picker => picker.validate())
+        this.$refs['date-picker'].validate()
       }
     }
   }
 </script>
 
 <style lang="less" scoped>
-  input {
-    width: 300px;
+  .pl-datetime {
+    outline: 1px dashed rgba(255, 0, 0, 0.2);
+    margin-bottom: 0.5rem;
   }
 </style>

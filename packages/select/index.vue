@@ -8,11 +8,11 @@
     }
     ]">
     <div class="pl-select-cell" :class="{'pl-select-cell--label': label && !wrap, 'pl-select-cell--wrap': wrap && label}">
-      <div class="pl-select-title">
+      <div class="pl-select-title" :class="{'pl-select-title--require': required}">
         <div class="pl-select-prepend" v-if="$slots.prepend">
           <slot name="prepend"></slot>
         </div>
-        <div class="pl-select-label" :class="{'pl-select-label--require': required}" v-if="label" :style="{width: calcLabelWidth}">
+        <div class="pl-select-label" v-if="label" :style="{width: calcLabelWidth}">
           <slot name="label">{{label}}</slot>
         </div>
       </div>
@@ -24,8 +24,8 @@
           <span v-else-if="!multiple && currentValue !== null && currentValue !== undefined">{{calcOptions.get(currentValue)}}</span>
           <span class="placeholder" v-else>{{placeholder}}</span>
         </div>
-        <div class="pl-select-clear" @touchstart.stop.prevent="clear" @mousedown.stop.prevent="clear">
-          <icon name="icon-roundclosefill" fill="#ccc" v-if="showClear"></icon>
+        <div class="pl-select-clear" @touchstart.stop.prevent="clear" @mousedown.stop.prevent="clear" v-show="showClear">
+          <icon name="icon-roundclosefill" fill="#ccc"></icon>
         </div>
         <div class="pl-select-icon">
           <icon name="icon-unfold1" class="icon-arrow" fill="#ccc"></icon>
@@ -273,6 +273,17 @@
       align-items: center;
       flex-direction: row;
     }
+    &-title {
+      &--require {
+        &::before {
+          display: inline-block;
+          width: 0.6rem;
+          content: '*';
+          color: var(--danger);
+          margin-left: -0.6rem;
+        }
+      }
+    }
     &-value {
       flex: 1;
     }
@@ -319,18 +330,6 @@
     }
     &-label {
       padding-right: 0.4em;
-
-      &--require {
-        position: relative;
-
-        &::before {
-          position: absolute;
-          content: '*';
-          color: var(--danger);
-          left: -0.6em;
-          top: 30%;
-        }
-      }
     }
     &-append,
     &-prepend {
@@ -343,7 +342,7 @@
       padding-right: 0.4em;
     }
     &-clear {
-      padding: 0 0.4em;
+      margin-left: 0.4em;
 
       .icon-clear {
         width: 1.2em;

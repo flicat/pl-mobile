@@ -6,27 +6,34 @@
       'pl-range--error': ruleMessage
     }
     ]">
-    <div class="pl-range-cell">
-      <div class="pl-range-label" :class="{'pl-range-label--require': required}" v-if="label" :style="{width: calcLabelWidth}">
-        <slot name="label">{{label}}</slot>
-      </div>
-      <div class="pl-range-inner">
-        <div class="slider-runnable-track" ref="track">
-          <div class="progress" :style="progressStyle"></div>
-          <div class="thumb"
-            :style="thumbStyle"
-            @touchstart="touchEvent($event)"
-            @touchmove="touchEvent($event)"
-            @touchend="touchEvent($event)"
-            @touchcancel="touchEvent($event)"></div>
+    <div class="pl-range-cell" :class="{'pl-range-cell--label': label && !wrap, 'pl-range-cell--wrap': label && wrap}">
+      <div :class="['pl-range-title', {'pl-range-title--require': required}]">
+        <div class="pl-range-prepend" v-if="$slots.prepend">
+          <slot name="prepend"></slot>
         </div>
-        <div class="pl-range-slot">
-          <div class="pl-range-prepend" v-if="$slots.prepend">
-            <slot name="prepend"></slot>
+        <div class="pl-range-label" :class="{'pl-range-label--require': required}" v-if="label" :style="{width: calcLabelWidth}">
+          <slot name="label">{{label}}</slot>
+        </div>
+      </div>
+
+      <div class="pl-range-value">
+        <div class="pl-range-inner">
+          <div class="slider-runnable-track" ref="track">
+            <div class="progress" :style="progressStyle"></div>
+            <div class="thumb"
+              :style="thumbStyle"
+              @touchstart="touchEvent($event)"
+              @touchmove="touchEvent($event)"
+              @touchend="touchEvent($event)"
+              @touchcancel="touchEvent($event)">
+              <slot name="thumb">
+                <div class="thumb-icon"></div>
+              </slot>
+            </div>
           </div>
-          <div class="pl-range-append" v-if="$slots.append">
-            <slot name="append"></slot>
-          </div>
+        </div>
+        <div class="pl-range-append" v-if="$slots.append">
+          <slot name="append"></slot>
         </div>
       </div>
     </div>
@@ -37,7 +44,6 @@
 <script>
   import {validate} from '../../src/assets/utils'
 
-  // TODO 文字样式调整
   export default {
     name: 'plRange',
     componentName: 'plRange',
@@ -68,6 +74,7 @@
         type: Number,
         default: 1,
       },
+      wrap: Boolean,            // label与value换行显示
       disabled: Boolean,            // 禁用
       required: Boolean,            // 必填 *号
       label: String,                // 左侧 label
@@ -195,7 +202,7 @@
   @import "../../src/assets/less/mixin.less";
 
   .pl-range {
-    padding: 0 1.2em;
+    padding: 0 1.2rem;
     line-height: normal;
 
     * {
@@ -206,6 +213,47 @@
       display: flex;
       flex-wrap: nowrap;
       align-items: center;
+
+      &--label {
+        .pl-range-title {
+          padding: 1em 0;
+        }
+      }
+      &--wrap {
+        flex-direction: column;
+
+        .pl-range-title,
+        .pl-range-value {
+          width: 100%;
+        }
+        .pl-range-title {
+          padding-top: 1em;
+        }
+        .pl-range-value {
+          padding: 0.6em 0;
+        }
+      }
+    }
+    &-title,
+    &-value {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      flex-direction: row;
+    }
+    &-title {
+      &--require {
+        &::before {
+          display: inline-block;
+          width: 0.6rem;
+          content: '*';
+          color: var(--danger);
+          margin-left: -0.6rem;
+        }
+      }
+    }
+    &-value {
+      flex: 1;
     }
 
     &--large {
@@ -226,19 +274,18 @@
       flex: 1;
       width: 100%;
     }
+    &-append,
+    &-prepend {
+      text-align: center;
+    }
+    &-append {
+      padding-left: 0.4em;
+    }
+    &-prepend {
+      padding-right: 0.4em;
+    }
     .pl-range-label {
       padding-right: 0.4em;
-
-      &--require {
-        position: relative;
-        &::before {
-          position: absolute;
-          content: '*';
-          color: var(--danger);
-          left: -0.6em;
-          top: 30%;
-        }
-      }
     }
     .slider-runnable-track {
       position: relative;
@@ -251,47 +298,30 @@
       .progress,
       .thumb {
         position: absolute;
-        z-index: 0;
-      }
-      .progress {
         left: 0;
         top: 0;
+      }
+      .progress {
+        z-index: 0;
         height: 3px;
         border-radius: 2px;
         background: var(--range-progress);
       }
       .thumb {
-        left: -0.8em;
-        top: -0.8em;
         z-index: 2;
-        background: var(--range-thumb);
-        width: 1.6em;
-        height: 1.6em;
-        line-height: 1.6em;
-        text-align: center;
-        border-radius: 50%;
-        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.20);
+
+        &-icon {
+          background: var(--range-thumb);
+          width: 1.6em;
+          height: 1.6em;
+          line-height: 1.6em;
+          text-align: center;
+          border-radius: 50%;
+          box-shadow: 0 2px 4px 0 rgba(0,0,0,0.20);
+          transform: translate(-50%, -50%);
+        }
       }
     }
-    .pl-range-slot {
-      display: table;
-      width: 100%;
-      font-size: smaller;
-      color: var(--range-text);
-      line-height: 2em;
-
-      .pl-range-prepend,
-      .pl-range-append {
-        display: table-cell;
-      }
-      .pl-range-prepend {
-        text-align: left;
-      }
-      .pl-range-append {
-        text-align: right;
-      }
-    }
-
     &-error {
       padding: 0 0.5em;
       color: var(--danger);

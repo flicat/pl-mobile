@@ -1,79 +1,107 @@
 ## range 滑动框
 
 ### 基础用法
-
 ```html
 <template>
-  <pl-range v-model="value" :min="0" :max="100" :step="1" />
+  <pl-range v-model="value" :min="0" :max="100" :step="1"></pl-range>
+  <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择："></pl-range> 
 </template>
+
 <script>
   export default {
     data () {
       return {
         value: 0
-      }           
-    }
-  }
-</script>
-```
-
-
-### 显示label的用法
-
-```html
-<template>
-  <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" labelWidth="5em" />
-</template>
-<script>
-  export default {
-    data () {
-      return {
-        value: 0
-      }           
-    }
-  }
-</script>
-```
-
-
-
-### 表单验证
-
-```html
-<template>
-  <pl-range v-model="value" :min="0" :max="100" :step="1" :rules="rules" required ref="range" />
-</template>
-<script>
-  export default {
-    data () {
-      return {
-        value: 0,
-        rules: [{required: true, message: '请选择', trigger: 'change'}]
-      }           
-    },
-    methods: {
-      submit () {
-        this.$refs.range.validate().then(() => {
-          // 提交
-        })        
       }
     }
   }
 </script>
 ```
 
-
-
-
-### 自定义内容
-
+### 尺寸大小
 ```html
 <template>
-  <pl-range v-model="value" :min="0" :max="100" :step="10">
-    <span slot="prepend">0%</span>
+  <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" size="small"></pl-range>
+  <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" size="normal"></pl-range>
+  <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" size="large"></pl-range>
+</template>
+
+<script>
+  export default {
+    data () {
+      return {
+        value: 0
+      }
+    }
+  }
+</script>
+```
+
+### 标题换行
+```html
+<template>
+  <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" wrap></pl-range>
+</template>
+
+<script>
+  export default {
+    data () {
+      return {
+        value: 0
+      }
+    }
+  }
+</script>
+```
+
+### 禁用
+```html
+<template>
+  <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" disabled></pl-range>
+</template>
+
+<script>
+  export default {
+    data () {
+      return {
+        value: 0
+      }
+    }
+  }
+</script>
+```
+ 
+### 必填
+```html
+<template>
+  <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" required></pl-range>
+  <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" required wrap></pl-range>
+</template>
+
+<script>
+  export default {
+    data () {
+      return {
+        value: 0
+      }
+    }
+  }
+</script>
+```
+
+### 图标填充
+```html
+<template>
+  <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" required>
+    <pl-icon name="icon-dingwei" fill="#999" slot="prepend"></pl-icon>
+    <span slot="append">{{value}}%</span>
+  </pl-range>
+  <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" required wrap>
+    <pl-icon name="icon-dingwei" fill="#999" slot="prepend"></pl-icon>
     <span slot="append">{{value}}%</span>
   </pl-range>
 </template>
+
 <script>
   export default {
     data () {
@@ -84,6 +112,26 @@
   }
 </script>
 ```
+
+### 自定义滑块
+```html
+<template>
+  <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" required>
+    <span slot="thumb" class="thumb">{{value}}%</span>
+  </pl-range>
+</template>
+
+<script>
+  export default {
+    data () {
+      return {
+        value: 0
+      }
+    }
+  }
+</script>
+```    
+    
 
 
 ### Attributes
@@ -94,6 +142,7 @@
 | min        | 最小值 | Number | — | — |
 | max        | 最大值 | Number | — | — |
 | step       | step进度间隔 | Number | — | — |
+| wrap       | label是否折行显示  | boolean   | —   | false   |
 | disabled   | 是否禁用状态    | boolean   | —   | false   |
 | required   | 必填红色*号    | boolean   | —   | false   |
 | label      | label文字    | string   | —   | —   |
@@ -106,6 +155,7 @@
 | label     |   label文字   |
 | prepend   |   选择框前置内容  |
 | append    |   选择框后置内容 |
+| thumb    |   自定义滑块 |
 
 ### Events
 | 事件名称      | 说明    | 回调参数      |

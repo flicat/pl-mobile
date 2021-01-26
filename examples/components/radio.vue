@@ -1,16 +1,46 @@
 <template>
   <div class="content">
     <h3>基础用法</h3>
+    <pl-radio v-model="value" :options="data"></pl-radio>
+    <pl-radio v-model="value" :options="data" button></pl-radio>
+
+    <h3>尺寸大小</h3>
+    <pl-radio v-model="value" :options="data" size="small"></pl-radio>
+    <pl-radio v-model="value" :options="data" size="normal"></pl-radio>
+    <pl-radio v-model="value" :options="data" size="large"></pl-radio>
+
+
+    <h3>显示label</h3>
+    <pl-radio v-model="value" :options="data" label="请选择："></pl-radio>
+
+
+    <h3>禁用</h3>
+    <pl-radio v-model="value" :options="data" label="请选择：" disabled></pl-radio>
+    <pl-radio v-model="value" :options="data" label="请选择：" button disabled></pl-radio>
+
+
+    <h3>必填</h3>
+    <pl-radio v-model="value" :options="data" label="请选择：" :rules="rules" required></pl-radio>
+
+    <h3>标题折行显示</h3>
+    <pl-radio v-model="value" :options="data" label="请选择请选择请选择请选择请选择请选择：" :rules="rules" wrap></pl-radio>
+
+
+    <h3>竖排样式</h3>
+    <pl-radio v-model="value" :options="data" label="请选择：" :rules="rules" vertical></pl-radio>
+
+    <h3>前置图标</h3>
+    <pl-radio v-model="value" :options="data" label="请选择：" :rules="rules" wrap required>
+      <pl-icon name="icon-dingwei" fill="#999" slot="prepend"></pl-icon>
+    </pl-radio>
+    <pl-radio v-model="value" :options="data" label="请选择：" :rules="rules" required>
+      <pl-icon name="icon-dingwei" fill="#999" slot="prepend"></pl-icon>
+    </pl-radio>
+
+    <h3>自定义子节点</h3>
     <pl-radio v-model="value" :options="data" label="单选：" labelWidth="4em" @change="onChange">
       <template v-slot="scope">{{scope.item.label}} - {{scope.item.value}}</template>
     </pl-radio>
-    <h3>表单验证</h3>
-    <pl-radio v-model="value" :options="data" :rules="rules" required ref="radio"></pl-radio>
-    <h3>按钮样式</h3>
-    <pl-radio v-model="value" :options="data" button></pl-radio>
-    <h3>竖向排列</h3>
-    <pl-radio v-model="value" :options="data" vertical></pl-radio>
-    <pl-radio v-model="value" :options="data" button vertical></pl-radio>
   </div>
 </template>
 <script>
@@ -33,3 +63,9 @@
     }
   }
 </script>
+
+<style lang="less" scoped>
+  .pl-radio {
+    border-bottom: 1px dotted #ddd;
+  }
+</style>

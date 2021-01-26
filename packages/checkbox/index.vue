@@ -7,27 +7,34 @@
       'pl-checkbox--error': ruleMessage
     }
     ]">
-    <div class="pl-checkbox-cell" :class="{'pl-checkbox-cell--label': label}">
-      <div class="pl-checkbox-label" :class="{'pl-checkbox-label--require': required}" v-if="label" :style="{width: calcLabelWidth}">
-        <slot name="label">{{label}}</slot>
+    <div class="pl-checkbox-cell" :class="{'pl-checkbox-cell--label': label && !wrap, 'pl-checkbox-cell--wrap': label && wrap}">
+      <div class="pl-checkbox-title" :class="{'pl-checkbox-title--require': required}">
+        <div class="pl-checkbox-prepend" v-if="$slots.prepend">
+          <slot name="prepend"></slot>
+        </div>
+        <div class="pl-checkbox-label" v-if="label" :style="{width: calcLabelWidth}">
+          <slot name="label">{{label}}</slot>
+        </div>
       </div>
-      <div class="pl-checkbox-inner">
-        <template v-if="options && options.length">
-          <div v-for="(item, i) in options" :key="i" class="pl-checkbox-item" :class="{'is-button': button, 'is-vertical': vertical}">
-            <input type="checkbox" :disabled="calcDisabled || item[prop.disabled]" v-model="currentValue" :value="item[prop.value]" @change="emit">
-            <icon v-if="!button" class="pl-checkbox-icon icon-unchecked" name="icon-kongjianweixuan"></icon>
-            <icon v-if="!button" class="pl-checkbox-icon icon-checked" name="icon-kongjianxuanzhong"></icon>
-            <span class="pl-checkbox-text"><slot :item="item">{{item[prop.label]}}</slot></span>
-          </div>
-        </template>
-        <template v-else>
-          <div class="pl-checkbox-item" :class="{'is-button': button, 'is-vertical': vertical}">
-            <input type="checkbox" :disabled="calcDisabled" v-model="currentValue" :true-value="trueValue" :false-value="falseValue" @change="emit">
-            <icon v-if="!button" class="pl-checkbox-icon icon-unchecked" name="icon-kongjianweixuan"></icon>
-            <icon v-if="!button" class="pl-checkbox-icon icon-checked" name="icon-kongjianxuanzhong"></icon>
-            <span class="pl-checkbox-text"><slot></slot></span>
-          </div>
-        </template>
+      <div class="pl-checkbox-value">
+        <div class="pl-checkbox-inner">
+          <template v-if="options && options.length">
+            <div v-for="(item, i) in options" :key="i" class="pl-checkbox-item" :class="{'is-button': button, 'is-vertical': vertical}">
+              <input type="checkbox" :disabled="calcDisabled || item[prop.disabled]" v-model="currentValue" :value="item[prop.value]" @change="emit">
+              <icon v-if="!button" class="pl-checkbox-icon icon-unchecked" name="icon-kongjianweixuan"></icon>
+              <icon v-if="!button" class="pl-checkbox-icon icon-checked" name="icon-kongjianxuanzhong"></icon>
+              <span class="pl-checkbox-text"><slot :item="item">{{item[prop.label]}}</slot></span>
+            </div>
+          </template>
+          <template v-else>
+            <div class="pl-checkbox-item pl-toggle-box" :class="{'is-toggle': button, 'is-vertical': !button && vertical}">
+              <input type="checkbox" :disabled="calcDisabled" v-model="currentValue" :true-value="trueValue" :false-value="falseValue" @change="emit">
+              <icon v-if="!button" class="pl-checkbox-icon icon-unchecked" name="icon-kongjianweixuan"></icon>
+              <icon v-if="!button" class="pl-checkbox-icon icon-checked" name="icon-kongjianxuanzhong"></icon>
+              <span class="pl-checkbox-text"><slot></slot></span>
+            </div>
+          </template>
+        </div>
       </div>
     </div>
     <div class="pl-checkbox-error" v-if="ruleMessage">{{ruleMessage}}</div>
@@ -77,6 +84,7 @@
       falseValue: {
         default: null
       },
+      wrap: Boolean,            // label与value换行显示
       disabled: Boolean,            // 禁用
       required: Boolean,            // 必填 *号
       button: Boolean,              // 是否是按钮样式
@@ -158,7 +166,7 @@
 
   .pl-checkbox {
     background-color: var(--input-bg);
-    padding: 0 1.2em;
+    padding: 0 1.2rem;
     line-height: normal;
 
     * {
@@ -178,6 +186,44 @@
           }
         }
       }
+      &--wrap {
+        flex-direction: column;
+
+        .pl-checkbox-title,
+        .pl-checkbox-value {
+          width: 100%;
+        }
+        .pl-checkbox-title {
+          padding-top: 1em;
+        }
+      }
+    }
+    &-title,
+    &-value {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      flex-direction: row;
+    }
+    &-title {
+      padding-top: 1em;
+      align-self: flex-start;
+      &--require {
+        &::before {
+          display: inline-block;
+          width: 0.6rem;
+          content: '*';
+          color: var(--danger);
+          margin-left: -0.6rem;
+        }
+      }
+    }
+    &-value {
+      flex: 1;
+    }
+    &-prepend {
+      text-align: center;
+      padding-right: 0.4em;
     }
 
     &--large {
@@ -193,7 +239,7 @@
       position: relative;
     }
     &-inner {
-      padding: 1em 0;
+      padding: 0.7em 0;
       flex: 1;
       display: flex;
       flex-wrap: wrap;
@@ -201,17 +247,6 @@
     }
     .pl-checkbox-label {
       padding-right: 0.4em;
-
-      &--require {
-        position: relative;
-        &::before {
-          position: absolute;
-          content: '*';
-          color: var(--danger);
-          left: -0.6em;
-          top: 30%;
-        }
-      }
     }
     .pl-checkbox-item {
       position: relative;
@@ -260,12 +295,12 @@
         }
       }
       .pl-checkbox-text {
+        margin-left: 0.5em;
         color: var(--checkbox-text);
         display: inline-block;
         vertical-align: middle;
       }
       .pl-checkbox-icon {
-        margin-right: 0.5em;
         font-size: 1em;
 
         &.icon-unchecked {
@@ -288,7 +323,7 @@
 
         .pl-checkbox-icon {
           position: absolute;
-          right: 0.5em;
+          right: 0.5rem;
         }
         &:last-child {
           border-bottom: 0 none;
@@ -305,6 +340,7 @@
           border: 1px solid var(--checkbox-button-border);
           padding: 0.5em;
           line-height: 1em;
+          margin-left: 0;
         }
         .pl-checkbox-icon {
           display: none;
@@ -366,6 +402,56 @@
         }
       }
     }
+    .pl-toggle-box {
+      &.is-toggle {
+        .pl-checkbox-text {
+          position: relative;
+          display: inline-flex;
+          flex-direction: row;
+          align-items: center;
+          border-radius: 1.6em;
+          height: 1.5em;
+          box-sizing: content-box;
+          margin-left: 0;
+
+          &::before {
+            position: absolute;
+            content: '';
+            display: block;
+            width: 1.5em;
+            height: 1.5em;
+            border-radius: 50%;
+            background-color: var(--checkbox-toggle-color);
+          }
+        }
+        input[type="checkbox"] {
+          & ~ .pl-checkbox-text {
+            color: var(--checkbox-toggle-color);
+            background-color: var(--checkbox-toggle-unchecked-bg);
+            padding: 1px 0.7em 1px 1.9em;
+            &::before {
+              top: 1px;
+              right: auto;
+              left: 1px;
+            }
+          }
+          &:checked ~ .pl-checkbox-text {
+            color: var(--checkbox-toggle-color);
+            background-color: var(--checkbox-toggle-checked-bg);
+            padding: 1px 1.9em 1px 0.7em;
+            &::before {
+              top: 1px;
+              left: auto;
+              right: 1px;
+            }
+          }
+          &:disabled ~ .pl-checkbox-text {
+            color: var(--checkbox-toggle-color);
+            background-color: var(--disabled);
+          }
+        }
+      }
+    }
 
     &-error {
       padding: 0 0.5em;
@@ -374,10 +460,6 @@
     }
 
     &.is-vertical {
-      .pl-checkbox-label {
-        align-self: flex-start;
-        margin-top: 1em;
-      }
       .pl-checkbox-inner {
         padding: 0;
       }

@@ -199,6 +199,7 @@
 | rangeSeparator   | 选择范围时的分隔符 | String | — | 至 |
 | format           | 日期显示格式 | String | 参见日期格式 | Y-M-D |
 | valueFormat      | 日期返回值格式 | String | 参见日期格式 | — |
+| wrap       | label是否折行显示  | boolean   | —   | false   |
 | disabled         | 是否禁用状态    | boolean   | —   | false   |
 | readonly         | 是否只读状态 | Boolean | — | false |
 | clearable        | 是否显示清除按钮 | boolean | —      |  false    |

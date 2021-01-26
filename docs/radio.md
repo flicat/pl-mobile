@@ -147,6 +147,7 @@
 | size       | 尺寸  | String    | normal / large / small   |  normal    |
 | options    | 选项列表   | Array    | — | —   |
 | prop       | 选项对应的key与value   | Object    | — | {label: 'label', value: 'value', disabled: 'disabled'}   |
+| wrap       | label是否折行显示  | boolean   | —   | false   |
 | disabled  | 是否禁用状态    | boolean   | —   | false   |
 | required   | 必填红色*号    | boolean   | —   | false   |
 | button     | 是否是按钮样式    | boolean   | —   | false   |
@@ -160,6 +161,7 @@
 |---------- |-------- |
 | (default)     |   列表子选项   |
 | label     |   label文字   |
+| prepend   |   输入框前置内容  |
 
 ### Events
 | 事件名称      | 说明    | 回调参数      |

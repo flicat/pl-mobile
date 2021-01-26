@@ -163,6 +163,7 @@
 | prop       | 选项对应的key与value   | Object    | — | {label: 'label', value: 'value', disabled: 'disabled'}   |
 | trueValue  | 没有提供data时的勾选值    | —   | —   | —   |
 | falseValue | 没有提供data时的非勾选值    | —   | —   | —   |
+| wrap       | label是否折行显示  | boolean   | —   | false   |
 | disabled  | 是否禁用状态    | boolean   | —   | false   |
 | required   | 必填红色*号    | boolean   | —   | false   |
 | button     | 是否是按钮样式    | boolean   | —   | false   |
@@ -175,6 +176,7 @@
 |---------- |-------- |
 | (default)     |   列表子选项   |
 | label     |   label文字   |
+| prepend   |   输入框前置内容  |
 
 ### Events
 | 事件名称      | 说明    | 回调参数      |

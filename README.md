@@ -173,6 +173,9 @@ import {
   --checkbox-disabled-bg: #ebedf0;
   --checkbox-text: #333;
   --checkbox-bg: #dcdfe6;
+  --checkbox-toggle-color: #fff;
+  --checkbox-toggle-unchecked-bg: #e6a23c;
+  --checkbox-toggle-checked-bg: #67c23a;
   --checkbox-vertical-border: #f0f0f0;
   --checkbox-button-border: #dcdfe6;
   --checkbox-button-text: #fff;

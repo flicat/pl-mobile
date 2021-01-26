@@ -7,20 +7,27 @@
       'pl-radio--error': ruleMessage
     }
     ]">
-    <div class="pl-radio-cell" :class="{'pl-radio-cell--label': label}">
-      <div class="pl-radio-label" :class="{'pl-radio-label--require': required}" v-if="label" :style="{width: calcLabelWidth}">
-        <slot name="label">{{label}}</slot>
+    <div class="pl-radio-cell" :class="{'pl-radio-cell--label': label && !wrap, 'pl-radio-cell--wrap': label && wrap}">
+      <div class="pl-radio-title" :class="{'pl-radio-title--require': required}">
+        <div class="pl-radio-prepend" v-if="$slots.prepend">
+          <slot name="prepend"></slot>
+        </div>
+        <div class="pl-radio-label" v-if="label" :style="{width: calcLabelWidth}">
+          <slot name="label">{{label}}</slot>
+        </div>
       </div>
-      <div class="pl-radio-inner">
-        <div class="pl-radio-item"
-          v-for="(item, i) in options"
-          :key="i"
-          :class="{'is-active': item[prop.value] === currentValue, 'is-disabled': calcDisabled || item[prop.disabled], 'is-button': button, 'is-vertical': vertical}"
-          @click="!(calcDisabled || item[prop.disabled]) && emit(item[prop.value])">
-          <icon v-if="!button" class="pl-radio-icon"
-            :name="item[prop.value] === currentValue ? 'icon-btn_choose' : 'icon-btn_cicle_unchoose'"
-            :fill="calcDisabled || item[prop.disabled] ? '#ebedf0' : item[prop.value] === currentValue ? '@primary' : '#dcdfe6'"></icon>
-          <span><slot :item="item">{{item[prop.label]}}</slot></span>
+      <div class="pl-radio-value">
+        <div class="pl-radio-inner">
+          <div class="pl-radio-item"
+            v-for="(item, i) in options"
+            :key="i"
+            :class="{'is-active': item[prop.value] === currentValue, 'is-disabled': calcDisabled || item[prop.disabled], 'is-button': button, 'is-vertical': vertical}"
+            @click="!(calcDisabled || item[prop.disabled]) && emit(item[prop.value])">
+            <icon v-if="!button" class="pl-radio-icon"
+              :name="item[prop.value] === currentValue ? 'icon-btn_choose' : 'icon-btn_cicle_unchoose'"
+              :fill="calcDisabled || item[prop.disabled] ? '#ebedf0' : item[prop.value] === currentValue ? '@primary' : '#dcdfe6'"></icon>
+            <span><slot :item="item">{{item[prop.label]}}</slot></span>
+          </div>
         </div>
       </div>
     </div>
@@ -65,6 +72,7 @@
       value: {
         default: null
       },
+      wrap: Boolean,            // label与value换行显示
       disabled: Boolean,            // 禁用
       required: Boolean,            // 必填 *号
       button: Boolean,              // 是否是按钮样式
@@ -150,7 +158,7 @@
 
   .pl-radio {
     background-color: var(--input-bg);
-    padding: 0 1.2em;
+    padding: 0 1.2rem;
     line-height: normal;
 
     * {
@@ -170,6 +178,44 @@
           }
         }
       }
+      &--wrap {
+        flex-direction: column;
+
+        .pl-radio-title,
+        .pl-radio-value {
+          width: 100%;
+        }
+        .pl-radio-title {
+          padding-top: 1em;
+        }
+      }
+    }
+    &-title,
+    &-value {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      flex-direction: row;
+    }
+    &-title {
+      padding-top: 1em;
+      align-self: flex-start;
+      &--require {
+        &::before {
+          display: inline-block;
+          width: 0.6rem;
+          content: '*';
+          color: var(--danger);
+          margin-left: -0.6rem;
+        }
+      }
+    }
+    &-value {
+      flex: 1;
+    }
+    &-prepend {
+      text-align: center;
+      padding-right: 0.4em;
     }
 
     &--large {
@@ -185,7 +231,7 @@
       position: relative;
     }
     &-inner {
-      padding: 1em 0;
+      padding: 0.7em 0;
       flex: 1;
       display: flex;
       flex-wrap: wrap;
@@ -193,17 +239,6 @@
     }
     .pl-radio-label {
       padding-right: 0.4em;
-
-      &--require {
-        position: relative;
-        &::before {
-          position: absolute;
-          content: '*';
-          color: var(--danger);
-          left: -0.6em;
-          top: 30%;
-        }
-      }
     }
     .pl-radio-item {
       position: relative;
@@ -304,10 +339,6 @@
     }
 
     &.is-vertical {
-      .pl-radio-label {
-        align-self: flex-start;
-        margin-top: 1em;
-      }
       .pl-radio-inner {
         padding: 0;
       }

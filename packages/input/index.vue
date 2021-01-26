@@ -9,45 +9,47 @@
       'pl-input--error': ruleMessage
     }
     ]">
-    <div class="pl-input-cell" :class="{'pl-input-cell--label': label}">
-      <div :class="[
-        type === 'textarea' ? 'pl-textarea-label' : 'pl-input-label',
-        {'pl-input-label--require': required}
-        ]"
-        v-if="label" :style="{width: calcLabelWidth}">
-        <slot name="label">{{label}}</slot>
-      </div>
-      <template v-if="type !== 'textarea'">
+    <div class="pl-input-cell" :class="{'pl-input-cell--label': label && !wrap, 'pl-input-cell--wrap': label && wrap}">
+      <div :class="['pl-input-title', {'pl-input-title--require': required, 'pl-input-title--start': type === 'textarea' && !wrap}]">
         <div class="pl-input-prepend" v-if="$slots.prepend">
           <slot name="prepend"></slot>
         </div>
-        <div class="pl-input-inner">
-          <input
-            v-bind="$attrs"
-            v-on="{input: emit, focus: emit, blur: emit}"
-            v-if="type !== 'textarea'"
-            :type="type"
-            :disabled="calcDisabled"
-            :value="currentValue"
-            ref="input">
+        <div class="pl-input-label" v-if="label" :style="{width: calcLabelWidth}">
+          <slot name="label">{{label}}</slot>
         </div>
-        <div class="pl-input-clear" @touchstart="clear" @mousedown="clear">
-          <icon name="icon-roundclosefill" fill="#ccc" v-if="showClear"></icon>
-        </div>
-        <div class="pl-input-append" v-if="$slots.append">
-          <slot name="append"></slot>
-        </div>
-      </template>
-      <div class="pl-input-inner" v-else>
-      <textarea
-        v-bind="$attrs"
-        :rows="rows"
-        :cols="cols"
-        v-on="{input: emit, focus: emit, blur: emit}"
-        :value="currentValue"
-        ref="input"
-        :disabled="calcDisabled"></textarea>
       </div>
+
+      <div class="pl-input-value">
+        <template v-if="type !== 'textarea'">
+          <div class="pl-input-inner">
+            <input
+              v-bind="$attrs"
+              v-on="{input: emit, focus: emit, blur: emit}"
+              v-if="type !== 'textarea'"
+              :type="type"
+              :disabled="calcDisabled"
+              :value="currentValue"
+              ref="input">
+          </div>
+          <div class="pl-input-clear" @touchstart="clear" @mousedown="clear" v-show="showClear">
+            <icon name="icon-roundclosefill" fill="#ccc"></icon>
+          </div>
+          <div class="pl-input-append" v-if="$slots.append">
+            <slot name="append"></slot>
+          </div>
+        </template>
+        <div class="pl-input-inner" v-else>
+        <textarea
+          v-bind="$attrs"
+          :rows="rows"
+          :cols="cols"
+          v-on="{input: emit, focus: emit, blur: emit}"
+          :value="currentValue"
+          ref="input"
+          :disabled="calcDisabled"></textarea>
+        </div>
+      </div>
+
     </div>
     <div class="pl-input-error" v-if="ruleMessage">{{ruleMessage}}</div>
   </div>
@@ -76,6 +78,7 @@
         default: 'text'
       },
       value: [String, Number],
+      wrap: Boolean,            // label与value换行显示
       disabled: Boolean,        // 禁用
       required: Boolean,        // 必填 *号
       rows: String,            // textarea rows
@@ -224,7 +227,7 @@
 
   .pl-input {
     background-color: var(--input-bg);
-    padding: 0 1.2em;
+    padding: 0 1.2rem;
     line-height: normal;
 
     * {
@@ -236,6 +239,9 @@
       flex-wrap: nowrap;
       align-items: center;
       &--label {
+        .pl-input-title {
+          padding: 1em 0;
+        }
         .pl-input-inner {
           input,
           textarea {
@@ -243,6 +249,41 @@
           }
         }
       }
+      &--wrap {
+        flex-direction: column;
+
+        .pl-input-title,
+        .pl-input-value {
+          width: 100%;
+        }
+        .pl-input-title {
+          padding-top: 1em;
+        }
+      }
+    }
+    &-title,
+    &-value {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      flex-direction: row;
+    }
+    &-title {
+      &--start {
+        align-self: flex-start;
+      }
+      &--require {
+        &::before {
+          display: inline-block;
+          width: 0.6rem;
+          content: '*';
+          color: var(--danger);
+          margin-left: -0.6rem;
+        }
+      }
+    }
+    &-value {
+      flex: 1;
     }
 
     &--large {
@@ -261,24 +302,11 @@
       padding: 1em 0;
       flex: 1;
     }
-    .pl-input-label,
-    .pl-textarea-label {
+    .pl-input-label {
       padding-right: 0.4em;
-
-      &--require {
-        position: relative;
-        &::before {
-          position: absolute;
-          content: '*';
-          color: var(--danger);
-          left: -0.6em;
-          top: 30%;
-        }
-      }
     }
     .pl-textarea-label {
       align-self: flex-start;
-      margin-top: 1em;
     }
     &-append,
     &-prepend {
@@ -291,7 +319,7 @@
       padding-right: 0.4em;
     }
     &-clear {
-      padding: 0 0.4em;
+      margin-left: 0.4em;
 
       .icon-clear {
         width: 1.2em;
@@ -314,6 +342,7 @@
       width: 100%;
       background-color: transparent;
       font-size: 1em;
+      vertical-align: middle;
 
       &::placeholder {
         color: var(--primary-text);

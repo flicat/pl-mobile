@@ -16,17 +16,17 @@
 
     <h3>折行显示</h3>
     <pl-select label="请选择请选择请选择请选择请选择请选择请选择请选择请选择：" placeholder="请选择选项" v-model="value1" :options="data" @change="change" :rules="rules" clearable wrap></pl-select>
-    <pl-select label="请选择：" placeholder="请选择选项" v-model="value2" :options="data" @change="change2" :rules="rules" multiple clearable wrap></pl-select>
+    <pl-select label="请选择：" placeholder="请选择选项" v-model="value2" :options="data" @change="change2" :rules="rules" multiple clearable wrap required></pl-select>
 
     <h3>自定义选项</h3>
-    <pl-select label="请选择：" placeholder="请选择" v-model="value1" :options="data" @change="change" :rules="rules" clearable>
+    <pl-select label="请选择：" placeholder="请选择" v-model="value1" :options="data" @change="change" :rules="rules" clearable required>
       <template v-slot="scope">
         <span>{{scope.item.label}}-{{scope.item.value}}</span>
       </template>
     </pl-select>
 
     <h3>前后图标</h3>
-    <pl-select label="请选择：" placeholder="请选择" v-model="value1" :options="data" @change="change" :rules="rules" clearable>
+    <pl-select label="请选择：" placeholder="请选择" v-model="value1" :options="data" @change="change" :rules="rules" clearable required>
        <pl-icon name="icon-dingwei" fill="#999" slot="prepend"></pl-icon>
       <pl-icon name="icon-people_fill" fill="#999" slot="append"></pl-icon>
     </pl-select>
