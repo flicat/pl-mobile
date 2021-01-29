@@ -6,15 +6,16 @@
       @touchend="touchEvent($event)"
       @touchcancel="touchEvent($event)">
       <div class="pl-tab-title-inner" ref="title" :style="titleStyle">
-        <div class="tab-line" v-if="type === 'card'" :style="lineStyle"></div>
         <div class="tab-title"
           v-for="title in titleArray"
           :key="title.name"
           @click="setCurrentName(title.name, title.disabled)"
           ref="title-item"
           :class="{'is-active': title.name === currentName, 'is-disabled': title.disabled}">
-          <span v-if="title.label">{{title.label}}</span>
-          <component v-else :is="title.titleSlot"></component>
+          <div class="tab-title-text">
+            <span v-if="title.label">{{title.label}}</span>
+            <component v-else :is="title.titleSlot"></component>
+          </div>
         </div>
       </div>
     </div>
@@ -97,30 +98,13 @@
       },
       // 标题
       titleStyle () {
-        let transform = this.swipeDir === 'column' ? `translateX(${-this.translate}px)` : `translateY(${-this.translate}px)`
+        let transform = this.swipeDir === 'column' ? `translateX(${-this.translate}px)` : `none`
 
         return {
           transform,
           webkitTransform: transform,
           transition: this.transition,
           webkitTransition: this.transition
-        }
-      },
-      // 标题底线样式
-      lineStyle () {
-        if (this.currentTitleNode) {
-          let width = this.swipeDir === 'column' ? this.currentTitleNode.offsetWidth + 'px' : '3px'
-          let height = this.swipeDir === 'row' ? this.currentTitleNode.offsetHeight + 'px' : '3px'
-          let transform = this.swipeDir === 'column' ? `translateX(${this.currentTitleNode.offsetLeft}px)` : `translateY(${this.currentTitleNode.offsetTop}px)`
-
-          return {
-            width,
-            height,
-            transform,
-            webkitTransform: transform
-          }
-        } else {
-          return null
         }
       }
     },
@@ -153,7 +137,7 @@
       },
       // 标题触摸事件
       touchEvent (e) {
-        if (this.tabSize >= this.titleSize) {
+        if (this.swipeDir === 'row' || this.tabSize >= this.titleSize) {
           return false
         }
 
@@ -161,22 +145,14 @@
           case 'touchstart':
             this.transDiff = this.translate
 
-            if (this.swipeDir === 'column') {
-              this.transStart = e.touches[0].clientX
-            } else {
-              this.transStart = e.touches[0].clientY
-            }
+            this.transStart = e.touches[0].clientX
             this.transition = 'none'
             break;
           case 'touchmove':
             e.preventDefault()
             e.stopPropagation()
 
-            if (this.swipeDir === 'column') {
-              this.transEnd = e.touches[0].clientX
-            } else {
-              this.transEnd = e.touches[0].clientY
-            }
+            this.transEnd = e.touches[0].clientX
             this.translate = this.transDiff + this.transStart - this.transEnd
             break;
           case 'touchend':
@@ -208,9 +184,6 @@
           if (this.swipeDir === 'column') {
             this.tabSize = this.$refs.tabs.clientWidth
             this.titleSize = this.$refs.title.scrollWidth
-          } else {
-            this.tabSize = this.$refs.tabs.clientHeight
-            this.titleSize = this.$refs.title.scrollHeight
           }
         })
       },
@@ -219,24 +192,15 @@
         let tabSize = this.tabSize
 
         // 如果标题在可是区域外则滚动至可见
-        if (val && titleSize > tabSize) {
-          if (this.swipeDir === 'column') {
-            let width = val.offsetWidth
-            let offset = val.offsetLeft + width - this.translate
-            if (offset > tabSize - width) {
-              this.translate += tabSize / 2
-            } else if (offset < width * 2) {
-              this.translate -= tabSize / 2
-            }
-          } else if (this.swipeDir === 'row') {
-            let height = val.offsetHeight
-            let offset = val.offsetTop + height - this.translate
-            if (offset > tabSize - height) {
-              this.translate += tabSize / 2
-            } else if (offset < height * 2) {
-              this.translate -= tabSize / 2
-            }
+        if (this.swipeDir === 'column' && val && titleSize > tabSize) {
+          let width = val.offsetWidth
+          let offset = val.offsetLeft + width - this.translate
+          if (offset > tabSize - width) {
+            this.translate += tabSize / 2
+          } else if (offset < width * 2) {
+            this.translate -= tabSize / 2
           }
+
           if (this.translate < 0) {
             this.translate = 0
           } else if (this.translate + tabSize > titleSize) {
@@ -268,11 +232,22 @@
       transition: all 0.3s ease;
 
       .tab-title {
+        display: flex;
         color: var(--primary-text);
-        padding: 0.6em 1em;
-        white-space: nowrap;
-        text-align: center;
-        line-height: normal;
+        .tab-title-text {
+          display: inline-block;
+          position: relative;
+          padding: 0.6em 1em;
+          white-space: nowrap;
+          line-height: normal;
+          &::after {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            transition: all 0.3s ease;
+            background-color: var(--primary);
+          }
+        }
       }
     }
     .pl-tab-content {
@@ -283,9 +258,27 @@
     &.is-bottom {
       .pl-tab-title-inner {
         grid-auto-flow: column;
-
-        .tab-line {
-          padding: 0 1em;
+      }
+      .tab-title-text {
+        margin: 0 auto;
+        height: 100%;
+      }
+      &.is-card {
+        .tab-title-text::after {
+          left: 100%;
+          width: 0;
+          height: 3px;
+        }
+        .is-active {
+          .tab-title-text::after {
+            left: 0;
+            width: 100%;
+          }
+        }
+        .is-active ~ .tab-title {
+          .tab-title-text::after {
+            left: 0;
+          }
         }
       }
     }
@@ -293,8 +286,27 @@
     &.is-left {
       .pl-tab-title-inner {
         grid-auto-flow: row;
-        .tab-line {
-          padding: 1em 0;
+      }
+      .tab-title-text {
+        margin: auto 0;
+        width: 100%;
+      }
+      &.is-card {
+        .tab-title-text::after {
+          top: 100%;
+          width: 3px;
+          height: 0;
+        }
+        .is-active {
+          .tab-title-text::after {
+            top: 0;
+            height: 100%;
+          }
+        }
+        .is-active ~ .tab-title {
+          .tab-title-text::after {
+            top: 0;
+          }
         }
       }
     }
@@ -304,18 +316,12 @@
     .pl-tab-title-inner {
       position: relative;
 
-      .tab-title {
+      .tab-title-text {
         padding: 1em 1.2em;
       }
-      .tab-line {
-        position: absolute;
-        transition: all 0.3s ease;
-        background-color: var(--primary);
-        background-clip: content-box;
-      }
-
       .is-active {
         color: var(--default-text);
+        font-weight: 700;
       }
       .is-disabled {
         color: var(--primary-text);
@@ -326,8 +332,12 @@
   .is-border-card {
     .tab-title {
       border: 1px solid var(--tab-card-border);
+      background-color: var(--tab-card-disabled-bg);
       &.is-disabled {
         background-color: var(--tab-card-disabled-bg);
+      }
+      &.is-active {
+        background-color: transparent;
       }
     }
     .pl-tab-content {
@@ -445,9 +455,9 @@
     &.is-card {
       .pl-tab-title {
         border-bottom: 1px solid var(--tab-border);
-        .tab-line {
-          bottom: -1px;
-        }
+      }
+      .tab-title-text::after {
+        bottom: 0;
       }
     }
   }
@@ -459,9 +469,9 @@
     &.is-card {
       .pl-tab-title {
         border-top: 1px solid var(--tab-border);
-        .tab-line {
-          top: -1px;
-        }
+      }
+      .tab-title-text::after {
+        top: 0;
       }
     }
   }
@@ -473,9 +483,9 @@
     &.is-card {
       .pl-tab-title {
         border-right: 1px solid var(--tab-border);
-        .tab-line {
-          right: -1px;
-        }
+      }
+      .tab-title-text::after {
+        right: 0;
       }
     }
   }
@@ -487,9 +497,9 @@
     &.is-card {
       .pl-tab-title {
         border-left: 1px solid var(--tab-border);
-        .tab-line {
-          left: -1px;
-        }
+      }
+      .tab-title-text::after {
+        left: 0;
       }
     }
   }
