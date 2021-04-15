@@ -9,25 +9,31 @@
     <pl-collapse v-model="active">
       <div slot="title">自定义标题</div>
       <p>面板内容</p>
+      <p>面板内容</p>
+      <p>面板内容</p>
     </pl-collapse>
 
   </div>
 </template>
 <script>
-  export default {
-    data () {
-      return {
-        active: false
-      }
-    },
-    methods: {
-      onChange () {
-        console.log('onChange::', this.active)
-      }
+export default {
+  data() {
+    return {
+      active: false
+    }
+  },
+  methods: {
+    onChange() {
+      console.log('onChange::', this.active)
     }
   }
+}
 </script>
 
 <style lang="less" scoped>
-
+p {
+  margin: 0;
+  line-height: 3em;
+  background-color: aqua;
+}
 </style>

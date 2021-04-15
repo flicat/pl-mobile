@@ -1,4 +1,4 @@
-## checkbox 折叠面板
+## collapse 折叠面板
 
 ### 基础用法
 
@@ -42,12 +42,12 @@
 ### Attributes
 | 参数      | 说明    | 类型      | 可选值       | 默认值   |
 |---------- |-------- |---------- |-------------  |-------- |
-| size       | 尺寸   | String  | normal / large / small            |   normal     |
+| value  | 是否展开    | boolean   | —   | false   |
 | disabled  | 是否禁用状态    | boolean   | —   | false   |
 | title      | 面板标题   | String  | —            |   —     |
 
 ### Slots
-| name      | 说明    | 
+| name      | 说明    |
 |---------- |-------- |
 | (default) |   面板内容    |
 | title     |   面板标题   |
@@ -55,7 +55,7 @@
 ### Events
 | 事件名称      | 说明    | 回调参数      |
 |---------- |-------- |---------- |
-| change     |   value更改事件   | 更改后的value | 
+| change     |   value更改事件   | 更改后的value |
 
 ### Methods
 | 方法名 | 说明 | 参数 |
