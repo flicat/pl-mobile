@@ -6,7 +6,7 @@
 <template>
   <div class="wrap">
     <pl-button @click="open">打开</pl-button>
-    <pl-picker title="选择" :options="data" :props="props" ref="picker" @submit="submit" :defaultValue="value"></pl-picker>
+    <pl-picker title="选择" :options="data" :prop="prop" ref="picker" @submit="submit" :defaultValue="value"></pl-picker>
   </div>
 </template>
 
@@ -27,7 +27,7 @@
             ]}
           ]
         },
-        props: {
+        prop: {
           label: 'label',
           value: 'value',
           children: 'children'
@@ -92,7 +92,7 @@
 <template>
   <div class="wrap">
     <pl-button @click="open">打开</pl-button>
-    <pl-picker title="选择" :options="data" :props="props" ref="picker" @submit="submit" :defaultValue="value">
+    <pl-picker title="选择" :options="data" :prop="prop" ref="picker" @submit="submit" :defaultValue="value">
       <template v-slot="scope">{{scope.item.label}} - {{scope.item.value}}</template>
     </pl-picker>
   </div>
@@ -114,7 +114,7 @@
             ]}
           ]
         },
-        props: {
+        prop: {
           label: 'label',
           value: 'value',
           children: 'children'
@@ -140,18 +140,18 @@
 | title        | 弹窗标题 | String | — | — |
 | defaultValue | 默认值 | Array | — | — |
 | options      | 下拉选项 | Array | 回调式：[function() {}]，嵌套式：{children: [{children: []}]} | — |
-| props        | 显示的标签和值，如果没有传递则拿整个子项 | Object | — | {label: null, value: null, children: null} |
+| prop        | 显示的标签和值，如果没有传递则拿整个子项 | Object | — | {label: null, value: null, children: null} |
 
 ### Slots
-| name      | 说明    | 
+| name      | 说明    |
 |---------- |-------- |
 | (default)     |   自定义列表项   |
 
 ### Events
 | 事件名称      | 说明    | 回调参数      |
 |---------- |-------- |---------- |
-| cancel | 取消事件 | — | 
-| submit | 提交事件 | 已选择的值 | 
+| cancel | 取消事件 | — |
+| submit | 提交事件 | 已选择的值 |
 
 ### Methods
 | 方法名 | 说明 | 参数 |
