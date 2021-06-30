@@ -1,7 +1,7 @@
 /* 將字符串转换成日期对象
  * @param {Date, String} dateStr
  */
-export function getDateFromString (dateStr) {
+export function getDateFromString(dateStr) {
   let date = null
 
   if (dateStr instanceof Date) {
@@ -35,7 +35,7 @@ export function getDateFromString (dateStr) {
  * @param {Date, timestamp} date
  * @param {String} format
  */
-export function getDateString (date, format = 'Y-M-D') {
+export function getDateString(date, format = 'Y-M-D') {
   date = getDateFromString(date)
 
   if (!date) {
@@ -77,7 +77,7 @@ export function getDateString (date, format = 'Y-M-D') {
 }
 
 // 获取基于baseTime的n天后的日期，如果没有baseTime则默认今天之后的日期
-export function getRangeDate (day, format, baseTime) {
+export function getRangeDate(day, format, baseTime) {
   day = day | 0 || 0
 
   let date
@@ -97,8 +97,43 @@ export function getRangeDate (day, format, baseTime) {
   }
 }
 
+
+// 获取基于baseTime的n月后的自然月日期，如果没有baseTime则默认今天之后的日期
+export function getRangeMonth(month, format, baseTime) {
+  month = month | 0 || 0
+
+  let diff = month > 0 ? -1 : 1
+
+  let date
+  if (baseTime) {
+    date = getDateFromString(baseTime)
+  } else {
+    date = new Date()
+  }
+
+  if (!date) {
+    return null
+  }
+
+  let endDate = new Date(date)
+  endDate.setMonth(date.getMonth() + month)
+
+  if (endDate.getDate() !== date.getDate()) {
+    endDate.setMonth(endDate.getMonth() - 1)
+    endDate.setDate(getMonthDays(endDate.getFullYear(), endDate.getMonth() + 1) + diff)
+  } else {
+    endDate.setDate(endDate.getDate() + diff)
+  }
+
+  if (format) {
+    return getDateString(endDate, format)
+  } else {
+    return endDate
+  }
+}
+
 // 获取一个月的天数
-export function getMonthDays (yy, mm) {
+export function getMonthDays(yy, mm) {
   yy = Number(yy)
   mm = Number(mm)
   let getCheckYear = function (yy) {
@@ -121,7 +156,7 @@ export function getMonthDays (yy, mm) {
 }
 
 /* 比较两个日期相差的天数 */
-export function getDayDiff (date1, date2) {
+export function getDayDiff(date1, date2) {
   let _date1 = getDateFromString(date1)
   let _date2 = getDateFromString(date2)
 
@@ -132,13 +167,14 @@ export function getDayDiff (date1, date2) {
 }
 
 /* 比较两个日期相差的月份 */
-export function getMonthDiff (date1, date2) {
-  let year1 = new Date(date1).getFullYear()
-  let month1 = new Date(date1).getMonth()
-  let day1 = new Date(date1).getDate()
-  let year2 = new Date(date2).getFullYear()
-  let month2 = new Date(date2).getMonth()
-  let day2 = new Date(date2).getDate()
+export function getMonthDiff(date1, date2) {
+  let _date1 = getDateFromString(date1)
+  let _date2 = getDateFromString(date2)
+
+  let year1 = _date1.getFullYear()
+  let month1 = _date1.getMonth()
+  let year2 = _date2.getFullYear()
+  let month2 = _date2.getMonth()
 
   let diff
   if (year1 === year2) {
@@ -147,16 +183,13 @@ export function getMonthDiff (date1, date2) {
     diff = (year2 - year1) * 12 + month2 - month1
   }
 
-  if (day2 >= day1) {
-    diff++
-  }
   return diff
 }
 
 /* 类型判断 */
-export function is (target, ...type) {
+export function is(target, ...type) {
   let typeString = Object.prototype.toString.call(target).match(/\[object (\w+)\]/)[1].toLowerCase()
-  return  type.indexOf(typeString) > -1
+  return type.indexOf(typeString) > -1
 }
 
 // 验证方法
@@ -170,7 +203,7 @@ export function is (target, ...type) {
  * length: 0,
  * range: {min: 0, max: 0}
  */
-export function validate (rule, value) {
+export function validate(rule, value) {
   return new Promise((resolve, reject) => {
     if (is(rule.validator, 'function')) {
       rule.validator(rule, value, function (err) {

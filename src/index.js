@@ -35,14 +35,13 @@ import Tabs from '../packages/tabs'
 import Upload from '../packages/upload'
 import './assets/less/variables.less'
 
-function install (Vue) {
+function install(Vue) {
   [
     Button,
     Canvas,
     Cell,
     Checkbox,
     Collapse,
-    Datetime,
     Form,
     GoTopButton,
     Icon,
@@ -70,6 +69,7 @@ function install (Vue) {
   Vue.use(Alert);
   Vue.use(Confirm);
   Vue.use(Toast);
+  Vue.use(Datetime);
 }
 
 /* istanbul ignore if */
