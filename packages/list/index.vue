@@ -12,7 +12,7 @@
       </div>
       <div class="pl-list-inner" :style="innerStyle" ref="inner">
         <slot></slot>
-        <div class="pl-list-loading-bottom" v-show="(translate > 0 || loading) && !finished">
+        <div class="pl-list-loading-bottom" v-show="(translate > 0 || (translate === 0 && loading)) && !finished">
           <slot name="bottom-loading">
             <loading>{{loadingText}}</loading>
           </slot>
@@ -81,7 +81,8 @@ export default {
       transition: null,
       transDiff: 0,
       canDrag: true,
-      scrollTop: 0
+      scrollTop: 0,
+      scrollBottom: 0
     }
   },
   computed: {
@@ -132,10 +133,10 @@ export default {
         case 'touchend':
         case 'touchcancel':
           if (Math.abs(this.translate) >= 80 && !this.loading) {
-            if (this.scrollTop < 2) {
+            if (this.translate < 0 && this.scrollTop < 2) {
               this.$emit('refresh')
             }
-            if (this.scrollBottom < 2 && !this.finished) {
+            if (this.translate > 0 && this.scrollBottom < 2 && !this.finished) {
               this.$emit('load')
             }
           }
