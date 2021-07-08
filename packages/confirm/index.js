@@ -1,7 +1,6 @@
 import plConfirm from './index.vue'
 
 // confirm
-// TODO 返回Promise
 export default function (Vue) {
   let Confirm = Vue.extend({
     components: {
@@ -25,11 +24,6 @@ export default function (Vue) {
             cancelText: this.cancelText,
             submit: this.submit,
             cancel: this.cancel
-          },
-          on: {
-            hide: () => {
-              this.hide()
-            }
           }
         })
       ]) || null
@@ -57,11 +51,14 @@ export default function (Vue) {
           this.visible = true
         })
       },
-      hide() {
-        this.visible = false
-        setTimeout(() => {
-          this.display = false
-        }, 300)
+      async hide() {
+        await new Promise((resolve) => {
+          this.visible = false
+          setTimeout(() => {
+            this.display = false
+            resolve()
+          }, 300)
+        })
       }
     }
   })
@@ -70,7 +67,7 @@ export default function (Vue) {
     el: document.createElement('div'),
   })
 
-  function showConfirm({ title, message, component, componentProps, html, submitText, cancelText, submit, cancel }) {
+  async function showConfirm({ title, message, component, componentProps, html, submitText, cancelText, submit, cancel }) {
     confirmDom.component = component
     confirmDom.componentProps = componentProps || {}
     confirmDom.html = !!html && !component
@@ -78,9 +75,18 @@ export default function (Vue) {
     confirmDom.title = title || ''
     confirmDom.submitText = submitText || '确认'
     confirmDom.cancelText = cancelText || '取消'
-    confirmDom.submit = submit || null
-    confirmDom.cancel = cancel || null
     confirmDom.show()
+
+    await new Promise((resolve, reject) => {
+      confirmDom.submit = async () => {
+        await confirmDom.hide()
+        resolve(typeof submit === 'function' ? submit() : null)
+      }
+      confirmDom.cancel = async () => {
+        await confirmDom.hide()
+        reject(typeof cancel === 'function' ? cancel() : null)
+      }
+    })
   }
 
   Vue.prototype.$confirm = showConfirm

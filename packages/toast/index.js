@@ -28,7 +28,6 @@ export default function (Vue) {
         visible: false,
         timer: null,
 
-        duration: 3000,
         html: false,               // 是否显示为HTML
         text: ''
       }
@@ -39,17 +38,15 @@ export default function (Vue) {
         this.$nextTick(() => {
           this.visible = true
         })
-
-        clearTimeout(this.timer)
-        this.timer = setTimeout(() => {
-          this.hide()
-        }, this.duration)
       },
-      hide() {
-        this.visible = false
-        setTimeout(() => {
-          this.display = false
-        }, 300)
+      async hide() {
+        await new Promise((resolve) => {
+          this.visible = false
+          setTimeout(() => {
+            this.display = false
+            resolve()
+          }, 300)
+        })
       }
     }
   })
@@ -58,13 +55,23 @@ export default function (Vue) {
     el: document.createElement('div')
   })
 
-  function showToast(text, duration, html = false) {
+  async function showToast(text, duration, html = false) {
     toastDom.text = text
     toastDom.html = html
-    if (typeof duration === 'number') {
-      toastDom.duration = duration
-    }
     toastDom.show()
+    duration |= 0
+
+    if (!duration || !/\d+/.test(duration)) {
+      duration = 3000
+    }
+
+    await new Promise((resolve, reject) => {
+      clearTimeout(toastDom.timer)
+      toastDom.timer = setTimeout(async () => {
+        await toastDom.hide()
+        resolve()
+      }, duration)
+    })
   }
 
   Vue.prototype.$toast = showToast

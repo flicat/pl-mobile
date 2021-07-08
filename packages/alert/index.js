@@ -1,7 +1,6 @@
 import plAlert from './index.vue'
 
 // alert
-// TODO 返回Promise
 export default function (Vue) {
   let Alert = Vue.extend({
     components: {
@@ -23,11 +22,6 @@ export default function (Vue) {
             html: this.html,
             buttonText: this.buttonText,
             action: this.action
-          },
-          on: {
-            hide: () => {
-              this.hide()
-            }
           }
         })
       ]) || null
@@ -53,11 +47,14 @@ export default function (Vue) {
           this.visible = true
         })
       },
-      hide() {
-        this.visible = false
-        setTimeout(() => {
-          this.display = false
-        }, 300)
+      async hide() {
+        await new Promise((resolve) => {
+          this.visible = false
+          setTimeout(() => {
+            this.display = false
+            resolve()
+          }, 300)
+        })
       }
     }
   })
@@ -66,15 +63,21 @@ export default function (Vue) {
     el: document.createElement('div'),
   })
 
-  function showAlert({ title, message, component, componentProps, html, buttonText, action }) {
+  async function showAlert({ title, message, component, componentProps, html, buttonText, action }) {
     alertDom.title = title || ''
     alertDom.component = component
     alertDom.componentProps = componentProps || {}
     alertDom.html = !!html && !component
     alertDom.message = !component && message || ''
     alertDom.buttonText = buttonText || '好'
-    alertDom.action = action || null
     alertDom.show()
+
+    await new Promise((resolve, reject) => {
+      alertDom.action = async () => {
+        await alertDom.hide()
+        resolve(typeof action === 'function' ? action() : null)
+      }
+    })
   }
 
   Vue.prototype.$alert = showAlert

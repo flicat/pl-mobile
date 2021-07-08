@@ -9,13 +9,13 @@
       message () {
         this.$alert({
           title: '提示',
-          message: '这个一个弹窗！', 
-          buttonText: '确定', 
+          message: '这个一个弹窗！',
+          buttonText: '确定',
           action: () => {
             // 确定
           }
         })
-      }      
+      }
     }
   }
 </script>
@@ -27,17 +27,38 @@
    export default {
     methods: {
       message () {
-        this.$confirm({
+        this.$alert({
           component: swipe,
           componentProps: {
             isMsg: true
           },
-          buttonText: '确定', 
+          buttonText: '确定',
           action: () => {
             // 确定
           }
         })
-      }      
+      }
+    }
+  }
+</script>
+```
+#### 使用 Promise
+```html
+<script>
+   import swipe from './swipe.vue'
+   export default {
+    methods: {
+      message () {
+        this.$alert({
+          component: swipe,
+          componentProps: {
+            isMsg: true
+          },
+          buttonText: '确定'
+        }).then(() => {
+          // 确定
+        })
+      }
     }
   }
 </script>
@@ -68,9 +89,9 @@
       message () {
         this.$confirm({
           title: '提示',
-          message: '这个一个确认弹窗！', 
-          submitText: '确定', 
-          cancelText: '取消', 
+          message: '这个一个确认弹窗！',
+          submitText: '确定',
+          cancelText: '取消',
           submit: () => {
             // 确定
           },
@@ -78,7 +99,7 @@
             // 取消
           }
         })
-      }      
+      }
     }
   }
 </script>
@@ -106,7 +127,28 @@
             console.log('取消')
           }
         })
-      }      
+      }
+    }
+  }
+</script>
+```
+#### 使用 Promise
+```html
+<script>
+  export default {
+    methods: {
+      message () {
+        this.$confirm({
+          title: '提示',
+          message: '这个一个确认弹窗！',
+          submitText: '确定',
+          cancelText: '取消'
+        }).then(() => {
+          // 确定
+        }).catch(() => {
+          // 取消
+        })
+      }
     }
   }
 </script>
@@ -140,13 +182,27 @@
   export default {
     methods: {
       message () {
-        this.$toast(message[, duration, html])   
-      }      
+        this.$toast(message[, duration, html])
+      }
     }
   }
 </script>
 ```
+#### 使用 Promise
 
+```html
+<script>
+  export default {
+    methods: {
+      message () {
+        this.$toast('消息提醒1', 2000).then(() => {
+          this.$toast('<strong>消息提醒2</strong>', 2000, true)
+        })
+      }
+    }
+  }
+</script>
+```
 ### Options
 | 参数      | 说明    | 类型      | 可选值       | 默认值   |
 |---------- |-------- |---------- |-------------  |-------- |
