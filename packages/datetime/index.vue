@@ -6,12 +6,12 @@
       'pl-datetime--error': ruleMessage
     }
     ]">
-    <div class="pl-datetime-cell" :class="{'pl-datetime-cell--label': label && !wrap, 'pl-datetime-cell--wrap': label && wrap}">
+    <div class="pl-datetime-cell" :class="{'pl-datetime-cell--label': (label || $slots.label) && !wrap, 'pl-datetime-cell--wrap': (label || $slots.label) && wrap}">
       <div :class="['pl-datetime-title', {'pl-datetime-title--require': required}]">
         <div class="pl-datetime-prepend" v-if="$slots.prepend">
           <slot name="prepend"></slot>
         </div>
-        <div class="pl-datetime-label" :class="{'pl-datetime-label--require': required}" v-if="label" :style="{width: calcLabelWidth}">
+        <div class="pl-datetime-label" :class="{'pl-datetime-label--require': required}" v-if="label || $slots.label" :style="{width: calcLabelWidth}">
           <slot name="label">{{label}}</slot>
         </div>
       </div>

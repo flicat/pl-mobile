@@ -7,12 +7,12 @@
       'pl-select--error': ruleMessage
     }
     ]">
-    <div class="pl-select-cell" :class="{'pl-select-cell--label': label && !wrap, 'pl-select-cell--wrap': wrap && label}">
+    <div class="pl-select-cell" :class="{'pl-select-cell--label': (label || $slots.label) && !wrap, 'pl-select-cell--wrap': wrap && (label || $slots.label)}">
       <div class="pl-select-title" :class="{'pl-select-title--require': required}">
         <div class="pl-select-prepend" v-if="$slots.prepend">
           <slot name="prepend"></slot>
         </div>
-        <div class="pl-select-label" v-if="label" :style="{width: calcLabelWidth}">
+        <div class="pl-select-label" v-if="label || $slots.label" :style="{width: calcLabelWidth}">
           <slot name="label">{{label}}</slot>
         </div>
       </div>

@@ -9,12 +9,12 @@
       'pl-input--error': ruleMessage
     }
     ]">
-    <div class="pl-input-cell" :class="{'pl-input-cell--label': label && !wrap, 'pl-input-cell--wrap': label && wrap}">
+    <div class="pl-input-cell" :class="{'pl-input-cell--label': (label || $slots.label) && !wrap, 'pl-input-cell--wrap': (label || $slots.label) && wrap}">
       <div :class="['pl-input-title', {'pl-input-title--require': required, 'pl-input-title--start': type === 'textarea' && !wrap}]">
         <div class="pl-input-prepend" v-if="$slots.prepend">
           <slot name="prepend"></slot>
         </div>
-        <div class="pl-input-label" v-if="label" :style="{width: calcLabelWidth}">
+        <div class="pl-input-label" v-if="label || $slots.label" :style="{width: calcLabelWidth}">
           <slot name="label">{{label}}</slot>
         </div>
       </div>

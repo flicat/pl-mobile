@@ -1,12 +1,13 @@
 import plToast from './index.vue'
 
 // toast
+// TODO 返回Promise
 export default function (Vue) {
   let Toast = Vue.extend({
     components: {
       plToast
     },
-    render (createElement) {
+    render(createElement) {
       return this.display && createElement('div', {
         style: {
           transition: 'all 0.3s ease',
@@ -33,7 +34,7 @@ export default function (Vue) {
       }
     },
     methods: {
-      show () {
+      show() {
         this.display = true
         this.$nextTick(() => {
           this.visible = true
@@ -44,7 +45,7 @@ export default function (Vue) {
           this.hide()
         }, this.duration)
       },
-      hide () {
+      hide() {
         this.visible = false
         setTimeout(() => {
           this.display = false
@@ -57,7 +58,7 @@ export default function (Vue) {
     el: document.createElement('div')
   })
 
-  function showToast (text, duration, html = false) {
+  function showToast(text, duration, html = false) {
     toastDom.text = text
     toastDom.html = html
     if (typeof duration === 'number') {

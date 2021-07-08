@@ -77,9 +77,6 @@ if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue);
 }
 
-// TODO 添加开关 Switch
-// TODO 添加步进器 Stepper
-// TODO 添加层叠选择器 StackPicker
 export default {
   version: '1.0.0',
   install,

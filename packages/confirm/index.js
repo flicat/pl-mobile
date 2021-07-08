@@ -1,12 +1,13 @@
 import plConfirm from './index.vue'
 
 // confirm
+// TODO 返回Promise
 export default function (Vue) {
   let Confirm = Vue.extend({
     components: {
       plConfirm
     },
-    render (createElement) {
+    render(createElement) {
       return this.display && createElement('div', {
         style: {
           transition: 'all 0.3s ease',
@@ -45,18 +46,18 @@ export default function (Vue) {
         componentProps: {},       // 子组件props
         submitText: '',            // 提交按钮文字
         cancelText: '',            // 取消按钮文字
-        submit: () => {},           // 确认回调
-        cancel: () => {}           // 取消回调
+        submit: () => { },           // 确认回调
+        cancel: () => { }           // 取消回调
       }
     },
     methods: {
-      show () {
+      show() {
         this.display = true
         this.$nextTick(() => {
           this.visible = true
         })
       },
-      hide () {
+      hide() {
         this.visible = false
         setTimeout(() => {
           this.display = false
@@ -69,7 +70,7 @@ export default function (Vue) {
     el: document.createElement('div'),
   })
 
-  function showConfirm ({title, message, component, componentProps, html, submitText, cancelText, submit, cancel}) {
+  function showConfirm({ title, message, component, componentProps, html, submitText, cancelText, submit, cancel }) {
     confirmDom.component = component
     confirmDom.componentProps = componentProps || {}
     confirmDom.html = !!html && !component

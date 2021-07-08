@@ -37,27 +37,27 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        value: 0
-      }
-    },
-    methods: {
-      onChange () {
-        console.log('onChange::', this.value)
-      }
+export default {
+  data() {
+    return {
+      value: 0
+    }
+  },
+  methods: {
+    onChange() {
+      console.log('onChange::', this.value)
     }
   }
+}
 </script>
 
 <style lang="less" scoped>
-  .thumb {
-    padding: 0.2em 0.5em;
-    border-radius: 0.5rem;
-    text-align: center;
-    background-color: #5fd3ff;
-    color: #fff;
-    transform: translate(-50%, -50%);
-  }
+.thumb {
+  padding: 0.2em 0.5em;
+  border-radius: 0.5rem;
+  text-align: center;
+  background-color: #5fd3ff;
+  color: #fff;
+  transform: translate(-50%, -50%);
+}
 </style>
