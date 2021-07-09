@@ -43,23 +43,35 @@ export default {
       }
     }
   },
-  async mounted() {
-    let progress = Number(this.progress)
-    if (!progress || progress < 0) {
-      progress = 0
+  mounted() {
+    this.animate()
+  },
+  methods: {
+    async animate() {
+      let progress = Number(this.progress)
+      if (!progress || progress < 0) {
+        progress = 0
+      }
+      if (progress > 100) {
+        progress = 100
+      }
+      this.finalValue = progress
+
+      let step = Math.round((progress - this.value) / 20)
+      while (Math.abs(progress - this.value) > Math.abs(step)) {
+        await new Promise(resolve => {
+          this.value += step
+          requestAnimationFrame(resolve)
+        })
+      }
+      if (this.value != this.finalValue) {
+        this.value = this.finalValue
+      }
     }
-    if (progress > 100) {
-      progress = 100
-    }
-    this.finalValue = progress
-    while (this.value < progress) {
-      await new Promise(resolve => {
-        this.value++
-        setTimeout(resolve, 0)
-      })
-    }
-    if (this.value > progress) {
-      this.value = progress
+  },
+  watch: {
+    progress() {
+      this.animate()
     }
   }
 }

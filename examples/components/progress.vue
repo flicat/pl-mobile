@@ -18,6 +18,11 @@ export default {
     return {
       progress: 99.99
     }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.progress = 60
+    }, 1000)
   }
 }
 </script>
