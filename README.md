@@ -1,4 +1,4 @@
-## 移动端UI框架 
+## 移动端UI框架
 基于Vue的移动端UI框架
 
 ### 安装
@@ -12,7 +12,7 @@ import PlMobile from 'pl-mobile'
 import 'pl-mobile/lib/style/index.css'
 Vue.use(PlMobile)
 ```
->- *注意：这里需要单独引入样式文件* 
+>- *注意：这里需要单独引入样式文件*
 >- *组件字体及尺寸基于 rem 计算*
 
 ### 按需引入
@@ -92,7 +92,7 @@ export default {
 >- [upload](./docs/upload.md)
 
 
-### 所有组件 
+### 所有组件
 ```
 import {
   alert,
@@ -183,7 +183,25 @@ import {
   --checkbox-button-disabled-text: #999;
 
   /* datetime */
+  --datetime-bg: #fff;
+  --week-bg: #ededed;
+  --datetime-disabled-text: #999;
+  --datetime-current-text: #fff;
+  --datetime-current-bg: #6db9e6;
+  --datetime-active-bg: #e7faff;
   --datetime-disabled-bg: #ebebe4;
+  --datetime-button-top-border: #ededed;
+  --datetime-button-text-color: #fff;
+  --datetime-button-bg: linear-gradient(90deg, #b0e0fc 0%, #6db9e6 100%);
+  --watch-bg: #eee;
+  --watch-result-color: #666;
+  --watch-result-bg: #e7fbff;
+  --watch-range-color: #fff5e7;
+  --watch-button-color: #666;
+  --watch-hour-pointer: #58d299;
+  --watch-minute-pointer: #58d299;
+  --watch-end-hour-pointer: #58bad2;
+  --watch-end-minute-pointer: #58bad2;
 
   /* to-top */
   --to-top-text: #C1CEFF;
@@ -203,6 +221,8 @@ import {
 
   /* progress */
   --progress-inner: #EBEDFB;
+  --progress-bar: #3388FF;
+  --progress-text: #333;
 
   /* radio */
   --radio-text: #333;

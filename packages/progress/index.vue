@@ -1,74 +1,140 @@
 <template>
   <div class="pl-progress" v-bind="$props" v-on="$listeners">
-    <div class="progress-inner">
-      <div class="progress-track" :style="trackStyle"></div>
+    <svg class="progress-circle" viewBox="0 0 100 100" v-if="type==='circle'">
+      <text class="progress-value" x="50" y="57">{{value}}%</text>
+      <circle cx="50" cy="50" r="45" :class="['progress-track', value >= 100 ? 'full' : '']" transform="rotate(-90 50 50)" :stroke-dashoffset="280 - value * 2.8"></circle>
+    </svg>
+    <div class="progress-bar" v-else>
+      <div class="progress-inner">
+        <div class="progress-track" :style="{'--track-width': value + '%'}"></div>
+      </div>
+      <div class="progress-value">
+        <span class="value">{{value}}%</span>
+        <span class="placeholder">{{finalValue}}%</span>
+      </div>
     </div>
-    <div class="progress-value" :style="textStyle">{{progress}}%</div>
   </div>
 </template>
 
 <script>
-  // TODO 添加动画支持，环形进度条和饼图
-  export default {
-    name: 'plProgress',
-    componentName: 'plProgress',
-    props: {
-      fill: {
-        type: String,
-        default: '#5074FF'
-      },
-      progress: {
-        type: Number,
-        default: 0
-      }
+export default {
+  name: 'plProgress',
+  componentName: 'plProgress',
+  props: {
+    progress: {
+      type: Number,
+      default: 0
     },
-    computed: {
-      trackStyle () {
-        return {
-          'width': this.progress + '%',
-          'background-color': this.fill
-        }
-      },
-      textStyle () {
-        return {
-          'color': this.fill
-        }
+    type: {
+      type: String,
+      default: 'bar'
+    }
+  },
+  data() {
+    return {
+      value: 0,
+      finalValue: 0
+    }
+  },
+  computed: {
+    trackStyle() {
+      return {
+        'width': this.progress + '%'
       }
     }
+  },
+  async mounted() {
+    let progress = Number(this.progress)
+    if (!progress || progress < 0) {
+      progress = 0
+    }
+    if (progress > 100) {
+      progress = 100
+    }
+    this.finalValue = progress
+    while (this.value < progress) {
+      await new Promise(resolve => {
+        this.value++
+        setTimeout(resolve, 0)
+      })
+    }
+    if (this.value > progress) {
+      this.value = progress
+    }
   }
+}
 </script>
 
 <style lang="less" scoped>
-  .pl-progress {
+.pl-progress {
+  padding: 1em 0;
+
+  * {
+    box-sizing: border-box;
+  }
+  .progress-bar {
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    padding: 1em 0;
-
-    * {
-      box-sizing: border-box;
-    }
-
     .progress-inner {
       position: relative;
       z-index: 1;
       flex: 1;
       height: 0.4em;
       background: var(--progress-inner);
-      border-radius: 0.4em;
+      border-radius: 0.2em;
 
       .progress-track {
         position: absolute;
         z-index: 1;
         left: 0;
         top: 0;
+        width: var(--track-width);
         height: 0.4em;
-        border-radius: 0.4em;
+        border-radius: 0.2em;
+        background-color: var(--progress-bar);
       }
     }
     .progress-value {
+      position: relative;
       margin-left: 0.5em;
       font-size: smaller;
+      color: var(--progress-text);
+      .value {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+      }
+      .placeholder {
+        opacity: 0;
+      }
     }
   }
+
+  // svg
+  .progress-circle {
+    width: 100%;
+    .progress-track {
+      fill: none;
+      stroke: var(--progress-bar);
+      stroke-width: 0.2em;
+      stroke-dasharray: 280;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      &.full {
+        stroke-linecap: square;
+        stroke-linejoin: square;
+      }
+    }
+    .progress-value {
+      text-anchor: middle;
+      stroke: none;
+      fill: var(--progress-text);
+      font-size: 20px;
+      font-size-adjust: 0.5;
+    }
+  }
+}
 </style>
