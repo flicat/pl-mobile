@@ -1,7 +1,6 @@
 import plToast from './index.vue'
 
 // toast
-// TODO 返回Promise
 export default function (Vue) {
   let Toast = Vue.extend({
     components: {

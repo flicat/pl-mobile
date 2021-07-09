@@ -6,7 +6,6 @@
 
 <script>
 // form
-// TODO 验证插件替换为 async-validator
 export default {
   name: 'plForm',
   componentName: 'plForm',
