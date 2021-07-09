@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { validate } from '../../src/assets/utils'
+import validate from '../../src/assets/utils/validate'
 import icon from '../icon/index.vue'
 
 // radio
@@ -106,12 +106,11 @@ export default {
   methods: {
     // 手动验证方法
     validate() {
-      return Promise.all(this.rules.map(rule => validate(rule, this.currentValue))).then(() => {
+      return validate(this.rules, this.currentValue).then(() => {
         this.ruleMessage = ''
-        return Promise.resolve()
-      }).catch(e => {
-        this.ruleMessage = e
-        return Promise.reject(e)
+      }).catch(result => {
+        this.ruleMessage = result.errors[0].message
+        return Promise.reject(this.ruleMessage)
       })
     },
     clearValidate() {
@@ -122,6 +121,7 @@ export default {
         return false
       }
       this.currentValue = value
+      this.validate()
     },
     emit(value) {
       if (value === this.currentValue) {

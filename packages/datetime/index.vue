@@ -50,7 +50,8 @@ import icon from '../icon/index.vue'
 import plMonth from './month.vue'
 import plTime from './time.vue'
 import plDate from './datetime.vue'
-import { validate, getDateFromString, getDateString } from '../../src/assets/utils'
+import { getDateFromString, getDateString } from '../../src/assets/utils'
+import validate from '../../src/assets/utils/validate'
 
 export default {
   name: 'plDatetime',
@@ -139,6 +140,17 @@ export default {
         isRange: false,
         format: 'Y-M-D'
       }, this.options, props)
+    },
+    // 定义验证规则的type
+    calcRules() {
+      if (Array.isArray(this.rules)) {
+        return this.rules.map(item => {
+          item.type = this.pickerOptions.isRange ? 'array' : 'string'
+          return item
+        })
+      } else {
+        return []
+      }
     }
   },
   mounted() {
@@ -148,12 +160,11 @@ export default {
   },
   methods: {
     validate() {
-      return Promise.all(this.rules.map(rule => validate(rule, this.emitValue))).then(() => {
+      return validate(this.calcRules, this.emitValue).then(() => {
         this.ruleMessage = ''
-        return Promise.resolve()
-      }).catch(e => {
-        this.ruleMessage = e
-        return Promise.reject(e)
+      }).catch(result => {
+        this.ruleMessage = result.errors[0].message
+        return Promise.reject(this.ruleMessage)
       })
     },
     clearValidate() {
@@ -181,7 +192,6 @@ export default {
     getLabelFormat(date) {
       date = getDateFromString(date)
       let format = this.format || this.pickerOptions.format
-      console.log(this.pickerOptions)
       if (format) {
         return getDateString(date, format)
       } else {
@@ -191,9 +201,9 @@ export default {
     // 提交日期
     submit(result) {
       if (this.pickerOptions.isRange) {
-        this.emitValue = result.map(item => getDateString(item, this.pickerOptions.format) || null)
+        this.emitValue = result.map(item => getDateString(item, this.pickerOptions.format)).filter(Boolean)
       } else {
-        this.emitValue = getDateString(result, this.pickerOptions.format) || null
+        this.emitValue = getDateString(result, this.pickerOptions.format)
       }
 
       if (this.setCurrentValue(result)) {
@@ -254,11 +264,12 @@ export default {
         }
         let value
         if (this.pickerOptions.isRange && Array.isArray(val)) {
-          value = val.map(item => this.getTimeStamp(item))
+          value = [this.getTimeStamp(val[0]), this.getTimeStamp(val[1])]
+          this.emitValue = value.map(item => getDateString(item, this.pickerOptions.format)).filter(Boolean)
         } else {
           value = this.getTimeStamp(val)
+          this.emitValue = getDateString(value, this.pickerOptions.format)
         }
-        this.emitValue = value
         this.setCurrentValue(value)
       },
       deep: true,

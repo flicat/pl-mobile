@@ -13,7 +13,7 @@
     data () {
       return {
         value: ''
-      }           
+      }
     }
   }
 </script>
@@ -33,7 +33,7 @@
     data () {
       return {
         value: ''
-      }           
+      }
     }
   }
 </script>
@@ -74,20 +74,19 @@
         ],
         rules: {
           input: [{required: true, message: '请输入', trigger: 'blur'}],
-          select: [{required: true, message: '请输入', trigger: 'change'}],
+          select: [{required: true, message: '请输入', trigger: 'change', type: 'number'}],
           range: [{required: true, message: '请输入', trigger: 'change', type: 'number'}],
           checkbox: [{required: true, message: '请输入', trigger: 'change', type: 'array'}],
-          radio: [{required: true, message: '请输入', trigger: 'change'}]
+          radio: [{required: true, message: '请输入', trigger: 'change', type: 'number'}]
         }
       }
     },
     methods: {
       submit () {
-        this.$refs['form'].validate().then(e => {
-          this.$toast('校验成功')
+        this.$refs['form'].validate().then(() => {
+          // 校验成功
         }).catch(e => {
-          console.log(e)
-          this.$toast('校验失败')
+          // 校验失败
         })
       }
     }
@@ -103,7 +102,7 @@
 | labelWidth | label宽度    | string   | —   | —   |
 
 ### Slots
-| name      | 说明    | 
+| name      | 说明    |
 |---------- |-------- |
 | (default)     |   —   |
 
@@ -112,17 +111,3 @@
 | ---- | ---- | ---- |
 | validate | 表单验证方法 | — |
 | clearValidate | 清除验证错误提示 | — |
-
-
-### rules
-| 参数 | 说明 | 类型 | 可选值       | 默认值   |
-| ---- | ---- | ---- | ---- | ---- |
-| required | 是否必填 | Boolean | — | — |
-| message | 错误提示信息 | String | — | — |
-| type | 字段验证类型 | String | number / string / function / array / object / boolean | — |
-| pattern | 匹配的正则 | RegExp | — | — |
-| length | 匹配的长度 | Number | — | — |
-| range.min | 范围验证的最小值，不能小于0 | Number | — | — |
-| range.max | 范围验证的最大值，不能小于0 | Number | — | — |
-| validator | 自定义验证方法， rule：当前验证规则, value：表单值, callback：回调函数，返回验证结果，如果返回的是 Error 对象则message替换为抛出的错误信息 | Function | function (rule, value, callback) {} | — |
-

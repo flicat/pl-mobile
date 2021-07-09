@@ -11,7 +11,7 @@
     data () {
       return {
         value: ''
-      }           
+      }
     }
   }
 </script>
@@ -29,7 +29,7 @@
     data () {
       return {
         value: ''
-      }           
+      }
     }
   }
 </script>
@@ -54,8 +54,10 @@
     methods: {
       submit () {
         this.$refs.input.validate().then(() => {
-          // 提交
-        })        
+          // 校验成功
+        }).catch(e => {
+          // 校验失败
+        })
       }
     }
   }
@@ -65,7 +67,7 @@
 ### Attributes
 | 参数      | 说明    | 类型      | 可选值       | 默认值   |
 |---------- |-------- |---------- |-------------  |-------- |
-| rules      | 验证规则 [rules](./docs/form.md)  | Array  | —            |   —     |
+| rules      | 验证规则 [rules](https://github.com/yiminghe/async-validator)  | Array  | —            |   —     |
 | size       | 尺寸      | String    | normal / large / small   |  normal    |
 | placeholder | 占位符   | String | — | —   |
 | type       | 表单类型，原生字段 | String | text / number / search / texarea        |  text   |
@@ -79,7 +81,7 @@
 | clearable  | 是否显示清除按钮 | boolean | —      |  false    |
 
 ### Slots
-| name      | 说明    | 
+| name      | 说明    |
 |---------- |-------- |
 | label     |   label文字   |
 | prepend   |   输入框前置内容  |
@@ -88,9 +90,9 @@
 ### Events
 | 事件名称      | 说明    | 回调参数      |
 |---------- |-------- |---------- |
-| change     |   value更改事件   | 更改后的value | 
-| input      |   输入事件     | 更改后的value | 
-| clear      |   value清除事件   | 更改后的value | 
+| change     |   value更改事件   | 更改后的value |
+| input      |   输入事件     | 更改后的value |
+| clear      |   value清除事件   | 更改后的value |
 
 ### Methods
 | 方法名 | 说明 | 参数 |

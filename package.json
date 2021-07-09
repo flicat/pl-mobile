@@ -30,6 +30,7 @@
     "url": "https://github.com/flicat/pl-mobile/issues"
   },
   "dependencies": {
+    "async-validator": "^3.5.2",
     "qrious": "^4.0.2",
     "vue": "^2.6.10",
     "whatwg-fetch": "^3.4.0"

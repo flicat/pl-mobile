@@ -4,7 +4,7 @@
 ```html
 <template>
   <pl-range v-model="value" :min="0" :max="100" :step="1"></pl-range>
-  <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择："></pl-range> 
+  <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择："></pl-range>
 </template>
 
 <script>
@@ -70,19 +70,28 @@
   }
 </script>
 ```
- 
-### 必填
+
+### 表单验证
+
 ```html
 <template>
-  <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" required></pl-range>
-  <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" required wrap></pl-range>
+  <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" :rules="rules" ref="range" required></pl-range>
 </template>
-
 <script>
   export default {
     data () {
       return {
-        value: 0
+        value: null,
+        rules: [{required: true, message: '请选择', trigger: 'change'}]
+      }
+    },
+    methods: {
+      submit () {
+        this.$refs.range.validate().then(() => {
+          // 校验成功
+        }).catch(e => {
+          // 校验失败
+        })
       }
     }
   }
@@ -130,14 +139,14 @@
     }
   }
 </script>
-```    
-    
+```
+
 
 
 ### Attributes
 | 参数      | 说明    | 类型      | 可选值       | 默认值   |
 |---------- |-------- |---------- |-------------  |-------- |
-| rules      | 验证规则 [rules](./docs/form.md)   | Array  | —            |   —     |
+| rules      | 验证规则 [rules](https://github.com/yiminghe/async-validator)   | Array  | —            |   —     |
 | size       | 尺寸  | String    | normal / large / small   |  normal    |
 | min        | 最小值 | Number | — | — |
 | max        | 最大值 | Number | — | — |
@@ -150,7 +159,7 @@
 
 
 ### Slots
-| name      | 说明    | 
+| name      | 说明    |
 |---------- |-------- |
 | label     |   label文字   |
 | prepend   |   选择框前置内容  |
@@ -160,7 +169,7 @@
 ### Events
 | 事件名称      | 说明    | 回调参数      |
 |---------- |-------- |---------- |
-| change     |   value更改事件   | 更改后的value | 
+| change     |   value更改事件   | 更改后的value |
 
 ### Methods
 | 方法名 | 说明 | 参数 |

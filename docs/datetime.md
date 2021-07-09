@@ -132,7 +132,11 @@
     },
     methods: {
       validate() {
-        this.$refs['datetime'].validate()
+        this.$refs['datetime'].validate().then(() => {
+          // 校验成功
+        }).catch(e => {
+          // 校验失败
+        })
       }
     }
   }
@@ -183,7 +187,7 @@
 ### Attributes
 | 参数      | 说明    | 类型      | 可选值       | 默认值   |
 |---------- |-------- |---------- |-------------  |-------- |
-| rules            | 验证规则 [rules](./docs/form.md)   | Array  | —            |   —     |
+| rules            | 验证规则 [rules](https://github.com/yiminghe/async-validator)   | Array  | —            |   —     |
 | size             | 尺寸  | String    | normal / large / small   |  normal    |
 | options          | 选项   | Object | 参见options | 参见options |
 | type             | 日历类型 | String | month / date / time | date |

@@ -17,19 +17,19 @@
     <pl-checkbox v-model="value" :options="data" label="请选择：" disabled />
 
     <h3>必填</h3>
-    <pl-checkbox v-model="value" :options="data" :rules="rules" label="请选择：" required />
+    <pl-checkbox v-model="value" :options="data" :rules="rules" label="请选择：" ref="box1" required />
 
     <h3>前置图标</h3>
     <pl-checkbox v-model="value" :options="data" :rules="rules" label="请选择：">
       <pl-icon name="icon-dingwei" fill="#999" slot="prepend"></pl-icon>
     </pl-checkbox>
-    <pl-checkbox v-model="value" :options="data" :rules="rules" label="请选择：" wrap required>
+    <pl-checkbox v-model="value" :options="data" :rules="rules" label="请选择：" wrap ref="box2" required>
       <pl-icon name="icon-dingwei" fill="#999" slot="prepend"></pl-icon>
     </pl-checkbox>
 
     <h3>竖排样式</h3>
-    <pl-checkbox v-model="value" :options="data" :rules="rules" required vertical />
-    <pl-checkbox v-model="value" :options="data" :rules="rules" label="请选择：" required vertical />
+    <pl-checkbox v-model="value" :options="data" :rules="rules" ref="box3" required vertical />
+    <pl-checkbox v-model="value" :options="data" :rules="rules" label="请选择：" ref="box4" required vertical />
 
     <h3>开关按钮</h3>
     <pl-checkbox v-model="boolValue" :trueValue="true" :falseValue="false">开关</pl-checkbox>
@@ -41,7 +41,9 @@
     <pl-checkbox v-model="value" :options="data">
       <template v-slot="scope">{{scope.item.label}} - {{scope.item.value}}</template>
     </pl-checkbox>
-
+    <pl-cell :span="[1]">
+      <pl-button type="success" @click="validate">表单校验</pl-button>
+    </pl-cell>
   </div>
 </template>
 <script>
@@ -59,13 +61,18 @@ export default {
     }
   },
   methods: {
-    submit() {
-      this.$refs.checkbox.validate().then(() => {
-        // 提交
-      })
-    },
     onChange() {
       console.log('onChange::', this.value)
+    },
+    async validate() {
+      try {
+        await this.$refs['box1'].validate()
+        await this.$refs['box2'].validate()
+        await this.$refs['box3'].validate()
+        await this.$refs['box4'].validate()
+      } catch (e) {
+        console.log('校验失败: ', e)
+      }
     }
   }
 }

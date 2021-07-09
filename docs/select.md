@@ -45,15 +45,15 @@
 
 ### 表单验证
 ```html
-<template> 
-  <pl-select ref="select" :rules="rules" label="请选择：" labelWidth="5em" v-model="value" :options="data" @change="change" clearable></pl-select> 
+<template>
+  <pl-select ref="select" :rules="rules" label="请选择：" labelWidth="5em" v-model="value" :options="data" @change="change" clearable></pl-select>
 </template>
 <script>
   export default {
     data () {
       return {
         value: null,
-        rules: [{required: true, message: '请输入', trigger: 'change'}],
+        rules: [{required: true, message: '请输入', trigger: 'change', type: 'number'}],
         data: [
           {label: '选项1', value: 1, disabled: false},
           {label: '选项2', value: 2, disabled: false},
@@ -64,7 +64,9 @@
     methods: {
       submit () {
         this.$refs.select.validate().then(() => {
-          // 提交
+          // 校验成功
+        }).catch(e => {
+          // 校验失败
         })
       },
       change (value) {
@@ -74,7 +76,7 @@
   }
 </script>
 ```
- 
+
 
 ### 自定义子项
 ```html
@@ -106,7 +108,7 @@
 ### Attributes
 | 参数      | 说明    | 类型      | 可选值       | 默认值   |
 |---------- |-------- |---------- |-------------  |-------- |
-| rules      | 验证规则 [rules](./docs/form.md)   | Array  | —            |   —     |
+| rules      | 验证规则 [rules](https://github.com/yiminghe/async-validator)   | Array  | —            |   —     |
 | size       | 尺寸  | String    | normal / large / small   |  normal    |
 | options    | 选项列表   | Array    | — | —   |
 | placeholder | 占位符   | String | — | —   |
@@ -122,7 +124,7 @@
 
 
 ### Slots
-| name      | 说明    | 
+| name      | 说明    |
 |---------- |-------- |
 | (default)  | 自定义列表子选项   |
 | label     |   label文字   |
@@ -132,7 +134,7 @@
 ### Events
 | 事件名称      | 说明    | 回调参数      |
 |---------- |-------- |---------- |
-| change     |   value更改事件   | 更改后的value | 
+| change     |   value更改事件   | 更改后的value |
 
 ### Methods
 | 方法名 | 说明 | 参数 |

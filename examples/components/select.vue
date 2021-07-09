@@ -9,31 +9,31 @@
     <pl-select placeholder="请选择选项" v-model="value2" :options="data" @change="change2" size="small" multiple clearable></pl-select>
 
     <h3>表单校验</h3>
-    <pl-select label="请选择：" ref="select" v-model="value1" :options="data" @change="change" :rules="rules" clearable></pl-select>
+    <pl-select label="请选择：" v-model="value1" :options="data" @change="change" :rules="rules1" clearable></pl-select>
 
     <h3>禁用</h3>
     <pl-select v-model="value1" :options="data" @change="change" disabled></pl-select>
 
     <h3>折行显示</h3>
-    <pl-select label="请选择请选择请选择请选择请选择请选择请选择请选择请选择：" placeholder="请选择选项" v-model="value1" :options="data" @change="change" :rules="rules" clearable wrap></pl-select>
-    <pl-select label="请选择：" placeholder="请选择选项" v-model="value2" :options="data" @change="change2" :rules="rules" multiple clearable wrap required></pl-select>
+    <pl-select label="请选择请选择请选择请选择请选择请选择请选择请选择请选择：" placeholder="请选择选项" v-model="value1" :options="data" @change="change" :rules="rules1" clearable wrap></pl-select>
+    <pl-select label="请选择：" placeholder="请选择选项" v-model="value2" :options="data" @change="change2" :rules="rules2" ref="select1" multiple clearable wrap required></pl-select>
 
     <h3>自定义选项</h3>
-    <pl-select label="请选择：" placeholder="请选择" v-model="value1" :options="data" @change="change" :rules="rules" clearable required>
+    <pl-select label="请选择：" placeholder="请选择" v-model="value1" :options="data" @change="change" :rules="rules1" ref="select2" clearable required>
       <template v-slot="scope">
         <span>{{scope.item.label}}-{{scope.item.value}}</span>
       </template>
     </pl-select>
 
     <h3>前后图标</h3>
-    <pl-select label="请选择：" placeholder="请选择" v-model="value1" :options="data" @change="change" :rules="rules" clearable required>
+    <pl-select label="请选择：" placeholder="请选择" v-model="value1" :options="data" @change="change" :rules="rules1" ref="select3" clearable required>
       <pl-icon name="icon-dingwei" fill="#999" slot="prepend"></pl-icon>
       <pl-icon name="icon-people_fill" fill="#999" slot="append"></pl-icon>
     </pl-select>
 
     <br /><br /><br />
     <pl-cell :span="[1]">
-      <pl-button type="primary" @click="submit">提交</pl-button>
+      <pl-button type="success" @click="validate">表单校验</pl-button>
     </pl-cell>
   </div>
 </template>
@@ -43,7 +43,8 @@ export default {
     return {
       value1: null,
       value2: [],
-      rules: [{ required: true, message: '请选择', trigger: 'change' }],
+      rules1: [{ required: true, message: '请选择', trigger: 'change', type: 'number' }],
+      rules2: [{ required: true, message: '请选择', trigger: 'change' }],
       data: [
         { label: '选项1', value: 1, disabled: false },
         { label: '选项2', value: 2, disabled: false },
@@ -55,10 +56,14 @@ export default {
     }
   },
   methods: {
-    submit() {
-      this.$refs.select.validate().then(() => {
-        // 提交
-      })
+    async validate() {
+      try {
+        await this.$refs.select1.validate()
+        await this.$refs.select2.validate()
+        await this.$refs.select3.validate()
+      } catch (e) {
+        console.log('校验失败: ', e)
+      }
     },
     change() {
       console.log('change::', this.value1)

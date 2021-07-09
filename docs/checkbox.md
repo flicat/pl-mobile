@@ -15,7 +15,7 @@
           {label: '选项1', value: 1, disabled: false},
           {label: '选项2', value: 2, disabled: true}
         ]
-      }           
+      }
     }
   }
 </script>
@@ -59,14 +59,16 @@
           {label: '选项1', value: 1, disabled: false},
           {label: '选项2', value: 2, disabled: true}
         ],
-        rules: [{required: true, message: '请选择', trigger: 'change'}]
+        rules: [{required: true, message: '请选择', trigger: 'change', type: 'number'}]
       }
     },
     methods: {
       submit () {
         this.$refs.checkbox.validate().then(() => {
-          // 提交
-        })        
+          // 校验成功
+        }).catch(e => {
+          // 校验失败
+        })
       }
     }
   }
@@ -157,7 +159,7 @@
 ### Attributes
 | 参数      | 说明    | 类型      | 可选值       | 默认值   |
 |---------- |-------- |---------- |-------------  |-------- |
-| rules      | 验证规则 [rules](./docs/form.md)   | Array  | —            |   —     |
+| rules      | 验证规则 [rules](https://github.com/yiminghe/async-validator)   | Array  | —            |   —     |
 | size       | 尺寸  | String    | normal / large / small   |  normal    |
 | options    | 选项列表   | Array    | — | —   |
 | prop       | 选项对应的key与value   | Object    | — | {label: 'label', value: 'value', disabled: 'disabled'}   |
@@ -172,7 +174,7 @@
 | labelWidth | label宽度    | string   | —   | —   |
 
 ### Slots
-| name      | 说明    | 
+| name      | 说明    |
 |---------- |-------- |
 | (default)     |   列表子选项   |
 | label     |   label文字   |
@@ -181,7 +183,7 @@
 ### Events
 | 事件名称      | 说明    | 回调参数      |
 |---------- |-------- |---------- |
-| change     |   value更改事件   | 更改后的value | 
+| change     |   value更改事件   | 更改后的value |
 
 ### Methods
 | 方法名 | 说明 | 参数 |

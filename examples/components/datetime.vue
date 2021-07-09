@@ -23,14 +23,14 @@
     <pl-datetime startPlaceholder="开始月份" endPlaceholder="结束月份" :options="monthRangeOption" v-model="monthRange" type="month" @change="onChange" valueFormat="Y-M-D H:I:S" format="Y-M" isRange clearable></pl-datetime>
 
     <h3>表单验证</h3>
-    <pl-datetime label="请选择日期：" placeholder="请选择日期" :options="dateOption" v-model="date" type="date" @change="onChange" ref="datetime1" :rules="rules" required clearable wrap></pl-datetime>
-    <pl-datetime label="请选择月份：" startPlaceholder="开始日期" endPlaceholder="结束日期" :options="dateRangeOption" v-model="dateRange" type="date" @change="onChange" ref="datetime2" :rules="rules" required isRange clearable wrap></pl-datetime>
+    <pl-datetime label="请选择时间：" placeholder="请选择时间" ref="datetime1" v-model="time" type="time" @change="onChange" valueFormat="H:I" :rules="rules1" required clearable></pl-datetime>
+    <pl-datetime label="请选择日期：" placeholder="请选择日期" :options="dateOption" v-model="date" type="date" @change="onChange" ref="datetime2" :rules="rules1" required clearable></pl-datetime>
+    <pl-datetime label="请选择日期范围：" startPlaceholder="开始日期" endPlaceholder="结束日期" :options="dateRangeOption" v-model="dateRange" type="date" @change="onChange" ref="datetime3" :rules="rules2" required isRange clearable></pl-datetime>
 
-    <p>
-      <pl-button type="success" @click="validate">校验</pl-button>
-    </p>
-    <pl-button type="success" @click="open">打开日历</pl-button>
-    <p>{{popupResult}}</p>
+    <pl-cell :span="[1,1]" gap="1em">
+      <pl-button type="success" @click="validate">表单校验</pl-button>
+      <pl-button type="success" @click="open">{{popupResult || '打开日历'}}</pl-button>
+    </pl-cell>
   </div>
 </template>
 <script>
@@ -94,16 +94,22 @@ export default {
         format: 'H:I'
       },
 
-      rules: [{ required: true, message: '请选择', trigger: 'change' }]
+      rules1: [{ required: true, message: '请选择日期', trigger: 'change' }],
+      rules2: [{ required: true, message: '请选择范围', trigger: 'change' }]
     }
   },
   methods: {
     onChange(val) {
       console.log('onChange::', val)
     },
-    validate() {
-      this.$refs['datetime1'].validate()
-      this.$refs['datetime2'].validate()
+    async validate() {
+      try {
+        await this.$refs['datetime1'].validate()
+        await this.$refs['datetime2'].validate()
+        await this.$refs['datetime3'].validate()
+      } catch (e) {
+        console.log('校验失败: ', e)
+      }
     },
     async open() {
       this.popupResult = await this.$calendar({
@@ -117,7 +123,7 @@ export default {
         endLabel: '结束',
         type: 'date',
         isRange: false,
-        format: 'Y-M-D H:I:S',
+        format: 'Y-M-D',
         selectRange: 10,
         disabledDate() {
           return false

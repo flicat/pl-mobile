@@ -63,7 +63,8 @@
 <script>
 import icon from '../icon/index.vue'
 import popup from '../popup/index.vue'
-import { is, validate } from '../../src/assets/utils'
+import { is } from '../../src/assets/utils'
+import validate from '../../src/assets/utils/validate'
 
 export default {
   name: 'plSelect',
@@ -140,6 +141,19 @@ export default {
     },
     calcDisabled() {
       return this.disabled !== undefined ? this.disabled : this.form && this.form.disabled !== undefined ? this.form.disabled : false
+    },
+    // 定义验证规则的type
+    calcRules() {
+      if (Array.isArray(this.rules)) {
+        return this.rules.map(item => {
+          if (this.multiple) {
+            item.type = 'array'
+          }
+          return item
+        })
+      } else {
+        return []
+      }
     }
   },
   mounted() {
@@ -150,12 +164,11 @@ export default {
   methods: {
     // 手动验证方法
     validate() {
-      return Promise.all(this.rules.map(rule => validate(rule, this.currentValue))).then(() => {
+      return validate(this.calcRules, this.currentValue).then(() => {
         this.ruleMessage = ''
-        return Promise.resolve()
-      }).catch(e => {
-        this.ruleMessage = e
-        return Promise.reject(e)
+      }).catch(result => {
+        this.ruleMessage = result.errors[0].message
+        return Promise.reject(this.ruleMessage)
       })
     },
     clearValidate() {
