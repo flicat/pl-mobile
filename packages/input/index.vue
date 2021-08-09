@@ -166,10 +166,10 @@ export default {
         }
 
         let handler = () => {
-          validate(rule, this.value).then(() => {
+          validate([rule], this.value).then(() => {
             this.ruleMessage = ''
           }).catch(e => {
-            this.ruleMessage = e
+            this.ruleMessage = e.errors[0].message
           })
         }
 
