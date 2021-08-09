@@ -1,7 +1,7 @@
 <template>
   <div :class="['pl-watch-popup', show ? '' : 'hidden']" @click.self="close">
     <svg class="watch-content" viewBox="0 0 250 370" @touchstart.stop.prevent="touchHandler" @touchmove.stop.prevent="touchHandler">
-      <def>
+      <defs>
         <circle id="watch-bg" cx="125" cy="125" r="110" class="watch-bg"></circle>
         <rect id="text-bg" x="0" y="0" height="60" width="250" class="text-bg" />
         <g id="hour-num">
@@ -20,7 +20,7 @@
           <circle class="needle-center" cx="125" cy="125" r="5"></circle>
           <rect class="needle" x="125" y="76" height="54" width="1" />
         </g>
-      </def>
+      </defs>
 
       <!-- 表盘 -->
       <g ref="watch">
