@@ -10,7 +10,9 @@ export default function (Vue) {
       return this.display && createElement('div', {
         style: {
           transition: 'all 0.3s ease',
-          opacity: this.visible ? 1 : 0
+          opacity: this.visible ? 1 : 0,
+          position: 'relative',
+          zIndex: 998
         }
       }, [
         createElement('plToast', {
