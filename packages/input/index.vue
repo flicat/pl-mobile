@@ -22,7 +22,7 @@
       <div class="pl-input-value">
         <template v-if="type !== 'textarea'">
           <div class="pl-input-inner">
-            <input v-bind="$attrs" v-on="{input: emit, focus: emit, blur: emit, change: 'emit'}" v-if="type !== 'textarea'" :type="type" :disabled="calcDisabled" :value="currentValue" ref="input">
+            <input v-bind="$attrs" v-on="{input: emit, focus: emit, blur: emit, change: emit}" v-if="type !== 'textarea'" :type="type" :disabled="calcDisabled" :value="currentValue" ref="input">
           </div>
           <div class="pl-input-clear" @touchstart="clear" @mousedown="clear" v-show="showClear">
             <icon name="icon-roundclosefill" fill="#ccc"></icon>
@@ -32,7 +32,7 @@
           </div>
         </template>
         <div class="pl-input-inner" v-else>
-          <textarea v-bind="$attrs" :rows="rows" :cols="cols" v-on="{input: emit, focus: emit, blur: emit, change: 'emit'}" :value="currentValue" ref="input" :disabled="calcDisabled"></textarea>
+          <textarea v-bind="$attrs" :rows="rows" :cols="cols" v-on="{input: emit, focus: emit, blur: emit, change: emit}" :value="currentValue" ref="input" :disabled="calcDisabled"></textarea>
         </div>
       </div>
 
