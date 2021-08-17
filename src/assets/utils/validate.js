@@ -4,8 +4,15 @@ import Schema from 'async-validator';
 /**
  * 参考 async-validator
  */
-export default function validate(rules, value) {
+export default function validate(rules, value, type = 'any') {
+  let calcRules = rules.map(item => {
+    let proto = { ...item }
+    if (!proto.type) {
+      proto.type = type
+    }
+    return proto
+  })
   return (new Schema({
-    value: rules
+    value: calcRules
   })).validate({ value }, { firstFields: true })
 }

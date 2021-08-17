@@ -8,30 +8,30 @@
     <pl-select placeholder="请选择选项" v-model="value1" :options="data" @change="change" size="large" clearable></pl-select>
     <pl-select placeholder="请选择选项" v-model="value2" :options="data" @change="change2" size="small" multiple clearable></pl-select>
 
-    <h3>表单校验</h3>
-    <pl-select label="请选择：" v-model="value1" :options="data" @change="change" :rules="rules1" clearable></pl-select>
-
     <h3>禁用</h3>
     <pl-select v-model="value1" :options="data" @change="change" disabled></pl-select>
 
     <h3>折行显示</h3>
-    <pl-select label="请选择请选择请选择请选择请选择请选择请选择请选择请选择：" placeholder="请选择选项" v-model="value1" :options="data" @change="change" :rules="rules1" clearable wrap></pl-select>
-    <pl-select label="请选择：" placeholder="请选择选项" v-model="value2" :options="data" @change="change2" :rules="rules2" ref="select1" multiple clearable wrap required></pl-select>
+    <pl-select label="请选择请选择请选择请选择请选择请选择请选择请选择请选择：" placeholder="请选择选项" v-model="value1" :options="data" @change="change" clearable wrap></pl-select>
+    <pl-select label="请选择：" placeholder="请选择选项" v-model="value2" :options="data" @change="change2" multiple clearable wrap required></pl-select>
 
     <h3>自定义选项</h3>
-    <pl-select label="请选择：" placeholder="请选择" v-model="value1" :options="data" @change="change" :rules="rules1" ref="select2" clearable required>
+    <pl-select label="请选择：" placeholder="请选择" v-model="value1" :options="data" @change="change" clearable required>
       <template v-slot="scope">
         <span>{{scope.item.label}}-{{scope.item.value}}</span>
       </template>
     </pl-select>
 
     <h3>前后图标</h3>
-    <pl-select label="请选择：" placeholder="请选择" v-model="value1" :options="data" @change="change" :rules="rules1" ref="select3" clearable required>
+    <pl-select label="请选择：" placeholder="请选择" v-model="value1" :options="data" @change="change" clearable required>
       <pl-icon name="icon-dingwei" fill="#999" slot="prepend"></pl-icon>
       <pl-icon name="icon-people_fill" fill="#999" slot="append"></pl-icon>
     </pl-select>
 
-    <br /><br /><br />
+    <h3>表单校验</h3>
+    <pl-select label="请选择：" placeholder="请选择选项" v-model="value1" :options="data" @change="change" :rules="rules1" ref="select1" clearable required></pl-select>
+    <pl-select label="请选择：" placeholder="请选择选项" v-model="value2" :options="data" @change="change2" :rules="rules2" ref="select2" multiple clearable required></pl-select>
+
     <pl-cell :span="[1]">
       <pl-button type="success" @click="validate">表单校验</pl-button>
     </pl-cell>
@@ -43,7 +43,7 @@ export default {
     return {
       value1: null,
       value2: [],
-      rules1: [{ required: true, message: '请选择', trigger: 'change', type: 'number' }],
+      rules1: [{ required: true, message: '请选择', trigger: 'change' }],
       rules2: [{ required: true, message: '请选择', trigger: 'change' }],
       data: [
         { label: '选项1', value: 1, disabled: false },
@@ -60,9 +60,9 @@ export default {
       try {
         await this.$refs.select1.validate()
         await this.$refs.select2.validate()
-        await this.$refs.select3.validate()
+        this.$toast('校验成功')
       } catch (e) {
-        console.log('校验失败: ', e)
+        this.$toast('校验失败: ' + e)
       }
     },
     change() {

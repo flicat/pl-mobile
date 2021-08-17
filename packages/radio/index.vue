@@ -34,6 +34,7 @@
 <script>
 import validate from '../../src/assets/utils/validate'
 import icon from '../icon/index.vue'
+import { getType } from '../../src/assets/utils'
 
 // radio
 export default {
@@ -106,7 +107,14 @@ export default {
   methods: {
     // 手动验证方法
     validate() {
-      return validate(this.rules, this.currentValue).then(() => {
+      if (!Array.isArray(this.rules) || !this.rules.length) {
+        return false
+      }
+      let type = 'string'
+      if (this.options.find(item => item[this.prop.value] === this.currentValue)) {
+        type = getType(this.currentValue)
+      }
+      return validate(this.rules, this.currentValue, type).then(() => {
         this.ruleMessage = ''
       }).catch(result => {
         this.ruleMessage = result.errors[0].message

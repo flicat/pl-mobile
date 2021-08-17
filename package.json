@@ -29,13 +29,10 @@
   "bugs": {
     "url": "https://github.com/flicat/pl-mobile/issues"
   },
-  "dependencies": {
+  "devDependencies": {
     "async-validator": "^3.5.2",
     "qrious": "^4.0.2",
     "vue": "^2.6.10",
-    "whatwg-fetch": "^3.4.0"
-  },
-  "devDependencies": {
     "@vue/cli-plugin-babel": "^3.1.1",
     "@vue/cli-plugin-eslint": "^3.1.1",
     "@vue/cli-service": "^3.1.1",
@@ -62,6 +59,10 @@
     "vuex": "^3.1.1",
     "ware-loader": "^0.2.4",
     "webpack": "4.39.3",
-    "webpack-bundle-analyzer": "^3.4.1"
-  }
+    "webpack-bundle-analyzer": "^3.4.1",
+    "whatwg-fetch": "^3.4.0"
+  },
+  "files": [
+    "lib"
+  ]
 }

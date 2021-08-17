@@ -116,17 +116,6 @@ export default {
     },
     calcDisabled() {
       return this.disabled !== undefined ? this.disabled : this.form && this.form.disabled !== undefined ? this.form.disabled : false
-    },
-    // 定义验证规则的type
-    calcRules() {
-      if (Array.isArray(this.rules)) {
-        return this.rules.map(item => {
-          item.type = 'array'
-          return item
-        })
-      } else {
-        return []
-      }
     }
   },
   mounted() {
@@ -137,7 +126,10 @@ export default {
   methods: {
     // 手动验证方法
     validate() {
-      return validate(this.calcRules, this.currentValue).then(() => {
+      if (!Array.isArray(this.rules) || !this.rules.length) {
+        return false
+      }
+      return validate(this.rules, this.currentValue, 'array').then(() => {
         this.ruleMessage = ''
       }).catch(result => {
         this.ruleMessage = result.errors[0].message

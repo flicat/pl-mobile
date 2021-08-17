@@ -186,8 +186,12 @@ export function getMonthDiff(date1, date2) {
   return diff
 }
 
+export function getType(target) {
+  return Object.prototype.toString.call(target).match(/\[object (\w+)\]/)[1].toLowerCase()
+}
+
 /* 类型判断 */
 export function is(target, ...type) {
-  let typeString = Object.prototype.toString.call(target).match(/\[object (\w+)\]/)[1].toLowerCase()
+  let typeString = getType(target)
   return type.indexOf(typeString) > -1
 }

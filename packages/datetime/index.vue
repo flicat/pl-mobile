@@ -140,17 +140,6 @@ export default {
         isRange: false,
         format: 'Y-M-D'
       }, this.options, props)
-    },
-    // 定义验证规则的type
-    calcRules() {
-      if (Array.isArray(this.rules)) {
-        return this.rules.map(item => {
-          item.type = this.pickerOptions.isRange ? 'array' : 'string'
-          return item
-        })
-      } else {
-        return []
-      }
     }
   },
   mounted() {
@@ -160,7 +149,10 @@ export default {
   },
   methods: {
     validate() {
-      return validate(this.calcRules, this.emitValue).then(() => {
+      if (!Array.isArray(this.rules) || !this.rules.length) {
+        return false
+      }
+      return validate(this.rules, this.emitValue, this.pickerOptions.isRange ? 'array' : 'string').then(() => {
         this.ruleMessage = ''
       }).catch(result => {
         this.ruleMessage = result.errors[0].message
@@ -418,7 +410,10 @@ export default {
     line-height: 2em;
   }
   &.is-disabled {
-    background-color: var(--datetime-disabled-bg);
+    color: var(--disabled);
+    .placeholder {
+      color: var(--disabled);
+    }
   }
 }
 </style>

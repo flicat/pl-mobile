@@ -112,7 +112,10 @@ export default {
   methods: {
     // 手动验证方法
     validate() {
-      return validate(this.rules, this.currentValue).then(() => {
+      if (!Array.isArray(this.rules) || !this.rules.length) {
+        return false
+      }
+      return validate(this.rules, this.currentValue, 'string').then(() => {
         this.ruleMessage = ''
       }).catch(result => {
         this.ruleMessage = result.errors[0].message
@@ -158,6 +161,9 @@ export default {
       this.$emit(type, value)
     },
     bindEvent() {
+      if (!Array.isArray(this.rules) || !this.rules.length) {
+        return false
+      }
       // 绑定事件
       this.rules.forEach(rule => {
         let event = rule.trigger
@@ -166,7 +172,7 @@ export default {
         }
 
         let handler = () => {
-          validate([rule], this.value).then(() => {
+          validate([rule], this.value, 'string').then(() => {
             this.ruleMessage = ''
           }).catch(e => {
             this.ruleMessage = e.errors[0].message
@@ -339,7 +345,14 @@ export default {
   }
 
   &.is-disabled {
-    background-color: var(--disabled);
+    color: var(--disabled);
+    input,
+    textarea {
+      color: var(--disabled);
+      &::placeholder {
+        color: var(--disabled);
+      }
+    }
   }
 }
 </style>

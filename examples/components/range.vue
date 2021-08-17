@@ -15,24 +15,24 @@
     <h3>禁用</h3>
     <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" @change="onChange" disabled></pl-range>
 
-    <h3>必填</h3>
-    <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" @change="onChange" :rules="rules" ref="range1" required></pl-range>
-    <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" @change="onChange" :rules="rules" ref="range2" required wrap></pl-range>
-
     <h3>图标填充</h3>
-    <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" @change="onChange" :rules="rules" ref="range3" required>
+    <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" @change="onChange">
       <pl-icon name="icon-dingwei" fill="#999" slot="prepend"></pl-icon>
       <span slot="append">{{value}}%</span>
     </pl-range>
-    <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" @change="onChange" :rules="rules" ref="range4" required wrap>
+    <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" @change="onChange" wrap>
       <pl-icon name="icon-dingwei" fill="#999" slot="prepend"></pl-icon>
       <span slot="append">{{value}}%</span>
     </pl-range>
 
     <h3>自定义滑块</h3>
-    <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" @change="onChange" :rules="rules" ref="range5" required>
+    <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" @change="onChange">
       <span slot="thumb" class="thumb">{{value}}%</span>
     </pl-range>
+
+    <h3>表单校验</h3>
+    <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" @change="onChange" :rules="rules" ref="range1" required></pl-range>
+    <pl-range v-model="value" :min="0" :max="100" :step="1" label="请选择：" @change="onChange" :rules="rules" ref="range2" required wrap></pl-range>
 
     <pl-cell :span="[1]">
       <pl-button type="success" @click="validate">表单校验</pl-button>
@@ -53,11 +53,9 @@ export default {
       try {
         await this.$refs.range1.validate()
         await this.$refs.range2.validate()
-        await this.$refs.range3.validate()
-        await this.$refs.range4.validate()
-        await this.$refs.range5.validate()
+        this.$toast('校验成功')
       } catch (e) {
-        console.log('校验失败: ', e)
+        this.$toast('校验失败: ' + e)
       }
     },
     onChange() {

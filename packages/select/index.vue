@@ -63,7 +63,7 @@
 <script>
 import icon from '../icon/index.vue'
 import popup from '../popup/index.vue'
-import { is } from '../../src/assets/utils'
+import { is, getType } from '../../src/assets/utils'
 import validate from '../../src/assets/utils/validate'
 
 export default {
@@ -141,19 +141,6 @@ export default {
     },
     calcDisabled() {
       return this.disabled !== undefined ? this.disabled : this.form && this.form.disabled !== undefined ? this.form.disabled : false
-    },
-    // 定义验证规则的type
-    calcRules() {
-      if (Array.isArray(this.rules)) {
-        return this.rules.map(item => {
-          if (this.multiple) {
-            item.type = 'array'
-          }
-          return item
-        })
-      } else {
-        return []
-      }
     }
   },
   mounted() {
@@ -164,7 +151,16 @@ export default {
   methods: {
     // 手动验证方法
     validate() {
-      return validate(this.calcRules, this.currentValue).then(() => {
+      if (!Array.isArray(this.rules) || !this.rules.length) {
+        return false
+      }
+      let type = 'string'
+      if (this.multiple) {
+        type = 'array'
+      } else if (this.calcOptions.get(this.currentValue)) {
+        type = getType(this.currentValue)
+      }
+      return validate(this.rules, this.currentValue, type).then(() => {
         this.ruleMessage = ''
       }).catch(result => {
         this.ruleMessage = result.errors[0].message
@@ -317,9 +313,10 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-
-    .placeholder {
+    span {
       display: inline-block;
+    }
+    .placeholder {
       color: var(--primary-text);
     }
   }
@@ -381,7 +378,7 @@ export default {
   }
 
   &.is-disabled {
-    background-color: var(--select-disabled-bg);
+    color: var(--disabled);
   }
 
   .pl-select-popup {

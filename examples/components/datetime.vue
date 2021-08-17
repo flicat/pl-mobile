@@ -18,6 +18,9 @@
     <h3>自定义显示格式与返回格式</h3>
     <pl-datetime placeholder="请选择日期" v-model="date" type="date" @change="onChange" valueFormat="Y-M-D H:I:S" format="Y年M月D日" clearable></pl-datetime>
 
+    <h3>表单禁用</h3>
+    <pl-datetime placeholder="请选择日期" v-model="date" type="date" @change="onChange" valueFormat="Y-M-D H:I:S" format="Y年M月D日" disabled></pl-datetime>
+
     <h3>设置日期可选范围</h3>
     <pl-datetime startPlaceholder="开始日期" endPlaceholder="结束日期" :options="dateRangeOption" v-model="dateRange" type="date" @change="onChange" valueFormat="Y-M-D H:I:S" format="Y-M-D" isRange clearable></pl-datetime>
     <pl-datetime startPlaceholder="开始月份" endPlaceholder="结束月份" :options="monthRangeOption" v-model="monthRange" type="month" @change="onChange" valueFormat="Y-M-D H:I:S" format="Y-M" isRange clearable></pl-datetime>
@@ -107,8 +110,9 @@ export default {
         await this.$refs['datetime1'].validate()
         await this.$refs['datetime2'].validate()
         await this.$refs['datetime3'].validate()
+        this.$toast('校验成功')
       } catch (e) {
-        console.log('校验失败: ', e)
+        this.$toast('校验失败: ' + e)
       }
     },
     async open() {
