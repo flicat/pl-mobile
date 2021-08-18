@@ -1,42 +1,43 @@
 <template>
   <div class="content">
-    <pl-button @click="open">打开</pl-button>
+    <pl-button @click="open" type="primary">{{value.length ? getDateString(value.join('-'), 'Y年M月D日') : '打开日期选择器'}}</pl-button>
     <pl-picker title="选择" :options="data" :prop="props" ref="picker" @submit="submit" :defaultValue="value">
-      <template v-slot="scope">{{scope.item.label}} - {{scope.item.value}}</template>
+      <!-- <template v-slot="scope">{{scope.item.label}} - {{scope.item.value}}</template> -->
     </pl-picker>
   </div>
 </template>
 <script>
-  export default {
-    data () {
-      return {
-        value: [2, 6],
-        data: {
-          children: [
-            {label: '选项1', value: 1, children: [
-              {label: '子选项3', value: 3},
-              {label: '子选项4', value: 4}
-            ]},
-            {label: '选项2', value: 2, children: [
-              {label: '子选项5', value: 5},
-              {label: '子选项6', value: 6}
-            ]}
-          ]
+import { getMonthDays, getDateString } from '../../src/assets/utils/index.js'
+
+export default {
+  data() {
+    return {
+      value: [],
+      data: [
+        function () {
+          return new Array(20).fill('').map((i, index) => ({ label: index + 1990 + '年', value: index + 1990 }))
         },
-        props: {
-          label: 'label',
-          value: 'value',
-          children: 'children'
+        function () {
+          return new Array(12).fill('').map((i, index) => ({ label: index + 1 + '月', value: index + 1 }))
+        },
+        function (year, month) {
+          return new Array(getMonthDays(year, month)).fill('').map((i, index) => ({ label: index + 1 + '日', value: index + 1 }))
         }
-      }
-    },
-    methods: {
-      open () {
-        this.$refs.picker.open()
-      },
-      submit (val) {
-        this.value = val
+      ],
+      props: {
+        label: 'label',
+        value: 'value'
       }
     }
+  },
+  methods: {
+    getDateString,
+    open() {
+      this.$refs.picker.open()
+    },
+    submit(val) {
+      this.value = val
+    }
   }
+}
 </script>

@@ -1,10 +1,16 @@
 <template>
   <div class="content">
-    <pl-button @click="alert">弹窗</pl-button>
-    <pl-button @click="confirm">确认弹窗</pl-button>
-    <pl-button @click="toast">消息提醒</pl-button>
-    <pl-button @click="dialog1">模态框1</pl-button>
-    <pl-button @click="dialog2">模态框2</pl-button>
+    <pl-cell :span="[1, 1]" gap="1rem">
+      <pl-button type="primary" @click="alert">弹窗</pl-button>
+      <pl-button type="primary" @click="dialog1">模态框</pl-button>
+    </pl-cell>
+    <pl-cell :span="[1, 1]" gap="1rem">
+      <pl-button type="primary" @click="confirm">确认弹窗</pl-button>
+      <pl-button type="primary" @click="dialog2">确认模态框</pl-button>
+    </pl-cell>
+    <pl-cell :span="[1,1]" gap="1rem">
+      <pl-button type="primary" @click="toast">消息提醒</pl-button>
+    </pl-cell>
   </div>
 </template>
 <script>
