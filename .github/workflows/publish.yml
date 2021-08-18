@@ -6,7 +6,7 @@ on:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-     strategy:
+    strategy:
       matrix:
         node-version: [12.x]
     steps:
