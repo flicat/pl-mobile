@@ -39,7 +39,7 @@
       <template v-slot="scope">{{scope.item.label}} - {{scope.item.value}}</template>
     </pl-checkbox>
 
-    <h3>必填</h3>
+    <h3>表单校验</h3>
     <pl-checkbox v-model="value" :options="data" :rules="rules1" ref="box1" label="请选择：" required />
     <pl-checkbox v-model="boolValue" :trueValue="true" :falseValue="false" :rules="rules2" ref="box2" label="请选择：" button required></pl-checkbox>
 

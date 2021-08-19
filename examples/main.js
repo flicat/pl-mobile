@@ -11,7 +11,7 @@ Vue.config.productionTip = false
 // 测试环境加载 VConsole
 if (platform.isFromAndroid || platform.isFromIos) {
   let script = document.createElement('script')
-  script.setAttribute('src', '//wechatfe.github.io/vconsole/lib/vconsole.min.js?v=3.3.0')
+  script.setAttribute('src', '//unpkg.com/vconsole/dist/vconsole.min.js')
   document.head.appendChild(script)
   script.onload = script.onreadystatechange = function () {
     script = null
