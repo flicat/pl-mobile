@@ -343,8 +343,8 @@ export default {
   &--small {
     font-size: 0.8em;
   }
-  &--normal {
-  }
+  // &--normal {
+  // }
   &--error {
     position: relative;
   }

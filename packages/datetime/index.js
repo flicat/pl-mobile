@@ -72,15 +72,19 @@ Datetime.install = function (Vue) {
     return new Promise((resolve, reject) => {
       calendarDom.options = Object.assign({}, options, {
         callback: result => {
-          let time = result
-          if (options.format) {
-            if (options.isRange) {
-              time = result.map(item => getDateString(item, options.format))
-            } else {
-              time = getDateString(result, options.format)
+          if (result) {
+            let time = result
+            if (options.format) {
+              if (options.isRange) {
+                time = result.map(item => getDateString(item, options.format))
+              } else {
+                time = getDateString(result, options.format)
+              }
             }
+            resolve(time)
+          } else {
+            reject('未选择日期')
           }
-          resolve(time)
         }
       })
       calendarDom.show()
