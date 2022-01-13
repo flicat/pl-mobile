@@ -4,7 +4,7 @@
     {
       'is-vertical': vertical,
       'is-disabled': calcDisabled,
-      'pl-radio--error': ruleMessage
+      'pl-radio--error': ruleMessage && calcShowError
     }
     ]">
     <div class="pl-radio-cell" :class="{'pl-radio-cell--label': (label || $slots.label) && !wrap, 'pl-radio-cell--wrap': (label || $slots.label) && wrap}">
@@ -27,14 +27,14 @@
         </div>
       </div>
     </div>
-    <div class="pl-radio-error" v-if="ruleMessage">{{ruleMessage}}</div>
+    <div class="pl-radio-error" v-if="ruleMessage && calcShowError">{{ruleMessage}}</div>
   </div>
 </template>
 
 <script>
 import validate from '../../src/assets/utils/validate'
 import icon from '../icon/index.vue'
-import { getType } from '../../src/assets/utils'
+import { getType, nullish } from '../../src/assets/utils'
 
 // radio
 export default {
@@ -70,7 +70,14 @@ export default {
       default: null
     },
     wrap: Boolean,            // label与value换行显示
-    disabled: Boolean,            // 禁用
+    disabled: {           // 禁用
+      type: Boolean,
+      default: undefined
+    },
+    showError: {           // 禁用
+      type: Boolean,
+      default: undefined
+    },
     required: Boolean,            // 必填 *号
     button: Boolean,              // 是否是按钮样式
     vertical: Boolean,            // 是否是竖向排列
@@ -90,13 +97,16 @@ export default {
   },
   computed: {
     calcSize() {
-      return this.size || this.form && this.form.size || 'normal'
+      return nullish(this.size, this.form && this.form.size, 'normal')
     },
     calcLabelWidth() {
-      return this.labelWidth || this.form && this.form.labelWidth || null
+      return nullish(this.labelWidth, this.form && this.form.labelWidth, null)
     },
     calcDisabled() {
-      return this.disabled !== undefined ? this.disabled : this.form && this.form.disabled !== undefined ? this.form.disabled : false
+      return nullish(this.disabled, this.form && this.form.disabled, false)
+    },
+    calcShowError() {
+      return nullish(this.showError, this.form && this.form.showError, true)
     }
   },
   mounted() {

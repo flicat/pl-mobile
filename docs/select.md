@@ -118,6 +118,7 @@
 | multiple  | 是否多选    | boolean   | —   | false   |
 | readonly  | 是否只读状态    | boolean   | —   | false   |
 | required   | 必填红色*号    | boolean   | —   | false   |
+| showError  | 是否在表单中显示错误信息    | boolean   | —   | true   |
 | label      | label文字    | string   | —   | —   |
 | labelWidth | label宽度    | string   | —   | —   |
 | clearable  | 是否显示清除按钮 | boolean | —      |  false    |

@@ -76,6 +76,7 @@
 | required   | 必填红色*号    | boolean   | —   | false   |
 | rows       | texarea的rows属性     | String | —           |  —      |
 | cols       | texarea的cols属性     | String | —           |  —      |
+| showError  | 是否在表单中显示错误信息    | boolean   | —   | true   |
 | label      | label文字    | string   | —   | —   |
 | labelWidth | label宽度    | string   | —   | —   |
 | clearable  | 是否显示清除按钮 | boolean | —      |  false    |

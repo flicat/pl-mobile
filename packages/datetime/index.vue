@@ -3,7 +3,7 @@
     calcSize ? 'pl-datetime--' + calcSize : '',
     {
       'is-disabled': calcDisabled,
-      'pl-datetime--error': ruleMessage
+      'pl-datetime--error': ruleMessage && calcShowError
     }
     ]">
     <div class="pl-datetime-cell" :class="{'pl-datetime-cell--label': (label || $slots.label) && !wrap, 'pl-datetime-cell--wrap': (label || $slots.label) && wrap}">
@@ -37,7 +37,7 @@
         </div>
       </div>
     </div>
-    <div class="pl-datetime-error" v-if="ruleMessage">{{ruleMessage}}</div>
+    <div class="pl-datetime-error" v-if="ruleMessage && calcShowError">{{ruleMessage}}</div>
 
     <pl-month ref="month" @submit="submit"></pl-month>
     <pl-time ref="time" @submit="submit"></pl-time>
@@ -50,7 +50,7 @@ import icon from '../icon/index.vue'
 import plMonth from './month.vue'
 import plTime from './time.vue'
 import plDate from './datetime.vue'
-import { getDateFromString, getDateString } from '../../src/assets/utils'
+import { getDateFromString, getDateString, nullish } from '../../src/assets/utils'
 import validate from '../../src/assets/utils/validate'
 
 export default {
@@ -87,7 +87,14 @@ export default {
     format: String,              // 日期显示格式
     valueFormat: String,         // 日期返回值格式，Y-M-D H:I:S 不传则返回日期对象
     wrap: Boolean,            // label与value换行显示
-    disabled: Boolean,           // 禁用
+    disabled: {           // 禁用
+      type: Boolean,
+      default: undefined
+    },
+    showError: {           // 禁用
+      type: Boolean,
+      default: undefined
+    },
     readonly: Boolean,           // 只读
     required: Boolean,           // 必填 *号
     label: String,               // 左侧 label
@@ -113,17 +120,17 @@ export default {
     showClear() {
       return this.clearable && !this.calcDisabled && (this.currentValue || this.startValue || this.endValue)
     },
-    // 计算后的size
     calcSize() {
-      return this.size || this.form && this.form.size || 'normal'
+      return nullish(this.size, this.form && this.form.size, 'normal')
     },
-    // 计算后的labelWidth
     calcLabelWidth() {
-      return this.labelWidth || this.form && this.form.labelWidth || null
+      return nullish(this.labelWidth, this.form && this.form.labelWidth, null)
     },
-    // 计算后的disabled
     calcDisabled() {
-      return this.disabled !== undefined ? this.disabled : this.form && this.form.disabled !== undefined ? this.form.disabled : false
+      return nullish(this.disabled, this.form && this.form.disabled, false)
+    },
+    calcShowError() {
+      return nullish(this.showError, this.form && this.form.showError, true)
     },
     // 计算后的日历设置
     pickerOptions() {

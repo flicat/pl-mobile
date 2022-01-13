@@ -6,7 +6,7 @@
       'pl-input-group': $slots.prepend || $slots.append,
       'pl-input-group--append': $slots.append,
       'pl-input-group--prepend': $slots.prepend,
-      'pl-input--error': ruleMessage
+      'pl-input--error': ruleMessage && calcShowError
     }
     ]">
     <div class="pl-input-cell" :class="{'pl-input-cell--label': (label || $slots.label) && !wrap, 'pl-input-cell--wrap': (label || $slots.label) && wrap}">
@@ -37,13 +37,14 @@
       </div>
 
     </div>
-    <div class="pl-input-error" v-if="ruleMessage">{{ruleMessage}}</div>
+    <div class="pl-input-error" v-if="ruleMessage && calcShowError">{{ruleMessage}}</div>
   </div>
 </template>
 
 <script>
 import icon from '../icon/index.vue'
 import validate from '../../src/assets/utils/validate'
+import { nullish } from '../../src/assets/utils'
 
 export default {
   name: 'plInput',
@@ -65,7 +66,14 @@ export default {
     },
     value: [String, Number],
     wrap: Boolean,            // label与value换行显示
-    disabled: Boolean,        // 禁用
+    disabled: {           // 禁用
+      type: Boolean,
+      default: undefined
+    },
+    showError: {           // 禁用
+      type: Boolean,
+      default: undefined
+    },
     required: Boolean,        // 必填 *号
     rows: String,            // textarea rows
     cols: String,            // textarea cols
@@ -94,13 +102,16 @@ export default {
       return this.clearable && !this.calcDisabled && this.currentValue !== '' && this.focused
     },
     calcSize() {
-      return this.size || this.form && this.form.size || 'normal'
+      return nullish(this.size, this.form && this.form.size, 'normal')
     },
     calcLabelWidth() {
-      return this.labelWidth || this.form && this.form.labelWidth || null
+      return nullish(this.labelWidth, this.form && this.form.labelWidth, null)
     },
     calcDisabled() {
-      return this.disabled !== undefined ? this.disabled : this.form && this.form.disabled !== undefined ? this.form.disabled : false
+      return nullish(this.disabled, this.form && this.form.disabled, false)
+    },
+    calcShowError() {
+      return nullish(this.showError, this.form && this.form.showError, true)
     }
   },
   mounted() {

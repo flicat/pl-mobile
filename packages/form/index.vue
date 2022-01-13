@@ -12,7 +12,14 @@ export default {
   props: {
     size: String,        // 尺寸 可选值为 normal，large, small,
     labelWidth: String,  // label 宽度
-    disabled: Boolean    // 禁用
+    disabled: {           // 禁用
+      type: Boolean,
+      default: undefined
+    },
+    showError: {           // 禁用
+      type: Boolean,
+      default: undefined
+    }
   },
   provide() {
     return {

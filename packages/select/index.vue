@@ -4,7 +4,7 @@
     multiple ? 'pl-select--multiple' : '',
     {
       'is-disabled': calcDisabled,
-      'pl-select--error': ruleMessage
+      'pl-select--error': ruleMessage && calcShowError
     }
     ]">
     <div class="pl-select-cell" :class="{'pl-select-cell--label': (label || $slots.label) && !wrap, 'pl-select-cell--wrap': wrap && (label || $slots.label)}">
@@ -35,7 +35,7 @@
         </div>
       </div>
     </div>
-    <div class="pl-select-error" v-if="ruleMessage">{{ruleMessage}}</div>
+    <div class="pl-select-error" v-if="ruleMessage && calcShowError">{{ruleMessage}}</div>
 
     <popup ref="picker" position="bottom">
       <div class="pl-select-popup-content">
@@ -63,7 +63,7 @@
 <script>
 import icon from '../icon/index.vue'
 import popup from '../popup/index.vue'
-import { is, getType } from '../../src/assets/utils'
+import { is, getType, nullish } from '../../src/assets/utils'
 import validate from '../../src/assets/utils/validate'
 
 export default {
@@ -102,7 +102,14 @@ export default {
     },
     wrap: Boolean,            // label与value换行显示
     multiple: Boolean,        // 多选
-    disabled: Boolean,        // 禁用
+    disabled: {           // 禁用
+      type: Boolean,
+      default: undefined
+    },
+    showError: {           // 禁用
+      type: Boolean,
+      default: undefined
+    },
     readonly: Boolean,        // 只读
     required: Boolean,        // 必填 *号
     label: String,            // 左侧 label
@@ -134,13 +141,16 @@ export default {
       return new Map(this.options.map(item => [this.getValue(item), this.getLabel(item)]))
     },
     calcSize() {
-      return this.size || this.form && this.form.size || 'normal'
+      return nullish(this.size, this.form && this.form.size, 'normal')
     },
     calcLabelWidth() {
-      return this.labelWidth || this.form && this.form.labelWidth || null
+      return nullish(this.labelWidth, this.form && this.form.labelWidth, null)
     },
     calcDisabled() {
-      return this.disabled !== undefined ? this.disabled : this.form && this.form.disabled !== undefined ? this.form.disabled : false
+      return nullish(this.disabled, this.form && this.form.disabled, false)
+    },
+    calcShowError() {
+      return nullish(this.showError, this.form && this.form.showError, true)
     }
   },
   mounted() {

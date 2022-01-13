@@ -195,3 +195,13 @@ export function is(target, ...type) {
   let typeString = getType(target)
   return type.indexOf(typeString) > -1
 }
+
+// Nullish
+export function nullish(...args) {
+  while (args.length) {
+    const value = args.shift()
+    if (!is(value, 'null', 'undefined')) {
+      return value
+    }
+  }
+}

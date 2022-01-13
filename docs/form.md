@@ -99,6 +99,7 @@
 |---------- |-------- |---------- |-------------  |-------- |
 | size       | 尺寸  | String    | normal / large / small   |  normal    |
 | disabled  | 是否禁用状态    | boolean   | —   | false   |
+| showError  | 是否在表单中显示错误信息    | boolean   | —   | true   |
 | labelWidth | label宽度    | string   | —   | —   |
 
 ### Slots

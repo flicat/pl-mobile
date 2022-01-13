@@ -154,6 +154,7 @@
 | wrap       | label是否折行显示  | boolean   | —   | false   |
 | disabled   | 是否禁用状态    | boolean   | —   | false   |
 | required   | 必填红色*号    | boolean   | —   | false   |
+| showError  | 是否在表单中显示错误信息    | boolean   | —   | true   |
 | label      | label文字    | string   | —   | —   |
 | labelWidth | label宽度    | string   | —   | —   |
 
