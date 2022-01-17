@@ -36,7 +36,7 @@ export default {
     },
     activeColor: {              //  当前激活的颜色
       type: String,
-      default: '#67c23a'
+      default: ''
     },
     direction: {               // 显示方向，可选值为 vertical horizontal
       type: String,
