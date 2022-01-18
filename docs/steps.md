@@ -38,6 +38,7 @@
 |---------- |-------- |---------- |-------------  |-------- |
 | active      | 当前步骤 | Number | —            |  0    |
 | activeColor | 当前激活的颜色 | String | —            |  —  |
+| inactiveColor | 不激活的颜色 | String | —            |  —  |
 | direction   | 显示方向  | String | vertical / horizontal |  vertical  |
 | fold        | 是否默认折叠 | Boolean | —            |  false   |
 

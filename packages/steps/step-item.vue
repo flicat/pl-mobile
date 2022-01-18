@@ -1,5 +1,5 @@
 <template>
-  <div class="pl-step" :class="['pl-step--' + direction, active && 'pl-step--active']">
+  <div class="pl-step" :class="['pl-step--' + direction, active && 'pl-step--active']" :style="{color: active ? activeColor : inactiveColor}">
     <div class="pl-step-circle">
       <slot name="icon">
         <icon v-if="active" name="icon-btn_choose" :fill="activeColor"></icon>
@@ -7,7 +7,7 @@
       </slot>
       <div v-if="!isLast" class="pl-step-line"></div>
     </div>
-    <div class="pl-step-title" :style="{color: active ? activeColor : '#9898B6'}">
+    <div class="pl-step-title">
       <slot></slot>
     </div>
   </div>
@@ -45,6 +45,9 @@ export default {
     },
     activeColor() {
       return this.steps.activeColor || 'currentColor'
+    },
+    inactiveColor() {
+      return this.steps.inactiveColor || 'currentColor'
     },
     direction() {
       return this.steps.direction
