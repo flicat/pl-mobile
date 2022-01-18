@@ -104,6 +104,7 @@ export default {
         flex: 1;
         margin-top: 0;
         border-right: 1px solid var(--steps-line);
+        transform: translateX(-0.5px);
       }
       .icon-default {
         width: 1em;
@@ -134,6 +135,7 @@ export default {
         height: 0;
         flex: 1;
         border-bottom: 1px solid var(--steps-line);
+        transform: translateY(-0.5px);
       }
       .icon-default {
         width: 0.5em;

@@ -3,7 +3,7 @@
     <div class="pl-popup-content">
       <slot></slot>
     </div>
-    <div class="pl-popup-layer" @click="clickClose ? close() : null"></div>
+    <div class="pl-popup-layer" @click="clickClose ? close($event) : null"></div>
   </div>
 </template>
 
@@ -38,11 +38,13 @@ export default {
       this.isOpen = true
       this.$emit('open')
     },
-    close() {
+    close(e) {
       this.isOpen = false
       setTimeout(() => {
         this.visible = false
-        this.$emit('close')
+        if (e && e.type === 'click') {
+          this.$emit('close')
+        }
       }, 300)
     }
   },
