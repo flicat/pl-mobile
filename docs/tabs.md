@@ -44,7 +44,7 @@
           {label: '选项2', name: 'tab2', disabled: false},
           {label: '选项3', name: 'tab3', disabled: true}
         ]
-      }           
+      }
     }
   }
 </script>
@@ -73,7 +73,7 @@
           {label: '选项2', name: 'tab2'},
           {label: '选项3', name: 'tab3'}
         ]
-      }           
+      }
     }
   }
 </script>
@@ -89,7 +89,7 @@
 ### Tabs Events
 | 事件名称      | 说明    | 回调参数      |
 |---------- |-------- |---------- |
-| change     |   value更改事件   | 更改后的value | 
+| change     |   value更改事件   | 更改后的value |
 
 
 ### TabItem Attributes
@@ -97,11 +97,12 @@
 |---------- |-------- |---------- |-------------  |-------- |
 | label     | tab页标题 | String | —            |   —     |
 | name      | 与选项卡 value 对应的标识符 | [String, Number] | —            |   —     |
+| index      | 手动指定选项卡排序 | Number | —            |   —     |
 | disabled  | 标签是否可点击 | Boolean | —            |  false   |
 
 
 ### TabItem Slots
-| name      | 说明    | 
+| name      | 说明    |
 |---------- |-------- |
 | (default)     |   tab页内容   |
 | title     |   自定义标题   |
