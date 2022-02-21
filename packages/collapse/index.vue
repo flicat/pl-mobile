@@ -4,7 +4,11 @@
       <div class="pl-collapse-title">
         <slot name="title">{{title}}</slot>
       </div>
-      <icon v-if="!disabled" name="icon-enter" fill="#ccc" :class="['icon-arrow', visible ? 'show' : 'hide']"></icon>
+      <div v-if="!disabled" :class="['icon-arrow', currentValue ? 'show' : 'hide']">
+        <slot name="icon">
+          <icon v-if="!disabled" name="icon-enter" fill="#ccc"></icon>
+        </slot>
+      </div>
     </div>
     <div class="pl-collapse-content" v-show="currentValue">
       <div :class="['pl-collapse-inner', visible ? 'show' : 'hide']">
@@ -103,6 +107,8 @@ export default {
     align-items: center;
     outline: 0 none;
     .icon-arrow {
+      transform-origin: 50% 50%;
+      line-height: 0;
       transition: all 150ms ease;
       &.show {
         transform: rotate(90deg);

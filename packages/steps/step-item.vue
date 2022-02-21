@@ -1,10 +1,12 @@
 <template>
-  <div class="pl-step" :class="['pl-step--' + direction, active && 'pl-step--active']" :style="{color: active ? activeColor : inactiveColor}">
+  <div class="pl-step-item" :class="['pl-step--' + direction, active && 'pl-step--active']" :style="{color: active ? activeColor : inactiveColor}">
     <div class="pl-step-circle">
-      <slot name="icon">
-        <icon v-if="active" name="icon-btn_choose" :fill="activeColor"></icon>
-        <i class="icon-default" v-else></i>
-      </slot>
+      <div class="pl-step-icon">
+        <slot name="icon">
+          <icon v-if="active" name="icon-btn_choose" :fill="activeColor" class="pl-step-item-icon"></icon>
+          <i class="icon-default" v-else></i>
+        </slot>
+      </div>
       <div v-if="!isLast" class="pl-step-line"></div>
     </div>
     <div class="pl-step-title">
@@ -69,77 +71,80 @@ export default {
 <style lang="less" scoped>
 @import "../../src/assets/less/mixin.less";
 .pl-step {
-  position: relative;
-
-  * {
-    box-sizing: border-box;
-  }
-
-  .pl-step-circle {
+  &-item {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    position: absolute;
-  }
-  .icon-default {
-    display: inline-block;
+    flex: 1;
+    * {
+      box-sizing: border-box;
+    }
+
+    .pl-step-circle {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      .pl-step-icon {
+        position: relative;
+        z-index: 1;
+        width: 1.2rem;
+        height: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        > * {
+          flex-shrink: 0;
+        }
+      }
+      .icon-default {
+        display: inline-block;
+        width: 0.5rem;
+        height: 0.5rem;
+      }
+      .pl-step-item-icon {
+        font-size: 1rem;
+      }
+    }
   }
 
   &--vertical {
-    padding-left: 2em;
-    padding-bottom: 1em;
+    flex-direction: row;
 
     .pl-step-title {
       text-align: left;
+      padding-bottom: 1em;
     }
     .pl-step-circle {
       flex-direction: column;
-      width: 1.2em;
-      left: 0;
-      top: 0;
-      bottom: 0;
+      min-width: 2rem;
+      padding-right: 0.5em;
 
       .pl-step-line {
-        width: 0;
+        width: 1px;
         flex: 1;
-        margin-top: 0;
-        border-right: 1px solid var(--steps-line);
-        transform: translateX(-0.5px);
+        background-color: var(--steps-line);
       }
       .icon-default {
-        width: 1em;
-        height: 1em;
-        border: 0.3em solid transparent;
         border-radius: 50%;
         background-color: var(--steps-icon);
-        background-clip: content-box;
       }
     }
   }
   &--horizontal {
-    flex: 1;
-    padding-bottom: 2em;
-
+    flex-direction: column;
     .pl-step-title {
       text-align: center;
     }
     .pl-step-circle {
       flex-direction: row;
-      height: 1.2em;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      transform: translateX(calc(50% - 0.6em));
-
+      min-height: 2rem;
+      padding-bottom: 0.5em;
+      transform: translateX(calc(50% - 0.6rem));
       .pl-step-line {
-        height: 0;
+        height: 1px;
         flex: 1;
-        border-bottom: 1px solid var(--steps-line);
-        transform: translateY(-0.5px);
+        background-color: var(--steps-line);
       }
       .icon-default {
-        width: 0.5em;
-        height: 0.5em;
         border-top: 1px solid var(--steps-icon);
         border-right: 1px solid var(--steps-icon);
         transform: rotate(45deg);

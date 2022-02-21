@@ -50,7 +50,7 @@ export default {
     rowStyle() {
       return {
         ...(this.templates ? { [this.direction === 'row' ? 'grid-template-columns' : 'grid-template-rows']: this.templates } : null),
-        ...(this.gap ? { [this.direction === 'row' ? 'grid-column-gap' : 'grid-row-gap']: this.gap } : null),
+        ...(this.gap ? { 'gap': this.gap } : null),
         ...(this.justifyItems ? { 'justify-items': this.justifyItems } : null),
         ...(this.alignItems ? { 'align-items': this.alignItems } : null),
         ...(this.justifyContent ? { 'justify-content': this.justifyContent } : null),

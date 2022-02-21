@@ -39,16 +39,16 @@
 </script>
 
 <style lang="less" scoped>
-  .content {
-    p {
-      margin: 0;
+.content {
+  p {
+    margin: 0;
 
-      &:nth-child(even) {
-        background-color: #67c23a;
-      }
-      &:nth-child(odd) {
-        background-color: #f56c6c;
-      }
+    &:nth-child(even) {
+      background-color: #67c23a;
+    }
+    &:nth-child(odd) {
+      background-color: #f56c6c;
     }
   }
+}
 </style>

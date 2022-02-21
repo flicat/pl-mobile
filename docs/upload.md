@@ -94,9 +94,12 @@
   <pl-upload v-model="files" accept="image/*" class="file-upload">
     <span slot="tips">请选择图片，格式不限</span>
     <template v-slot="scope">
-      <pl-button class="home" @click="setHomePage(scope.file)" size="small">设为首页</pl-button>
+      <pl-button class="home" type="warning" @click="setHomePage(scope.file)" size="small">
+        <pl-icon name="icon-unlock"></pl-icon>
+      </pl-button>
     </template>
-    <pl-button slot="button" size="small">添加图片</pl-button>
+    <pl-button slot="button" class="add" type="primary" size="small">添加图片</pl-button>
+    <pl-button slot="close" type="danger" size="small">关闭</pl-button>
   </pl-upload>
 </template>
 <script>
@@ -141,16 +144,17 @@
 | maxCount   |  文件上传数量限制 |  Number  | —  | —  |
 
 ### Slots
-| name      | 说明    | 
+| name      | 说明    |
 |---------- |-------- |
 | (default)  | 自定义内容 |
 | tips       | 提示文字 |
 | button     | 图片添加按钮 |
+| close      | 图片删除按钮 |
 
 ### Events
 | 事件名称      | 说明    | 回调参数      |
 |---------- |-------- |---------- |
-| change     |   value更改事件   | 更改后的value | 
+| change     |   value更改事件   | 更改后的value |
 | oversize   | 文件大小超出限制事件  |  超出大小的文件列表  |
 | exceed     | 文件数量超出限制事件  | 超出的数量 |
 

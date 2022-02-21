@@ -106,7 +106,6 @@ export default {
 <style lang="less" scoped>
 @import "../../src/assets/less/mixin.less";
 .pl-steps {
-  overflow: hidden;
   width: 100%;
   box-sizing: border-box;
   padding: 0 1.2rem;
