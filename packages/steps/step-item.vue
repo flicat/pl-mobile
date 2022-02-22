@@ -112,6 +112,7 @@ export default {
     .pl-step-title {
       text-align: left;
       padding-bottom: 1em;
+      flex: 1;
     }
     .pl-step-circle {
       flex-direction: column;
