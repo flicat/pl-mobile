@@ -30,7 +30,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 p {
   line-height: 2em;
   color: #666;
