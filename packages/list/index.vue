@@ -168,7 +168,7 @@ export default {
         if (!this.finished && !this.loading) {
           // 如果加载内容的高度不够则继续加载下一页
           this.$nextTick(() => {
-            if (this.$refs.list && this.$refs.inner && this.$refs.inner.scrollHeight <= this.$refs.list.clientHeight) {
+            if (this.$refs.list && this.$refs.inner && this.$refs.list.clientHeight > 0 && this.$refs.inner.scrollHeight < this.$refs.list.clientHeight) {
               this.$emit('load')
             }
           })
