@@ -1,6 +1,8 @@
 name: Npm Publish
 on:
   push:
+    branches:
+      - master
     paths:
       - 'package.json'
 jobs:
