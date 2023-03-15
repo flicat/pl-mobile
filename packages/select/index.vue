@@ -21,7 +21,7 @@
           <span v-if="multiple && currentValue && currentValue.length" class="title">
             <em class="tag" v-for="(item, i) in currentValue" :key="i">{{calcOptions.get(item)}}</em>
           </span>
-          <span v-else-if="!multiple && currentValue !== null && currentValue !== undefined">{{calcOptions.get(currentValue)}}</span>
+          <span v-else-if="!multiple && calcOptions.get(currentValue)">{{calcOptions.get(currentValue)}}</span>
           <span class="placeholder" v-else>{{placeholder}}</span>
         </div>
         <div class="pl-select-clear" @touchstart.stop.prevent="clear" @mousedown.stop.prevent="clear" v-show="showClear">
@@ -195,10 +195,16 @@ export default {
       this.$refs.picker.close()
     },
     clear() {
-      this.$emit('-pl-change', null)
-      this.$emit('change', null)
+      let defaultVal
+      if (this.multiple) {
+        defaultVal = []
+      } else {
+        defaultVal = this.options.length && typeof this.options[0][this.prop.value] === 'string' ? '' : null
+      }
+      this.$emit('-pl-change', defaultVal)
+      this.$emit('change', defaultVal)
       this.$emit('clear')
-      this.setCurrentValue(null)
+      this.setCurrentValue(defaultVal)
     },
     setCurrentValue(value) {
       if (value === this.currentValue) {

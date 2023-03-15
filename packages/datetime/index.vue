@@ -248,11 +248,12 @@ export default {
     },
     // 清除方法
     clear() {
-      this.$emit('-pl-change', null)
-      this.$emit('change', null)
+      const defaultVal = this.pickerOptions.isRange ? [] : ''
+      this.$emit('-pl-change', defaultVal)
+      this.$emit('change', defaultVal)
       this.$emit('clear')
-      this.emitValue = null
-      this.setCurrentValue(null)
+      this.emitValue = defaultVal
+      this.setCurrentValue(defaultVal)
     }
   },
   watch: {
