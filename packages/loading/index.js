@@ -20,7 +20,7 @@ plLoading.install = function (Vue) {
           right: 0,
           bottom: 0,
           zIndex: 999,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)'
+          backgroundColor: 'var(--loading-bg)'
         }
       }, [
         createElement('plLoading', {
@@ -28,7 +28,7 @@ plLoading.install = function (Vue) {
             vertical: this.vertical
           },
           style: {
-            color: '#fff',
+            color: '#var(--loading-text)',
             margin: 'auto'
           }
         }, this.text)

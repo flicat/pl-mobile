@@ -1,7 +1,9 @@
 <template>
   <div class="content">
-    <pl-loading>加载中...</pl-loading>
-    <pl-loading vertical>加载中...</pl-loading>
+    <div class="static-loading">
+      <pl-loading>加载中...</pl-loading>
+      <pl-loading vertical>加载中...</pl-loading>
+    </div>
     <pl-cell :span="[1]" gap="1rem">
       <pl-button type="primary" @click="showLoading">显示全局loading</pl-button>
       <pl-button type="primary" @click="showPartLoading">显示局部loading</pl-button>
@@ -38,6 +40,9 @@ export default {
 .content {
   .pl-loading {
     margin: 50px;
+  }
+  .static-loading {
+    --loading-text: #666;
   }
   .box {
     width: 100%;

@@ -211,7 +211,8 @@ import {
   --list-refresh-tip: #ccc;
 
   /* loading */
-  --loading-text: #999;
+  --loading-text: #fff;
+  --loading-bg: rgba(0, 0, 0, 0.5);
 
   /* picker */
   --picker-text: #333;
